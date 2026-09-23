@@ -13,3 +13,4 @@
 *.ap_
 *.dex
 *.class
+dist/
