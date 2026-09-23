@@ -28,6 +28,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import androidx.navigation.NavGraph.Companion.findStartDestination
+import com.codefixr.beummati.data.Destination
 import com.codefixr.beummati.ui.hadith.HadithBooksScreen
 import com.codefixr.beummati.ui.hadith.HadithChapterScreen
 import com.codefixr.beummati.ui.hadith.HadithChaptersScreen
@@ -40,10 +41,14 @@ import com.codefixr.beummati.ui.library.SahabaScreen
 import com.codefixr.beummati.ui.library.SeriesScreen
 import com.codefixr.beummati.ui.player.LecturePlayerScreen
 import com.codefixr.beummati.ui.player.MiniPlayerBar
+import com.codefixr.beummati.ui.qibla.QiblaScreen
 import com.codefixr.beummati.ui.quran.QuranListScreen
 import com.codefixr.beummati.ui.quran.SurahScreen
+import com.codefixr.beummati.ui.salah.SalahTrackerScreen
 import com.codefixr.beummati.ui.saved.SavedScreen
 import com.codefixr.beummati.ui.scholars.ScholarsScreen
+import com.codefixr.beummati.ui.search.SearchScreen
+import com.codefixr.beummati.ui.settings.SettingsScreen
 
 enum class Tab(val route: String, val label: String, val icon: ImageVector) {
     HOME("home", "Today", Icons.Outlined.WbSunny),
@@ -56,6 +61,10 @@ enum class Tab(val route: String, val label: String, val icon: ImageVector) {
 
 object Routes {
     const val PLAYER = "player"
+    const val QIBLA = "qibla"
+    const val SALAH = "salah"
+    const val SEARCH = "search"
+    const val SETTINGS = "settings"
     fun surah(n: Int) = "quran/$n"
     fun hadithBook(slug: String) = "hadith/$slug"
     fun hadithChapter(slug: String, index: Int) = "hadith/$slug/$index"
@@ -64,6 +73,19 @@ object Routes {
     const val SAHABA = "library/sahaba"
     const val DUAS = "library/duas"
     fun duaCategory(id: Int) = "library/duas/$id"
+}
+
+/** Maps a content [Destination] produced in `data` onto a navigation route. */
+fun routeFor(destination: Destination): String = when (destination) {
+    is Destination.Surah -> Routes.surah(destination.number)
+    is Destination.HadithBook -> Routes.hadithBook(destination.slug)
+    is Destination.HadithChapter -> Routes.hadithChapter(destination.slug, destination.index)
+    is Destination.Series -> Routes.series(destination.id)
+    is Destination.LectureChapter -> Routes.chapter(destination.seriesId, destination.chapterId)
+    is Destination.DuaCategory -> Routes.duaCategory(destination.id)
+    Destination.Duas -> Routes.DUAS
+    Destination.Sahaba -> Routes.SAHABA
+    Destination.Scholars -> Tab.SCHOLARS.route
 }
 
 private fun tabFor(route: String?): Tab? =
@@ -174,6 +196,19 @@ fun BeUmmatiApp() {
             composable(Tab.SCHOLARS.route) { ScholarsScreen() }
 
             composable(Tab.SAVED.route) { SavedScreen(navigate = navigate) }
+
+            composable(Routes.QIBLA) { QiblaScreen(onBack = back) }
+            composable(Routes.SALAH) { SalahTrackerScreen(onBack = back) }
+            composable(Routes.SEARCH) {
+                SearchScreen(
+                    onBack = back,
+                    onOpen = { destination ->
+                        val target = routeFor(destination)
+                        if (target == Tab.SCHOLARS.route) nav.switchTab(Tab.SCHOLARS, currentTab) else navigate(target)
+                    }
+                )
+            }
+            composable(Routes.SETTINGS) { SettingsScreen(onBack = back) }
 
             composable(Routes.PLAYER) { LecturePlayerScreen(onBack = back) }
         }

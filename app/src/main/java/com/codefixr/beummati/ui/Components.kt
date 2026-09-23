@@ -49,6 +49,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.codefixr.beummati.data.Bookmark
 import com.codefixr.beummati.data.SavedStore
+import com.codefixr.beummati.data.SettingsStore
 import com.codefixr.beummati.player.SrtCueParser
 
 sealed interface LoadState<out T> {
@@ -172,15 +173,26 @@ fun MutedText(text: String, modifier: Modifier = Modifier, maxLines: Int = Int.M
     )
 }
 
+/**
+ * Multiplier applied to Arabic / Urdu type, driven by the reading settings so every
+ * script surface scales together.
+ */
+@Composable
+fun arabicScale(): Float {
+    val size by SettingsStore.arabicFontSize.collectAsState()
+    return size / SettingsStore.DEFAULT_ARABIC_SIZE
+}
+
 /** Arabic / Urdu body text, right-to-left with a larger size. */
 @Composable
 fun RtlText(text: String, modifier: Modifier = Modifier, fontSize: Int = 22, color: Color = MaterialTheme.colorScheme.onSurface) {
+    val scaled = (fontSize * arabicScale()).coerceIn(12f, 56f)
     Text(
         text,
         modifier = modifier.fillMaxWidth(),
         style = TextStyle(
-            fontSize = fontSize.sp,
-            lineHeight = (fontSize * 1.7f).sp,
+            fontSize = scaled.sp,
+            lineHeight = (scaled * 1.7f).sp,
             textDirection = TextDirection.Rtl,
             textAlign = TextAlign.Right,
             color = color

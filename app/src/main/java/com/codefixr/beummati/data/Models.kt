@@ -196,6 +196,66 @@ data class SurahDetail(
     val ayahs: List<Ayah>
 )
 
+/** One Arabic word of an ayah with its gloss, from the quran.com words endpoint. */
+data class QuranWord(
+    val position: Int,
+    val arabic: String,
+    val translation: String,
+    val transliteration: String
+)
+
+/** `TafsirUrdu/{surah}.json` — one entry per ayah. */
+@Serializable
+data class TafsirEntry(
+    val surah: Int = 0,
+    val ayah: Int = 0,
+    val text: String = ""
+)
+
+// endregion
+
+// region Prayer
+
+@Serializable
+data class PrayerDay(
+    val fajr: String = "—",
+    val sunrise: String = "—",
+    val dhuhr: String = "—",
+    val asr: String = "—",
+    val maghrib: String = "—",
+    val isha: String = "—",
+    val hijriDate: String = "",
+    val hijriWeekday: String = "",
+    val gregorian: String = "",
+    /** Gregorian `yyyy-MM-dd` the times were fetched for. */
+    val date: String = "",
+    val latitude: Double = 0.0,
+    val longitude: Double = 0.0
+) {
+    /** The five obligatory prayers, in order. */
+    val obligatory: List<Pair<String, String>>
+        get() = listOf("Fajr" to fajr, "Dhuhr" to dhuhr, "Asr" to asr, "Maghrib" to maghrib, "Isha" to isha)
+
+    /** Everything worth showing on a day card, including sunrise. */
+    val all: List<Pair<String, String>>
+        get() = listOf(
+            "Fajr" to fajr,
+            "Sunrise" to sunrise,
+            "Dhuhr" to dhuhr,
+            "Asr" to asr,
+            "Maghrib" to maghrib,
+            "Isha" to isha
+        )
+}
+
+@Serializable
+data class Coordinates(
+    val latitude: Double,
+    val longitude: Double,
+    /** False when the position came from the device rather than the Dubai fallback. */
+    val isFallback: Boolean = true
+)
+
 // endregion
 
 // region Saved

@@ -79,6 +79,9 @@ fun cleanHtml(raw: String): String =
 private fun JsonElement.stringOrEmpty(): String =
     runCatching { jsonPrimitive.content }.getOrDefault("")
 
+/** Null-safe object access for payloads where a field may be absent or JSON `null`. */
+private fun JsonElement?.objectOrNull(): JsonObject? = runCatching { this?.jsonObject }.getOrNull()
+
 object QuranApi {
     private const val BASE = "https://api.alquran.cloud/v1"
 
@@ -108,6 +111,55 @@ object QuranApi {
                 Ayah(surah = number, numberInSurah = n, arabic = ar, english = english[n].orEmpty())
             }
             SurahDetail(surah, ayahs)
+        }
+    }
+
+    /** A single ayah by `surah:ayah` key — used by the Home reminder lanes. */
+    suspend fun ayah(key: String): Ayah {
+        val text = Http.getCached(
+            "$BASE/ayah/$key/editions/quran-uthmani,en.sahih",
+            "quran_ayah_${key.replace(':', '_')}.json"
+        )
+        return withContext(Dispatchers.Default) {
+            val data = Catalogs.json.parseToJsonElement(text).jsonObject["data"]?.jsonArray
+                ?: throw IOException("Unexpected ayah response for $key")
+            val editions = data.map { it.jsonObject }
+            val arabic = editions.firstOrNull { it.editionId() == "quran-uthmani" } ?: editions.first()
+            val english = editions.firstOrNull { it.editionId() == "en.sahih" }
+            Ayah(
+                surah = arabic["surah"].objectOrNull()?.get("number")?.stringOrEmpty()?.toIntOrNull()
+                    ?: key.substringBefore(':').toIntOrNull() ?: 1,
+                numberInSurah = arabic["numberInSurah"]?.stringOrEmpty()?.toIntOrNull()
+                    ?: key.substringAfter(':').toIntOrNull() ?: 1,
+                arabic = arabic["text"]?.stringOrEmpty().orEmpty(),
+                english = english?.get("text")?.stringOrEmpty().orEmpty()
+            )
+        }
+    }
+
+    /** Word-by-word Arabic with English gloss from quran.com, keyed by `surah:ayah`. */
+    suspend fun words(key: String): List<QuranWord> {
+        val text = Http.getCached(
+            "https://api.quran.com/api/v4/verses/by_key/$key" +
+                "?language=en&words=true&word_fields=text_uthmani,translation,transliteration",
+            "quran_words_${key.replace(':', '_')}.json"
+        )
+        return withContext(Dispatchers.Default) {
+            val words = Catalogs.json.parseToJsonElement(text)
+                .jsonObject["verse"]?.jsonObject?.get("words")?.jsonArray
+                ?: throw IOException("Unexpected words response for $key")
+            words.mapIndexedNotNull { i, element ->
+                val word = element.objectOrNull() ?: return@mapIndexedNotNull null
+                if (word["char_type_name"]?.stringOrEmpty() == "end") return@mapIndexedNotNull null
+                val arabic = (word["text_uthmani"] ?: word["text"])?.stringOrEmpty().orEmpty()
+                if (arabic.isBlank() || arabic == "null") return@mapIndexedNotNull null
+                QuranWord(
+                    position = word["position"]?.stringOrEmpty()?.toIntOrNull() ?: (i + 1),
+                    arabic = arabic,
+                    translation = cleanHtml(word["translation"].objectOrNull()?.get("text")?.stringOrEmpty().orEmpty()),
+                    transliteration = word["transliteration"].objectOrNull()?.get("text")?.stringOrEmpty().orEmpty()
+                )
+            }
         }
     }
 

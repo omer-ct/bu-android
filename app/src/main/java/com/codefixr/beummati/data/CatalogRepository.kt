@@ -85,9 +85,13 @@ object Catalogs {
 
     fun hasChapterText(seriesId: String, chapterId: String): Boolean =
         libraryDirs[seriesId]?.contains("$chapterId.json") == true ||
-            assetExists("${seriesId}__${chapterId}.json")
+            assetExists("${seriesId}__${chapterId}.json") ||
+            hasOfflineTareekhChapter(chapterId)
 
-    /** Loads `Library/{seriesId}/{chapterId}.json`, falling back to the flat `{seriesId}__{chapterId}.json`. */
+    /**
+     * Loads `Library/{seriesId}/{chapterId}.json`, falling back to the flat
+     * `{seriesId}__{chapterId}.json` and then to the `TareekhUrdu` offline pack.
+     */
     fun chapterText(seriesId: String, chapterId: String): LibraryChapterText? {
         val key = "$seriesId/$chapterId"
         synchronized(chapterTextCache) {
@@ -95,9 +99,49 @@ object Catalogs {
         }
         val loaded = read<LibraryChapterText>("Library/$seriesId/$chapterId.json", logMissing = false)
             ?: read<LibraryChapterText>("${seriesId}__${chapterId}.json", logMissing = false)
+            ?: offlineTareekhChapter(chapterId)
         synchronized(chapterTextCache) { chapterTextCache[key] = loaded }
         return loaded
     }
+
+    // endregion
+
+    // region Offline Urdu packs
+
+    /** File names inside each bundled offline pack, empty when the pack isn't shipped. */
+    private val offlinePacks: Map<String, Set<String>> by lazy {
+        listOf("TafsirUrdu", "TareekhUrdu").associateWith { listAssets(it).toSet() }
+    }
+
+    private fun packContains(pack: String, file: String): Boolean =
+        offlinePacks[pack]?.contains(file) == true
+
+    val hasOfflineTafsir: Boolean get() = offlinePacks["TafsirUrdu"].isNullOrEmpty().not()
+
+    private val tafsirCache = HashMap<Int, Map<Int, String>>()
+
+    /**
+     * Urdu Ibn Kathir for a surah from `assets/TafsirUrdu/{surah}.json`, keyed by ayah.
+     * Returns null when the pack isn't bundled, so callers can fall back to [TafsirApi].
+     */
+    fun offlineTafsirUrdu(surah: Int): Map<Int, String>? {
+        if (!packContains("TafsirUrdu", "$surah.json")) return null
+        synchronized(tafsirCache) { tafsirCache[surah]?.let { return it } }
+        val entries = read<List<TafsirEntry>>("TafsirUrdu/$surah.json", logMissing = false) ?: return null
+        val byAyah = entries
+            .filter { it.ayah > 0 && it.text.isNotBlank() }
+            .associate { it.ayah to it.text.trim() }
+        synchronized(tafsirCache) { tafsirCache[surah] = byAyah }
+        return byAyah
+    }
+
+    /** Chapter text from `assets/TareekhUrdu/{chapterId}.json` when that pack is bundled. */
+    fun offlineTareekhChapter(chapterId: String): LibraryChapterText? {
+        if (!packContains("TareekhUrdu", "$chapterId.json")) return null
+        return read<LibraryChapterText>("TareekhUrdu/$chapterId.json", logMissing = false)
+    }
+
+    fun hasOfflineTareekhChapter(chapterId: String): Boolean = packContains("TareekhUrdu", "$chapterId.json")
 
     // endregion
 

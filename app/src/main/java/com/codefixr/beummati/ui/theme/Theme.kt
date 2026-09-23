@@ -6,6 +6,7 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import com.codefixr.beummati.data.AppAppearance
 
 private val Accent = Color(0xFFE8C547)
 private val Ink = Color(0xFF121216)
@@ -31,9 +32,14 @@ private val LightColors = lightColorScheme(
 
 @Composable
 fun BeUmmatiTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    appearance: AppAppearance = AppAppearance.SYSTEM,
     content: @Composable () -> Unit
 ) {
+    val darkTheme = when (appearance) {
+        AppAppearance.SYSTEM -> isSystemInDarkTheme()
+        AppAppearance.LIGHT -> false
+        AppAppearance.DARK -> true
+    }
     MaterialTheme(
         colorScheme = if (darkTheme) DarkColors else LightColors,
         content = content
