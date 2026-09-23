@@ -1,0 +1,1293 @@
+{
+  "series": [
+    {
+      "id": "tafsir-ibn-kathir-urdu",
+      "title": "Tafsir Ibn Kathir",
+      "subtitle": "Urdu · tafsir of Ibn Kathir (abridged Urdu edition)",
+      "icon": "book.closed.fill",
+      "kind": "quranTafsir",
+      "primaryLanguage": "urdu",
+      "attribution": "Hafiz Ibn Kathir · Urdu bundled in-app (spa5k ur-tafseer-ibn-e-kaseer)"
+    },
+    {
+      "id": "tareekh-ibn-kathir-urdu",
+      "title": "Tareekh Ibn Kathir",
+      "subtitle": "Al-Bidaya wa al-Nihaya · Urdu",
+      "icon": "clock.arrow.circlepath",
+      "kind": "chapters",
+      "primaryLanguage": "urdu",
+      "attribution": "Ibn Kathir · Al-Bidaya wa al-Nihaya — bundled original educational abridgments (Urdu & English, offline)",
+      "chapters": [
+        {
+          "id": "v1-c1",
+          "volume": 1,
+          "volumeTitle": "Creation & the Early Nations",
+          "title": "Muqaddimah"
+        },
+        {
+          "id": "v1-c2",
+          "volume": 1,
+          "volumeTitle": "Creation & the Early Nations",
+          "title": "Creation of the heavens and earth"
+        },
+        {
+          "id": "v1-c3",
+          "volume": 1,
+          "volumeTitle": "Creation & the Early Nations",
+          "title": "Story of Adam"
+        },
+        {
+          "id": "v1-c4",
+          "volume": 1,
+          "volumeTitle": "Creation & the Early Nations",
+          "title": "Nuh and the flood"
+        },
+        {
+          "id": "v1-c5",
+          "volume": 1,
+          "volumeTitle": "Creation & the Early Nations",
+          "title": "Hud, Salih, and early Arab prophets"
+        },
+        {
+          "id": "v2-c1",
+          "volume": 2,
+          "volumeTitle": "Ibrahim & the Line of Isma'il",
+          "title": "Ibrahim and the Ka'bah"
+        },
+        {
+          "id": "v2-c2",
+          "volume": 2,
+          "volumeTitle": "Ibrahim & the Line of Isma'il",
+          "title": "Isma'il and the Arabs of Makkah"
+        },
+        {
+          "id": "v2-c3",
+          "volume": 2,
+          "volumeTitle": "Ibrahim & the Line of Isma'il",
+          "title": "The Year of the Elephant"
+        },
+        {
+          "id": "v2-c4",
+          "volume": 2,
+          "volumeTitle": "Ibrahim & the Line of Isma'il",
+          "title": "Pre-Islamic Quraysh"
+        },
+        {
+          "id": "v3-c1",
+          "volume": 3,
+          "volumeTitle": "The Messenger ﷺ — Makkah",
+          "title": "Birth and upbringing"
+        },
+        {
+          "id": "v3-c2",
+          "volume": 3,
+          "volumeTitle": "The Messenger ﷺ — Makkah",
+          "title": "Revelation and early da'wah"
+        },
+        {
+          "id": "v3-c3",
+          "volume": 3,
+          "volumeTitle": "The Messenger ﷺ — Makkah",
+          "title": "Persecution and migrations"
+        },
+        {
+          "id": "v3-c4",
+          "volume": 3,
+          "volumeTitle": "The Messenger ﷺ — Makkah",
+          "title": "Until the Hijrah"
+        },
+        {
+          "id": "v4-c1",
+          "volume": 4,
+          "volumeTitle": "The Messenger ﷺ — Madinah (early)",
+          "title": "Building the city-state"
+        },
+        {
+          "id": "v4-c2",
+          "volume": 4,
+          "volumeTitle": "The Messenger ﷺ — Madinah (early)",
+          "title": "Badr and Uhud"
+        },
+        {
+          "id": "v4-c3",
+          "volume": 4,
+          "volumeTitle": "The Messenger ﷺ — Madinah (early)",
+          "title": "The Trench and surrounding tribes"
+        },
+        {
+          "id": "v5-c1",
+          "volume": 5,
+          "volumeTitle": "The Messenger ﷺ — Madinah (later)",
+          "title": "Hudaybiyyah and Khaybar"
+        },
+        {
+          "id": "v5-c2",
+          "volume": 5,
+          "volumeTitle": "The Messenger ﷺ — Madinah (later)",
+          "title": "Conquest of Makkah"
+        },
+        {
+          "id": "v5-c3",
+          "volume": 5,
+          "volumeTitle": "The Messenger ﷺ — Madinah (later)",
+          "title": "Tabuk and delegations"
+        },
+        {
+          "id": "v6-c1",
+          "volume": 6,
+          "volumeTitle": "The Messenger ﷺ — Final years",
+          "title": "The Farewell Hajj"
+        },
+        {
+          "id": "v6-c2",
+          "volume": 6,
+          "volumeTitle": "The Messenger ﷺ — Final years",
+          "title": "Illness and passing"
+        },
+        {
+          "id": "v6-c3",
+          "volume": 6,
+          "volumeTitle": "The Messenger ﷺ — Final years",
+          "title": "The caliphate of Abu Bakr begins"
+        },
+        {
+          "id": "v7-c1",
+          "volume": 7,
+          "volumeTitle": "The Rightly-Guided Caliphs",
+          "title": "Abu Bakr al-Siddiq"
+        },
+        {
+          "id": "v7-c2",
+          "volume": 7,
+          "volumeTitle": "The Rightly-Guided Caliphs",
+          "title": "Umar ibn al-Khattab"
+        },
+        {
+          "id": "v7-c3",
+          "volume": 7,
+          "volumeTitle": "The Rightly-Guided Caliphs",
+          "title": "Uthman ibn Affan"
+        },
+        {
+          "id": "v7-c4",
+          "volume": 7,
+          "volumeTitle": "The Rightly-Guided Caliphs",
+          "title": "Ali ibn Abi Talib"
+        }
+      ]
+    },
+    {
+      "id": "sahaba-stories",
+      "title": "Stories of the Sahaba",
+      "subtitle": "Companions of the Prophet ﷺ · cited summaries",
+      "icon": "person.2.fill",
+      "kind": "sahaba",
+      "primaryLanguage": "urdu",
+      "attribution": "Compiled from Sahih al-Bukhari, Sahih Muslim, Siyar A'lam al-Nubala"
+    },
+    {
+      "id": "anwar-abu-bakr",
+      "title": "Abu Bakr as-Siddiq (Al Qalam)",
+      "subtitle": "Abu Bakr as-Siddiq (Al Qalam) · 15 lectures",
+      "icon": "person.fill",
+      "kind": "chapters",
+      "primaryLanguage": "english",
+      "attribution": "Al Qalam · Imam Anwar al-Awlaki lecture transcripts & subtitles · https://alqalamhistory.com/",
+      "chapters": [
+        {
+          "id": "aq-01",
+          "index": 1,
+          "title": "Abu Bakr English#1",
+          "youtubeId": null,
+          "srtEnglish": "Abu-Bakr-English1.srt",
+          "srtUrdu": "Abu-Bakr-Urdu-1.srt"
+        },
+        {
+          "id": "aq-02",
+          "index": 2,
+          "title": "#2 Family Background & Islam Of Abu Bakr",
+          "youtubeId": null,
+          "srtEnglish": "2-Family-Background-Islam-Of-Abu-Bakr.srt",
+          "srtUrdu": "2-سیرت_-حضرت-ابوبکرالصدیق__-خاندانی-پس_-منظر-و-قبول_-اسلام.srt"
+        },
+        {
+          "id": "aq-03",
+          "index": 3,
+          "title": "#3 Hijrah Of Abu Bakr",
+          "youtubeId": null,
+          "srtEnglish": "3-Hijrah-Of-Abu-Bakr.srt",
+          "srtUrdu": "3-سیرت_-حضرت-ابوبکر-صدیق-_-_-ہجرت_-مدینہ.srt"
+        },
+        {
+          "id": "aq-04",
+          "index": 4,
+          "title": "#4 Jihad With The Messenger Of Allah ﷺ",
+          "youtubeId": null,
+          "srtEnglish": "4-Jihad-With-The-Messenger-Of-Allah-ﷺ.srt",
+          "srtUrdu": "4-سیرت_-حضرت-ابوبکرالصدیق_-مدنی-دور-و-رسول-اللہ-کے-ہمراہ-جہاد.srt"
+        },
+        {
+          "id": "aq-05",
+          "index": 5,
+          "title": "5# Life In Madinah",
+          "youtubeId": null,
+          "srtEnglish": "5-Life-In-Madinah.srt",
+          "srtUrdu": "5-سیرت_-حضرت-ابوبکرالصدیق_-مدنی-دور-و-رسول-اللہ-کے-ہمراہ-جہاد-پارٹ-۲.srt"
+        },
+        {
+          "id": "aq-06",
+          "index": 6,
+          "title": "#6 Death Of Rasool Ullah & Khaleefah Of The Messenger Of Allah",
+          "youtubeId": null,
+          "srtEnglish": "6-Death-Of-Rasool-Ullah-Khaleefah-Of-The-Messenger-Of-Allah.srt",
+          "srtUrdu": "6-رحلت_-رسول_-اکرم-و-خلیفۃ_-رسول-اللہﷺ.srt"
+        },
+        {
+          "id": "aq-07",
+          "index": 7,
+          "title": "#7 Baiyah & Inaugural Adress",
+          "youtubeId": null,
+          "srtEnglish": "7-Baiyah-Inaugural-Adress.srt",
+          "srtUrdu": "7-بیعۃ-و-ابتدائی-خطاب.srt"
+        },
+        {
+          "id": "aq-08",
+          "index": 8,
+          "title": "#8 The Governers – The Army Of Usama",
+          "youtubeId": null,
+          "srtEnglish": "8-The-Governers-The-Army-Of-Usama.srt",
+          "srtUrdu": "8-گورنروں-کی-تعیناتی-و-اسامہ-کا-لشکر.srt"
+        },
+        {
+          "id": "aq-09",
+          "index": 9,
+          "title": "#9 The War Against Appostates Part 1",
+          "youtubeId": null,
+          "srtEnglish": "9-The-War-Against-Appostates-Part-1.srt",
+          "srtUrdu": "9-م_رتد_ین-کے-خلاف-جنگ-حصہ-او_ل.srt"
+        },
+        {
+          "id": "aq-10",
+          "index": 10,
+          "title": "#10 The War Against Apostates Part 2",
+          "youtubeId": null,
+          "srtEnglish": "10-The-War-Against-Apostates-Part-2.srt",
+          "srtUrdu": "10-م_رتد_ین-کے-خلاف-جنگ-حصہ-دوم.srt"
+        },
+        {
+          "id": "aq-11",
+          "index": 11,
+          "title": "#11 The War Against Apostates Part 3",
+          "youtubeId": null,
+          "srtEnglish": "11-The-War-Against-Apostates-Part-3.srt",
+          "srtUrdu": "11-م_رتد_ین-کے-خلاف-جنگ-حصہ-سوم.srt"
+        },
+        {
+          "id": "aq-12",
+          "index": 12,
+          "title": "#12 The Conquest Of Iraq",
+          "youtubeId": null,
+          "srtEnglish": "12-The-Conquest-Of-Iraq.srt",
+          "srtUrdu": "12-غزوۃ_-عراق.srt"
+        },
+        {
+          "id": "aq-13",
+          "index": 13,
+          "title": "#13 The War Against Romans Part 1",
+          "youtubeId": null,
+          "srtEnglish": "13-The-War-Against-Romans-Part-1.srt",
+          "srtUrdu": "13-غزوۃ_-شام.srt"
+        },
+        {
+          "id": "aq-14",
+          "index": 14,
+          "title": "# 14 The Battle Of Yarmook & Abu Bakr’s Death",
+          "youtubeId": null,
+          "srtEnglish": "14-The-Battle-Of-Yarmook-Abu-Bakrs-Death.srt",
+          "srtUrdu": "14-جنگ_-یرموک-و-رحلت_-صدیق_-اکبر.srt"
+        },
+        {
+          "id": "aq-15",
+          "index": 15,
+          "title": "# 15 The Virtues Of Abu Bakr Siddique",
+          "youtubeId": null,
+          "srtEnglish": "15-The-Virtues-Of-Abu-Bakr-Siddique.srt",
+          "srtUrdu": "15-فضائل_-ابوبکرالصدیق-_.srt"
+        }
+      ]
+    },
+    {
+      "id": "anwar-boj",
+      "title": "Book of Jihad / Misc (Al Qalam)",
+      "subtitle": "Book of Jihad + Dust · 12 lectures",
+      "icon": "flag.fill",
+      "kind": "chapters",
+      "primaryLanguage": "english",
+      "attribution": "Al Qalam · Imam Anwar al-Awlaki lecture transcripts & subtitles · https://alqalamhistory.com/",
+      "chapters": [
+        {
+          "id": "aq-01",
+          "index": 1,
+          "title": "BOJ.1 Arabic+English",
+          "youtubeId": null,
+          "srtEnglish": "BOJ.1-ArabicEnglish.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-02",
+          "index": 2,
+          "title": "BOJ.2",
+          "youtubeId": null,
+          "srtEnglish": "BOJ.2.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-03",
+          "index": 3,
+          "title": "BOJ.3",
+          "youtubeId": null,
+          "srtEnglish": "BOJ.3.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-04",
+          "index": 4,
+          "title": "BOJ.4",
+          "youtubeId": null,
+          "srtEnglish": "BOJ.4.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-05",
+          "index": 5,
+          "title": "BOJ.5",
+          "youtubeId": null,
+          "srtEnglish": "BOJ.5.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-06",
+          "index": 6,
+          "title": "BOJ.6",
+          "youtubeId": null,
+          "srtEnglish": "BOJ.6.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-07",
+          "index": 7,
+          "title": "BOJ.7",
+          "youtubeId": null,
+          "srtEnglish": "BOJ.7.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-08",
+          "index": 8,
+          "title": "BOJ.8",
+          "youtubeId": null,
+          "srtEnglish": "BOJ.8.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-09",
+          "index": 9,
+          "title": "BOJ.9",
+          "youtubeId": null,
+          "srtEnglish": "BOJ.9.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-10",
+          "index": 10,
+          "title": "BOJ.10",
+          "youtubeId": null,
+          "srtEnglish": "BOJ.10.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-11",
+          "index": 11,
+          "title": "BOJ.11",
+          "youtubeId": null,
+          "srtEnglish": "BOJ.11.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-12",
+          "index": 12,
+          "title": "Dust Will Not Settle Down",
+          "youtubeId": null,
+          "srtEnglish": "Dust-Will-Not-Settle-Down-1.srt",
+          "srtUrdu": null
+        }
+      ]
+    },
+    {
+      "id": "anwar-hereafter",
+      "title": "The Hereafter (Al Qalam)",
+      "subtitle": "The Hereafter (Al Qalam) · 4 lectures",
+      "icon": "moon.stars.fill",
+      "kind": "chapters",
+      "primaryLanguage": "english",
+      "attribution": "Al Qalam · Imam Anwar al-Awlaki lecture transcripts & subtitles · https://alqalamhistory.com/",
+      "chapters": [
+        {
+          "id": "aq-02",
+          "index": 2,
+          "title": "02 HereAfter Death",
+          "youtubeId": null,
+          "srtEnglish": "02-HereAfter-Death.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-03",
+          "index": 3,
+          "title": "Al-Akhirah — The After Life (Part 3)",
+          "youtubeId": null,
+          "srtEnglish": null,
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-04",
+          "index": 4,
+          "title": "Al-Akhirah — The After Life (Part 4)",
+          "youtubeId": null,
+          "srtEnglish": null,
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-05",
+          "index": 5,
+          "title": "Al-Akhirah — The After Life (Part 5)",
+          "youtubeId": null,
+          "srtEnglish": null,
+          "srtUrdu": null
+        }
+      ]
+    },
+    {
+      "id": "anwar-lives-prophets",
+      "title": "Lives of the Prophets (Al Qalam)",
+      "subtitle": "Lives of the Prophets (Al Qalam) · 21 lectures",
+      "icon": "sparkles",
+      "kind": "chapters",
+      "primaryLanguage": "english",
+      "attribution": "Al Qalam · Imam Anwar al-Awlaki lecture transcripts & subtitles · https://alqalamhistory.com/",
+      "chapters": [
+        {
+          "id": "aq-01",
+          "index": 1,
+          "title": "#1. The Story Of Creation & Adam A.S",
+          "youtubeId": null,
+          "srtEnglish": "1.-The-Story-Of-Creation-Adam-A.S.srt",
+          "srtUrdu": "حیات__انبیاء_حصہ_اول1.srt"
+        },
+        {
+          "id": "aq-02",
+          "index": 2,
+          "title": "#2. Cont Adam,Sheith,Idris,Nuh, Hud A.S",
+          "youtubeId": null,
+          "srtEnglish": "2.-Cont-AdamSheithIdrisNuh-Hud-A.S.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-03",
+          "index": 3,
+          "title": "#3. Cont. Hud, Salih, Ibrahim A.S",
+          "youtubeId": null,
+          "srtEnglish": "3.-Cont.-Hud-Salih-Ibrahim-A.S.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-04",
+          "index": 4,
+          "title": "#4. Dawah Of Ibrahim A.S.",
+          "youtubeId": null,
+          "srtEnglish": "4.-Dawah-Of-Ibrahim-A.S.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-05",
+          "index": 5,
+          "title": "#5. Cont Ibrahim, and Lut A.S.",
+          "youtubeId": null,
+          "srtEnglish": "5.-Cont-Ibrahim-and-Lut-A.S.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-06",
+          "index": 6,
+          "title": "#6. Shoaib & Yusuf A.S.",
+          "youtubeId": null,
+          "srtEnglish": "6.-Shoaib-Yusuf-A.S.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-07",
+          "index": 7,
+          "title": "#7. Cont Yusuf A.S.",
+          "youtubeId": null,
+          "srtEnglish": "7.-Cont-Yusuf-A.S.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-08",
+          "index": 8,
+          "title": "#8. Cont. Yusuf A.S. Part 2",
+          "youtubeId": null,
+          "srtEnglish": "8.-Cont.-Yusuf-A.S.-Part-2.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-09",
+          "index": 9,
+          "title": "#9. Cont Yusuf Part 3 Ayub&YunusA.S",
+          "youtubeId": null,
+          "srtEnglish": "9.-Cont-Yusuf-Part-3-AyubYunusA.S.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-10",
+          "index": 10,
+          "title": "#10. Musa anf Pharaoh",
+          "youtubeId": null,
+          "srtEnglish": "10.-Musa-anf-Pharaoh.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-11",
+          "index": 11,
+          "title": "#11. Musa A.S. And Firaoun",
+          "youtubeId": null,
+          "srtEnglish": "11.-Musa-A.S.-And-Firaoun.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-12",
+          "index": 12,
+          "title": "12# Musa & Firaun 3",
+          "youtubeId": null,
+          "srtEnglish": "12-Musa-Firaun-3.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-13",
+          "index": 13,
+          "title": "13# Musa & Bani Israel 1",
+          "youtubeId": null,
+          "srtEnglish": "13-Musa-Bani-Israel-1.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-14",
+          "index": 14,
+          "title": "14# Musa & Bani Israel 2",
+          "youtubeId": null,
+          "srtEnglish": "14-Musa-Bani-Israel-2.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-15",
+          "index": 15,
+          "title": "15# Musa & Bani Israel 3",
+          "youtubeId": null,
+          "srtEnglish": "15-Musa-Bani-Israel-3.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-16",
+          "index": 16,
+          "title": "16# Yusha Bin Noon & Dawood A.S",
+          "youtubeId": null,
+          "srtEnglish": "16-Yusha-Bin-Noon-Dawood-A.S.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-17",
+          "index": 17,
+          "title": "17# Daud AS cont., & Sulaiman AS",
+          "youtubeId": null,
+          "srtEnglish": "17-Daud-AS-cont.-Sulaiman-AS.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-18",
+          "index": 18,
+          "title": "18# Cont.,, Sulaiman AS & Queen Sheba & Beginning Of Magic",
+          "youtubeId": null,
+          "srtEnglish": "18-Cont.-Sulaiman-AS-Queen-Sheba-Beginning-Of-Magic.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-19",
+          "index": 19,
+          "title": "19# The Family Of Imran Part 1",
+          "youtubeId": null,
+          "srtEnglish": "19-The-Family-Of-Imran-Part-1.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-20",
+          "index": 20,
+          "title": "20# The Family Of Imran Part 2",
+          "youtubeId": null,
+          "srtEnglish": "20-The-Family-Of-Imran-Part-2.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-21",
+          "index": 21,
+          "title": "21# The Family Of Imran Part 3",
+          "youtubeId": null,
+          "srtEnglish": "21-The-Family-Of-Imran-Part-3.srt",
+          "srtUrdu": null
+        }
+      ]
+    },
+    {
+      "id": "anwar-misc-extra",
+      "title": "Additional Lectures (Al Qalam)",
+      "subtitle": "Additional Lectures (Al Qalam) · 2 lectures",
+      "icon": "square.stack.fill",
+      "kind": "chapters",
+      "primaryLanguage": "english",
+      "attribution": "Al Qalam · Imam Anwar al-Awlaki lecture transcripts & subtitles · https://alqalamhistory.com/",
+      "chapters": [
+        {
+          "id": "aq-01",
+          "index": 1,
+          "title": "Christian missionary Dr Ali Tamimi (1)",
+          "youtubeId": null,
+          "srtEnglish": "Christian_missionary_Dr-Ali-Tamimi-1.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-historyofpalestine-ali-tamimi",
+          "index": null,
+          "title": "HistoryOfPalestine Ali Tamimi",
+          "youtubeId": null,
+          "srtEnglish": "HistoryOfPalestine_Ali_Tamimi.srt",
+          "srtUrdu": null
+        }
+      ]
+    },
+    {
+      "id": "anwar-seerah",
+      "title": "Life of Muhammad ﷺ (Al Qalam)",
+      "subtitle": "Life of Muhammad ﷺ (Al Qalam) · 53 lectures",
+      "icon": "book.fill",
+      "kind": "chapters",
+      "primaryLanguage": "english",
+      "attribution": "Al Qalam · Imam Anwar al-Awlaki lecture transcripts & subtitles · https://alqalamhistory.com/",
+      "chapters": [
+        {
+          "id": "aq-01",
+          "index": 1,
+          "title": "#1. Introduction To Seerah Re Edited",
+          "youtubeId": "yoLXbC8dx1E",
+          "srtEnglish": "1.-Introduction-To-Seerah-Re-Edited.srt",
+          "srtUrdu": "CD01-Seerah_Urdu_تعار_ف1.srt"
+        },
+        {
+          "id": "aq-02",
+          "index": 2,
+          "title": "#2. Background History",
+          "youtubeId": "btZzzO3mN34",
+          "srtEnglish": "2.-Background-History.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-03",
+          "index": 3,
+          "title": "#3. The Religious Situation Of Pre Islamic Arabia",
+          "youtubeId": "PHHsuWoGhzI",
+          "srtEnglish": "3.-The-Religious-Situation-Of-Pre-Islamic-Arabia.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-04",
+          "index": 4,
+          "title": "#4. Early Life",
+          "youtubeId": "QN5SVY43ow4",
+          "srtEnglish": "4.-Early-Life.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-05",
+          "index": 5,
+          "title": "#5. Important Events",
+          "youtubeId": "85m1ntDgxFE",
+          "srtEnglish": "5.-Important-Events.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-06",
+          "index": 6,
+          "title": "#6. In Persuit Of The Truth",
+          "youtubeId": "pbo8jk_O2pI",
+          "srtEnglish": "6.-In-Persuit-Of-The-Truth.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-07",
+          "index": 7,
+          "title": "#7. The Glad Tidings",
+          "youtubeId": "r93tKTb4PjE",
+          "srtEnglish": "7.-The-Glad-Tidings.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-08",
+          "index": 8,
+          "title": "#8. The Revelation",
+          "youtubeId": "5xkV3stWWng",
+          "srtEnglish": "8.-The-Revelation.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-09",
+          "index": 9,
+          "title": "#9. The Reaction Part 1",
+          "youtubeId": "-eEewDGkwR0",
+          "srtEnglish": "9.-The-Reaction-Part-1.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-10",
+          "index": 10,
+          "title": "#10. The Reaction Part 2",
+          "youtubeId": "I4MG8MokDkc",
+          "srtEnglish": "10.-The-Reaction-Part-2.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-11",
+          "index": 11,
+          "title": "# 11. The Early Emmigrants Part 1",
+          "youtubeId": "IaUhF3kc85o",
+          "srtEnglish": "11.-The-Early-Emmigrants-Part-1.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-12",
+          "index": 12,
+          "title": "# 12. The Early Emmigrants Part 2",
+          "youtubeId": "Ju0S6EFGWCg",
+          "srtEnglish": "12.-The-Early-Emmigrants-Part-2.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-13",
+          "index": 13,
+          "title": "#13. Major Events",
+          "youtubeId": "t_I10iCxjWg",
+          "srtEnglish": "13.-Major-Events.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-14",
+          "index": 14,
+          "title": "#14. The Later Years Of Makkah",
+          "youtubeId": "DibLuLl9Prc",
+          "srtEnglish": "14.-The-Later-Years-Of-Makkah.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-15",
+          "index": 15,
+          "title": "#15. In Search Of Base",
+          "youtubeId": "XlLUR00w4WM",
+          "srtEnglish": "15.-In-Search-Of-Base.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-16",
+          "index": 16,
+          "title": "#16. The Road To Madina",
+          "youtubeId": "VPoz5i9iEqY",
+          "srtEnglish": "16.-The-Road-To-Madina.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-17",
+          "index": 17,
+          "title": "#17. Introduction & Hijrah",
+          "youtubeId": null,
+          "srtEnglish": "17.-Introduction-Hijrah.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-18",
+          "index": 18,
+          "title": "#18. Establishment Of The State 1",
+          "youtubeId": null,
+          "srtEnglish": "18.-Establishment-Of-The-State-1.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-19",
+          "index": 19,
+          "title": "#19. Establishment Of The State 2",
+          "youtubeId": null,
+          "srtEnglish": "19.-Establishment-Of-The-State-2.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-20",
+          "index": 20,
+          "title": "#20. Establishment Of The State 3",
+          "youtubeId": null,
+          "srtEnglish": "20.-Establishment-Of-The-State-3.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-21",
+          "index": 21,
+          "title": "#21. The Battle Of Badr Part 1",
+          "youtubeId": null,
+          "srtEnglish": "21.-The-Battle-Of-Badr-Part-1.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-22",
+          "index": 22,
+          "title": "#22. The Battle Of Badr Part 2",
+          "youtubeId": null,
+          "srtEnglish": "22.-The-Battle-Of-Badr-Part-2.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-23",
+          "index": 23,
+          "title": "#23. The Battle Of Badr Part 3",
+          "youtubeId": null,
+          "srtEnglish": "23.-The-Battle-Of-Badr-Part-3.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-24",
+          "index": 24,
+          "title": "#24 Events Between Battle Of Badr And Uhud",
+          "youtubeId": null,
+          "srtEnglish": "24-Events-Between-Battle-Of-Badr-And-Uhud.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-25",
+          "index": 25,
+          "title": "#25. The Battle Of Uhud Part 1",
+          "youtubeId": null,
+          "srtEnglish": "25.-The-Battle-Of-Uhud-Part-1.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-26",
+          "index": 26,
+          "title": "#26. The Battle Of Uhud Part 2",
+          "youtubeId": null,
+          "srtEnglish": "26.-The-Battle-Of-Uhud-Part-2.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-27",
+          "index": 27,
+          "title": "#27. The Battle Of Uhud Part 3",
+          "youtubeId": null,
+          "srtEnglish": "27.-The-Battle-Of-Uhud-Part-3.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-28",
+          "index": 28,
+          "title": "# 28. The Battle Of Uhud Part 4",
+          "youtubeId": null,
+          "srtEnglish": "28.-The-Battle-Of-Uhud-Part-4.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-29",
+          "index": 29,
+          "title": "#29. Battle Of Uhud Part 5",
+          "youtubeId": null,
+          "srtEnglish": "29.-Battle-Of-Uhud-Part-5.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-30",
+          "index": 30,
+          "title": "#30. Events Between Battle Of Uhud And Khandaq",
+          "youtubeId": null,
+          "srtEnglish": "30.-Events-Between-Battle-Of-Uhud-And-Khandaq.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-31",
+          "index": 31,
+          "title": "#31. Events B.W Uhud And Trench&Bannu Mustalaq",
+          "youtubeId": null,
+          "srtEnglish": "31.-Events-B.W-Uhud-And-TrenchBannu-Mustalaq.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-32",
+          "index": 32,
+          "title": "#32. Bannu Mustalaq & T.B.O. Trench",
+          "youtubeId": null,
+          "srtEnglish": "32.-Bannu-Mustalaq-T.B.O.-Trench.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-33",
+          "index": 33,
+          "title": "#33. The Battle Of The Trench 2",
+          "youtubeId": null,
+          "srtEnglish": "33.-The-Battle-Of-The-Trench-2.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-34",
+          "index": 34,
+          "title": "#34. The Battle Of Bannu Quraidha",
+          "youtubeId": null,
+          "srtEnglish": "34.-The-Battle-Of-Bannu-Quraidha.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-35",
+          "index": 35,
+          "title": "#35. Events Between Battle Of Trench & Hudaybiyyah",
+          "youtubeId": null,
+          "srtEnglish": "35.-Events-Between-Battle-Of-Trench-Hudaybiyyah.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-36",
+          "index": 36,
+          "title": "#36. Events Between Battle Of Trench & Hudaybiyyah",
+          "youtubeId": null,
+          "srtEnglish": "36.-Events-Between-Battle-Of-Trench-Hudaybiyyah.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-37",
+          "index": 37,
+          "title": "#37. Sulh Al Hudaybiyyah Part 1",
+          "youtubeId": null,
+          "srtEnglish": "37.-Sulh-Al-Hudaybiyyah-Part-1.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-38",
+          "index": 38,
+          "title": "#38. Sulh Al Hudaybiyyah Part 2",
+          "youtubeId": null,
+          "srtEnglish": "38.-Sulh-Al-Hudaybiyyah-Part-2.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-39",
+          "index": 39,
+          "title": "#39. The Battle Of Khaybar Part 1",
+          "youtubeId": null,
+          "srtEnglish": "39.-The-Battle-Of-Khaybar-Part-1.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-40",
+          "index": 40,
+          "title": "#40. The Battle Of Khaybar Part 2",
+          "youtubeId": null,
+          "srtEnglish": "40.-The-Battle-Of-Khaybar-Part-2.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-41",
+          "index": 41,
+          "title": "#41. The Islam Of Amr Bin Aas and Khalid (RA)",
+          "youtubeId": null,
+          "srtEnglish": "41.-The-Islam-Of-Amr-Bin-Aas-and-Khalid-RA.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-42",
+          "index": 42,
+          "title": "#42. Battle Of Maota & Letter to the Kings",
+          "youtubeId": null,
+          "srtEnglish": "42.-Battle-Of-Maota-Letter-to-the-Kings.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-43",
+          "index": 43,
+          "title": "#43. Fath e Makkah 1",
+          "youtubeId": null,
+          "srtEnglish": "43.-Fath-e-Makkah-1.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-44",
+          "index": 44,
+          "title": "#44. Fath e Makkah 2",
+          "youtubeId": null,
+          "srtEnglish": "44.-Fath-e-Makkah-2.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-45",
+          "index": 45,
+          "title": "#45. Fath e Makkah Part 3",
+          "youtubeId": null,
+          "srtEnglish": "45.-Fath-e-Makkah-Part-3.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-46",
+          "index": 46,
+          "title": "#46. The Battle Of Hawazin",
+          "youtubeId": null,
+          "srtEnglish": "46.-The-Battle-Of-Hawazin.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-47",
+          "index": 47,
+          "title": "#47. Event After Battle Of Hunain",
+          "youtubeId": null,
+          "srtEnglish": "47.-Event-After-Battle-Of-Hunain.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-48",
+          "index": 48,
+          "title": "#48. The Battle Of Tabook 1",
+          "youtubeId": null,
+          "srtEnglish": "48.-The-Battle-Of-Tabook-1.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-49",
+          "index": 49,
+          "title": "#49. Battle Of Tabook Part 2",
+          "youtubeId": null,
+          "srtEnglish": "49.-Battle-Of-Tabook-Part-2.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-50",
+          "index": 50,
+          "title": "#50. Hadith Of Ka’ab Ibn Malik",
+          "youtubeId": null,
+          "srtEnglish": "50.-Hadith-Of-Kaab-Ibn-Malik.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-51",
+          "index": 51,
+          "title": "#51. End Of Nifaq and The Delegations.",
+          "youtubeId": null,
+          "srtEnglish": "51.-End-Of-Nifaq-and-The-Delegations.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-52",
+          "index": 52,
+          "title": "#52. His Governors to Yemen & Farewell Hajj",
+          "youtubeId": null,
+          "srtEnglish": "52.-His-Governors-to-Yemen-Farewell-Hajj.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-53",
+          "index": 53,
+          "title": "#53. The Last Days Of Rasool Ullah",
+          "youtubeId": null,
+          "srtEnglish": "53.-The-Last-Days-Of-Rasool-Ullah.srt",
+          "srtUrdu": null
+        }
+      ]
+    },
+    {
+      "id": "anwar-umar",
+      "title": "Umar ibn al-Khattab (Al Qalam)",
+      "subtitle": "Umar ibn al-Khattab (Al Qalam) · 17 lectures",
+      "icon": "shield.fill",
+      "kind": "chapters",
+      "primaryLanguage": "english",
+      "attribution": "Al Qalam · Imam Anwar al-Awlaki lecture transcripts & subtitles · https://alqalamhistory.com/",
+      "chapters": [
+        {
+          "id": "aq-01",
+          "index": 1,
+          "title": "#1 Men Around The Messenger & Introduction",
+          "youtubeId": null,
+          "srtEnglish": "1-Men-Around-The-Messenger-Introduction.srt",
+          "srtUrdu": "1-یاران_-رسول_-اکرم-و-تعار_فعمر-ا_بن-الخطاب.srt"
+        },
+        {
+          "id": "aq-02",
+          "index": 2,
+          "title": "#2 Hijrah Of Umar Ibn Khattab",
+          "youtubeId": null,
+          "srtEnglish": "2-Hijrah-Of-Umar-Ibn-Khattab.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-03",
+          "index": 3,
+          "title": "Jihad Of Umar#3",
+          "youtubeId": null,
+          "srtEnglish": "Jihad-Of-Umar3.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-04",
+          "index": 4,
+          "title": "Virtues Of Umar#4",
+          "youtubeId": null,
+          "srtEnglish": "Virtues-Of-Umar4.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-05",
+          "index": 5,
+          "title": "Government Of Umar#5",
+          "youtubeId": null,
+          "srtEnglish": "Government-Of-Umar5.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-06",
+          "index": 6,
+          "title": "Ameer Ul Momineen#6",
+          "youtubeId": null,
+          "srtEnglish": "Ameer-Ul-Momineen6.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-07",
+          "index": 7,
+          "title": "Justice Of Umar#7",
+          "youtubeId": null,
+          "srtEnglish": "Justice-Of-Umar7.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-08",
+          "index": 8,
+          "title": "Land Of Pharaoh#8",
+          "youtubeId": null,
+          "srtEnglish": "Land-Of-Pharaoh8.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-09",
+          "index": 9,
+          "title": "His Nightly Patrols#9",
+          "youtubeId": null,
+          "srtEnglish": "His-Nightly-Patrols9.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-10",
+          "index": 10,
+          "title": "Aam Er Ramadah#10",
+          "youtubeId": null,
+          "srtEnglish": "Aam-Er-Ramadah10.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-11",
+          "index": 11,
+          "title": "Governers Of Umar#11",
+          "youtubeId": null,
+          "srtEnglish": "Governers-Of-Umar11.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-12",
+          "index": 12,
+          "title": "Courts Of Umar#12",
+          "youtubeId": null,
+          "srtEnglish": "Courts-Of-Umar12.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-13",
+          "index": 13,
+          "title": "Conquest Of Umar#13",
+          "youtubeId": null,
+          "srtEnglish": "Conquest-Of-Umar13.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-14",
+          "index": 14,
+          "title": "The Muslim Army#14",
+          "youtubeId": null,
+          "srtEnglish": "The-Muslim-Army14.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-15",
+          "index": 15,
+          "title": "Conquest Of Byzantine Empire #15",
+          "youtubeId": null,
+          "srtEnglish": "Conquest-Of-Byzantine-Empire-15.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-16",
+          "index": 16,
+          "title": "Frontier lands#16",
+          "youtubeId": null,
+          "srtEnglish": "Frontier-lands16.srt",
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-17",
+          "index": 17,
+          "title": "Last Days Of Umar# 17",
+          "youtubeId": null,
+          "srtEnglish": "Last-Days-Of-Umar-17.srt",
+          "srtUrdu": null
+        }
+      ]
+    },
+    {
+      "id": "anwar-dreams",
+      "title": "Dream Interpretations (Al Qalam)",
+      "subtitle": "Dream Interpretations (Al Qalam) · 3 lectures",
+      "icon": "moon.zzz.fill",
+      "kind": "chapters",
+      "primaryLanguage": "english",
+      "attribution": "Al Qalam · Imam Anwar al-Awlaki lecture transcripts & subtitles · https://alqalamhistory.com/",
+      "chapters": [
+        {
+          "id": "aq-11",
+          "index": 11,
+          "title": "Dreams & Dream Interpretations (Part 1)",
+          "youtubeId": null,
+          "srtEnglish": null,
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-21",
+          "index": 21,
+          "title": "Dreams & Dream Interpretations (Part 2)",
+          "youtubeId": null,
+          "srtEnglish": null,
+          "srtUrdu": null
+        },
+        {
+          "id": "aq-31",
+          "index": 31,
+          "title": "Dreams & Dream Interpretations (Part 3)",
+          "youtubeId": null,
+          "srtEnglish": null,
+          "srtUrdu": null
+        }
+      ]
+    }
+  ]
+}

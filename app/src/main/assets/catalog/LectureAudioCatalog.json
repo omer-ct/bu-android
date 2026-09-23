@@ -1,0 +1,1007 @@
+{
+  "source": "https://www.allahsword.com/islamic_audio_lectures.html",
+  "hosts": "Internet Archive (archive.org)",
+  "attribution": "Audio streamed from archive.org (Anwar al-Awlaki Seerah · No0oor16 / noo00r12 / rasulsaw.medina2). Subtitles from Al Qalam SRT. · Book of Jihad: TheBookOfJihad_201801",
+  "tracks": [
+    {
+      "seriesID": "anwar-hereafter",
+      "chapterID": "aq-02",
+      "title": "02 HereAfter Death",
+      "audioUrl": "https://archive.org/download/Companions_of_the_Ditch/02_Companions_of_the_Ditch_Track_02.mp3",
+      "srtFile": "02-HereAfter-Death.srt",
+      "audioName": "02_Companions_of_the_Ditch_Track_02.mp3"
+    },
+    {
+      "seriesID": "anwar-dreams",
+      "chapterID": "aq-11",
+      "title": "Dreams & Dream Interpretations (Part 1)",
+      "audioUrl": "https://archive.org/download/Dream.Intrprtatns/Dreams.and.Dream.Interpretations-01.mp3",
+      "srtFile": null,
+      "audioName": "Dreams.and.Dream.Interpretations-01.mp3"
+    },
+    {
+      "seriesID": "anwar-dreams",
+      "chapterID": "aq-21",
+      "title": "Dreams & Dream Interpretations (Part 2)",
+      "audioUrl": "https://archive.org/download/Dream.Intrprtatns/Dreams.and.Dream.Interpretations-02.mp3",
+      "srtFile": null,
+      "audioName": "Dreams.and.Dream.Interpretations-02.mp3"
+    },
+    {
+      "seriesID": "anwar-dreams",
+      "chapterID": "aq-31",
+      "title": "Dreams & Dream Interpretations (Part 3)",
+      "audioUrl": "https://archive.org/download/Dream.Intrprtatns/Dreams.and.Dream.Interpretations-03.mp3",
+      "srtFile": null,
+      "audioName": "Dreams.and.Dream.Interpretations-03.mp3"
+    },
+    {
+      "seriesID": "anwar-abu-bakr",
+      "chapterID": "aq-01",
+      "title": "Abu Bakr English#1",
+      "audioUrl": "https://archive.org/download/abu-bakr-anwar/01%20-%20Introduction.mp3",
+      "srtFile": "Abu-Bakr-English1.srt",
+      "audioName": "01 - Introduction.mp3"
+    },
+    {
+      "seriesID": "anwar-abu-bakr",
+      "chapterID": "aq-02",
+      "title": "#2 Family Background & Islam Of Abu Bakr",
+      "audioUrl": "https://archive.org/download/abu-bakr-anwar/02%20-%20His%20Family%20-%20Embracing%20Islam.mp3",
+      "srtFile": "2-Family-Background-Islam-Of-Abu-Bakr.srt",
+      "audioName": "02 - His Family - Embracing Islam.mp3"
+    },
+    {
+      "seriesID": "anwar-abu-bakr",
+      "chapterID": "aq-03",
+      "title": "#3 Hijrah Of Abu Bakr",
+      "audioUrl": "https://archive.org/download/abu-bakr-anwar/03%20-%20Hijrah.mp3",
+      "srtFile": "3-Hijrah-Of-Abu-Bakr.srt",
+      "audioName": "03 - Hijrah.mp3"
+    },
+    {
+      "seriesID": "anwar-abu-bakr",
+      "chapterID": "aq-04",
+      "title": "#4 Jihad With The Messenger Of Allah ﷺ",
+      "audioUrl": "https://archive.org/download/abu-bakr-anwar/04%20-%20Jihad%20With%20The%20Messenger%20Of%20Allah.mp3",
+      "srtFile": "4-Jihad-With-The-Messenger-Of-Allah-ﷺ.srt",
+      "audioName": "04 - Jihad With The Messenger Of Allah.mp3"
+    },
+    {
+      "seriesID": "anwar-abu-bakr",
+      "chapterID": "aq-05",
+      "title": "5# Life In Madinah",
+      "audioUrl": "https://archive.org/download/abu-bakr-anwar/05%20-%20Life%20In%20Madinah.mp3",
+      "srtFile": "5-Life-In-Madinah.srt",
+      "audioName": "05 - Life In Madinah.mp3"
+    },
+    {
+      "seriesID": "anwar-abu-bakr",
+      "chapterID": "aq-06",
+      "title": "#6 Death Of Rasool Ullah & Khaleefah Of The Messenger Of Allah",
+      "audioUrl": "https://archive.org/download/abu-bakr-anwar/06%20-%20The%20Khalifah%20Of%20The%20Messenger%20Of%20Allah.mp3",
+      "srtFile": "6-Death-Of-Rasool-Ullah-Khaleefah-Of-The-Messenger-Of-Allah.srt",
+      "audioName": "06 - The Khalifah Of The Messenger Of Allah.mp3"
+    },
+    {
+      "seriesID": "anwar-abu-bakr",
+      "chapterID": "aq-07",
+      "title": "#7 Baiyah & Inaugural Adress",
+      "audioUrl": "https://archive.org/download/abu-bakr-anwar/07%20-%20Inaugural%20Address.mp3",
+      "srtFile": "7-Baiyah-Inaugural-Adress.srt",
+      "audioName": "07 - Inaugural Address.mp3"
+    },
+    {
+      "seriesID": "anwar-abu-bakr",
+      "chapterID": "aq-08",
+      "title": "#8 The Governers – The Army Of Usama",
+      "audioUrl": "https://archive.org/download/abu-bakr-anwar/08%20-%20The%20Governors%20-%20The%20Army%20Of%20Usama.mp3",
+      "srtFile": "8-The-Governers-The-Army-Of-Usama.srt",
+      "audioName": "08 - The Governors - The Army Of Usama.mp3"
+    },
+    {
+      "seriesID": "anwar-abu-bakr",
+      "chapterID": "aq-09",
+      "title": "#9 The War Against Appostates Part 1",
+      "audioUrl": "https://archive.org/download/abu-bakr-anwar/09%20-%20The%20War%20Against%20The%20Apostates.mp3",
+      "srtFile": "9-The-War-Against-Appostates-Part-1.srt",
+      "audioName": "09 - The War Against The Apostates.mp3"
+    },
+    {
+      "seriesID": "anwar-abu-bakr",
+      "chapterID": "aq-10",
+      "title": "#10 The War Against Apostates Part 2",
+      "audioUrl": "https://archive.org/download/abu-bakr-anwar/10%20-%20War%20Against%20Apostates%20%28Cont.%29.mp3",
+      "srtFile": "10-The-War-Against-Apostates-Part-2.srt",
+      "audioName": "10 - War Against Apostates (Cont.).mp3"
+    },
+    {
+      "seriesID": "anwar-abu-bakr",
+      "chapterID": "aq-11",
+      "title": "#11 The War Against Apostates Part 3",
+      "audioUrl": "https://archive.org/download/abu-bakr-anwar/11%20-%20War%20Against%20Apostates%20%28Cont.%29.mp3",
+      "srtFile": "11-The-War-Against-Apostates-Part-3.srt",
+      "audioName": "11 - War Against Apostates (Cont.).mp3"
+    },
+    {
+      "seriesID": "anwar-abu-bakr",
+      "chapterID": "aq-12",
+      "title": "#12 The Conquest Of Iraq",
+      "audioUrl": "https://archive.org/download/abu-bakr-anwar/12%20-%20The%20Conquest%20Of%20Iraq.mp3",
+      "srtFile": "12-The-Conquest-Of-Iraq.srt",
+      "audioName": "12 - The Conquest Of Iraq.mp3"
+    },
+    {
+      "seriesID": "anwar-abu-bakr",
+      "chapterID": "aq-13",
+      "title": "#13 The War Against Romans Part 1",
+      "audioUrl": "https://archive.org/download/abu-bakr-anwar/13%20-%20The%20War%20Against%20The%20Romans.mp3",
+      "srtFile": "13-The-War-Against-Romans-Part-1.srt",
+      "audioName": "13 - The War Against The Romans.mp3"
+    },
+    {
+      "seriesID": "anwar-abu-bakr",
+      "chapterID": "aq-14",
+      "title": "# 14 The Battle Of Yarmook & Abu Bakr’s Death",
+      "audioUrl": "https://archive.org/download/abu-bakr-anwar/14%20-%20War%20Against%20Romans%20%28Cont.%29%20-%20His%20Death.mp3",
+      "srtFile": "14-The-Battle-Of-Yarmook-Abu-Bakrs-Death.srt",
+      "audioName": "14 - War Against Romans (Cont.) - His Death.mp3"
+    },
+    {
+      "seriesID": "anwar-abu-bakr",
+      "chapterID": "aq-15",
+      "title": "# 15 The Virtues Of Abu Bakr Siddique",
+      "audioUrl": "https://archive.org/download/abu-bakr-anwar/15%20%20-%20His%20Virtues.mp3",
+      "srtFile": "15-The-Virtues-Of-Abu-Bakr-Siddique.srt",
+      "audioName": "15  - His Virtues.mp3"
+    },
+    {
+      "seriesID": "anwar-lives-prophets",
+      "chapterID": "aq-01",
+      "title": "#1. The Story Of Creation & Adam A.S",
+      "audioUrl": "https://archive.org/download/lives-of-the-prophets/01%20-%20Introduction%20-%20Story%20Of%20Creation.mp3",
+      "srtFile": "1.-The-Story-Of-Creation-Adam-A.S.srt",
+      "audioName": "01 - Introduction - Story Of Creation.mp3"
+    },
+    {
+      "seriesID": "anwar-lives-prophets",
+      "chapterID": "aq-02",
+      "title": "#2. Cont Adam,Sheith,Idris,Nuh, Hud A.S",
+      "audioUrl": "https://archive.org/download/lives-of-the-prophets/02%20-%20Adam%20%28Cont.%29%20-%20Idris%20-%20Sheeth%20-%20Hud%20A.S..mp3",
+      "srtFile": "2.-Cont-AdamSheithIdrisNuh-Hud-A.S.srt",
+      "audioName": "02 - Adam (Cont.) - Idris - Sheeth - Hud A.S..mp3"
+    },
+    {
+      "seriesID": "anwar-lives-prophets",
+      "chapterID": "aq-03",
+      "title": "#3. Cont. Hud, Salih, Ibrahim A.S",
+      "audioUrl": "https://archive.org/download/lives-of-the-prophets/03%20-%20Hud%20%28cont.%29%20-%20Saleh%20-%20Ibrahim%20A.S..mp3",
+      "srtFile": "3.-Cont.-Hud-Salih-Ibrahim-A.S.srt",
+      "audioName": "03 - Hud (cont.) - Saleh - Ibrahim A.S..mp3"
+    },
+    {
+      "seriesID": "anwar-lives-prophets",
+      "chapterID": "aq-04",
+      "title": "#4. Dawah Of Ibrahim A.S.",
+      "audioUrl": "https://archive.org/download/lives-of-the-prophets/04%20-%20The%20Dawah%20Of%20Ibrahim%20-%20Hijrah%20Of%20Ibrahim%20A.S..mp3",
+      "srtFile": "4.-Dawah-Of-Ibrahim-A.S.srt",
+      "audioName": "04 - The Dawah Of Ibrahim - Hijrah Of Ibrahim A.S..mp3"
+    },
+    {
+      "seriesID": "anwar-lives-prophets",
+      "chapterID": "aq-05",
+      "title": "#5. Cont Ibrahim, and Lut A.S.",
+      "audioUrl": "https://archive.org/download/lives-of-the-prophets/05%20-%20Al-Kabah%20-%20Virtues%20Of%20Ibrahim%20-%20Lut%20A.S..mp3",
+      "srtFile": "5.-Cont-Ibrahim-and-Lut-A.S.srt",
+      "audioName": "05 - Al-Kabah - Virtues Of Ibrahim - Lut A.S..mp3"
+    },
+    {
+      "seriesID": "anwar-lives-prophets",
+      "chapterID": "aq-06",
+      "title": "#6. Shoaib & Yusuf A.S.",
+      "audioUrl": "https://archive.org/download/lives-of-the-prophets/06%20-%20Shuaib%20-%20Yusuf%20A.S..mp3",
+      "srtFile": "6.-Shoaib-Yusuf-A.S.srt",
+      "audioName": "06 - Shuaib - Yusuf A.S..mp3"
+    },
+    {
+      "seriesID": "anwar-lives-prophets",
+      "chapterID": "aq-07",
+      "title": "#7. Cont Yusuf A.S.",
+      "audioUrl": "https://archive.org/download/lives-of-the-prophets/07%20-%20Yusuf%20A.S.%20%28Cont.%29.mp3",
+      "srtFile": "7.-Cont-Yusuf-A.S.srt",
+      "audioName": "07 - Yusuf A.S. (Cont.).mp3"
+    },
+    {
+      "seriesID": "anwar-lives-prophets",
+      "chapterID": "aq-08",
+      "title": "#8. Cont. Yusuf A.S. Part 2",
+      "audioUrl": "https://archive.org/download/lives-of-the-prophets/08%20-%20Yusuf%20A.S.%20%28Cont.%29.mp3",
+      "srtFile": "8.-Cont.-Yusuf-A.S.-Part-2.srt",
+      "audioName": "08 - Yusuf A.S. (Cont.).mp3"
+    },
+    {
+      "seriesID": "anwar-lives-prophets",
+      "chapterID": "aq-09",
+      "title": "#9. Cont Yusuf Part 3 Ayub&YunusA.S",
+      "audioUrl": "https://archive.org/download/lives-of-the-prophets/09%20-%20Yusuf%20%28Cont.%29%20-%20Ayub%20-%20Yunus%20A.S..mp3",
+      "srtFile": "9.-Cont-Yusuf-Part-3-AyubYunusA.S.srt",
+      "audioName": "09 - Yusuf (Cont.) - Ayub - Yunus A.S..mp3"
+    },
+    {
+      "seriesID": "anwar-lives-prophets",
+      "chapterID": "aq-10",
+      "title": "#10. Musa anf Pharaoh",
+      "audioUrl": "https://archive.org/download/lives-of-the-prophets/10%20-%20Musa%20A.S.%20And%20Pharaoh.mp3",
+      "srtFile": "10.-Musa-anf-Pharaoh.srt",
+      "audioName": "10 - Musa A.S. And Pharaoh.mp3"
+    },
+    {
+      "seriesID": "anwar-lives-prophets",
+      "chapterID": "aq-11",
+      "title": "#11. Musa A.S. And Firaoun",
+      "audioUrl": "https://archive.org/download/lives-of-the-prophets/11%20-%20Musa%20A.S.%20And%20Pharaoh%202.mp3",
+      "srtFile": "11.-Musa-A.S.-And-Firaoun.srt",
+      "audioName": "11 - Musa A.S. And Pharaoh 2.mp3"
+    },
+    {
+      "seriesID": "anwar-lives-prophets",
+      "chapterID": "aq-12",
+      "title": "12# Musa & Firaun 3",
+      "audioUrl": "https://archive.org/download/lives-of-the-prophets/12%20-%20Musa%20A.S.%20And%20Pharaoh%203.mp3",
+      "srtFile": "12-Musa-Firaun-3.srt",
+      "audioName": "12 - Musa A.S. And Pharaoh 3.mp3"
+    },
+    {
+      "seriesID": "anwar-lives-prophets",
+      "chapterID": "aq-13",
+      "title": "13# Musa & Bani Israel 1",
+      "audioUrl": "https://archive.org/download/lives-of-the-prophets/13%20-%20Musa%20A.S.%20And%20Bani%20Israeel.mp3",
+      "srtFile": "13-Musa-Bani-Israel-1.srt",
+      "audioName": "13 - Musa A.S. And Bani Israeel.mp3"
+    },
+    {
+      "seriesID": "anwar-lives-prophets",
+      "chapterID": "aq-14",
+      "title": "14# Musa & Bani Israel 2",
+      "audioUrl": "https://archive.org/download/lives-of-the-prophets/14%20-%20Musa%20A.S.%20And%20Bani%20Israeel%20%28Cont.%29.mp3",
+      "srtFile": "14-Musa-Bani-Israel-2.srt",
+      "audioName": "14 - Musa A.S. And Bani Israeel (Cont.).mp3"
+    },
+    {
+      "seriesID": "anwar-lives-prophets",
+      "chapterID": "aq-15",
+      "title": "15# Musa & Bani Israel 3",
+      "audioUrl": "https://archive.org/download/lives-of-the-prophets/15%20-%20Musa%20A.S.%20And%20Bani%20Israeel%20%28Cont.%29.mp3",
+      "srtFile": "15-Musa-Bani-Israel-3.srt",
+      "audioName": "15 - Musa A.S. And Bani Israeel (Cont.).mp3"
+    },
+    {
+      "seriesID": "anwar-lives-prophets",
+      "chapterID": "aq-16",
+      "title": "16# Yusha Bin Noon & Dawood A.S",
+      "audioUrl": "https://archive.org/download/lives-of-the-prophets/16%20-%20Yusha%20And%20Dawood%20A.S..mp3",
+      "srtFile": "16-Yusha-Bin-Noon-Dawood-A.S.srt",
+      "audioName": "16 - Yusha And Dawood A.S..mp3"
+    },
+    {
+      "seriesID": "anwar-lives-prophets",
+      "chapterID": "aq-17",
+      "title": "17# Daud AS cont., & Sulaiman AS",
+      "audioUrl": "https://archive.org/download/lives-of-the-prophets/17%20-%20Dawood%20%28Cont.%29%20-%20Sulaiman%20A.S..mp3",
+      "srtFile": "17-Daud-AS-cont.-Sulaiman-AS.srt",
+      "audioName": "17 - Dawood (Cont.) - Sulaiman A.S..mp3"
+    },
+    {
+      "seriesID": "anwar-lives-prophets",
+      "chapterID": "aq-18",
+      "title": "18# Cont.,, Sulaiman AS & Queen Sheba & Beginning Of Magic",
+      "audioUrl": "https://archive.org/download/lives-of-the-prophets/18%20-%20Sulaiman%20%28Cont.%29%20-%20Kingdom%20Of%20Sheba.mp3",
+      "srtFile": "18-Cont.-Sulaiman-AS-Queen-Sheba-Beginning-Of-Magic.srt",
+      "audioName": "18 - Sulaiman (Cont.) - Kingdom Of Sheba.mp3"
+    },
+    {
+      "seriesID": "anwar-lives-prophets",
+      "chapterID": "aq-19",
+      "title": "19# The Family Of Imran Part 1",
+      "audioUrl": "https://archive.org/download/lives-of-the-prophets/19%20-%20The%20Family%20Of%20Imran.mp3",
+      "srtFile": "19-The-Family-Of-Imran-Part-1.srt",
+      "audioName": "19 - The Family Of Imran.mp3"
+    },
+    {
+      "seriesID": "anwar-lives-prophets",
+      "chapterID": "aq-20",
+      "title": "20# The Family Of Imran Part 2",
+      "audioUrl": "https://archive.org/download/lives-of-the-prophets/20%20-%20The%20Family%20Of%20Imran%202.mp3",
+      "srtFile": "20-The-Family-Of-Imran-Part-2.srt",
+      "audioName": "20 - The Family Of Imran 2.mp3"
+    },
+    {
+      "seriesID": "anwar-lives-prophets",
+      "chapterID": "aq-21",
+      "title": "21# The Family Of Imran Part 3",
+      "audioUrl": "https://archive.org/download/lives-of-the-prophets/21%20-%20The%20Family%20Of%20Imran%203.mp3",
+      "srtFile": "21-The-Family-Of-Imran-Part-3.srt",
+      "audioName": "21 - The Family Of Imran 3.mp3"
+    },
+    {
+      "seriesID": "anwar-hereafter",
+      "chapterID": "aq-03",
+      "title": "Al-Akhirah — The After Life (Part 3)",
+      "audioUrl": "https://archive.org/download/the-hereafter/03%20-%20Journey%20Of%20The%20Soul.mp3",
+      "srtFile": null,
+      "audioName": "03 - Journey Of The Soul.mp3"
+    },
+    {
+      "seriesID": "anwar-hereafter",
+      "chapterID": "aq-04",
+      "title": "Al-Akhirah — The After Life (Part 4)",
+      "audioUrl": "https://archive.org/download/the-hereafter/04%20-%20Minor%20Signs%20Of%20The%20Day%2001-07.mp3",
+      "srtFile": null,
+      "audioName": "04 - Minor Signs Of The Day 01-07.mp3"
+    },
+    {
+      "seriesID": "anwar-hereafter",
+      "chapterID": "aq-05",
+      "title": "Al-Akhirah — The After Life (Part 5)",
+      "audioUrl": "https://archive.org/download/the-hereafter/05%20-%20Minor%20Signs%20Of%20The%20Day%2008-18.mp3",
+      "srtFile": null,
+      "audioName": "05 - Minor Signs Of The Day 08-18.mp3"
+    },
+    {
+      "seriesID": "anwar-umar",
+      "chapterID": "aq-01",
+      "title": "#1 Men Around The Messenger & Introduction",
+      "audioUrl": "https://archive.org/download/umar-ibn-al-khattab/01%20-%20Introduction%20-%20His%20Character.mp3",
+      "srtFile": "1-Men-Around-The-Messenger-Introduction.srt",
+      "audioName": "01 - Introduction - His Character.mp3"
+    },
+    {
+      "seriesID": "anwar-umar",
+      "chapterID": "aq-02",
+      "title": "#2 Hijrah Of Umar Ibn Khattab",
+      "audioUrl": "https://archive.org/download/umar-ibn-al-khattab/02%20-%20Hijrah%20-%20Jihad%20With%20The%20Messenger.mp3",
+      "srtFile": "2-Hijrah-Of-Umar-Ibn-Khattab.srt",
+      "audioName": "02 - Hijrah - Jihad With The Messenger.mp3"
+    },
+    {
+      "seriesID": "anwar-umar",
+      "chapterID": "aq-03",
+      "title": "Jihad Of Umar#3",
+      "audioUrl": "https://archive.org/download/umar-ibn-al-khattab/03%20-%20Jihad%20With%20The%20Messenger%20-%20Some%20Of%20His%20VIrtues.mp3",
+      "srtFile": "Jihad-Of-Umar3.srt",
+      "audioName": "03 - Jihad With The Messenger - Some Of His VIrtues.mp3"
+    },
+    {
+      "seriesID": "anwar-umar",
+      "chapterID": "aq-04",
+      "title": "Virtues Of Umar#4",
+      "audioUrl": "https://archive.org/download/umar-ibn-al-khattab/04%20-%20His%20Virtues%20-%20Advisor%20Of%20Abu%20Bakr.mp3",
+      "srtFile": "Virtues-Of-Umar4.srt",
+      "audioName": "04 - His Virtues - Advisor Of Abu Bakr.mp3"
+    },
+    {
+      "seriesID": "anwar-umar",
+      "chapterID": "aq-05",
+      "title": "Government Of Umar#5",
+      "audioUrl": "https://archive.org/download/umar-ibn-al-khattab/05%20-%20His%20Appointment%20As%20The%20Khalifah.mp3",
+      "srtFile": "Government-Of-Umar5.srt",
+      "audioName": "05 - His Appointment As The Khalifah.mp3"
+    },
+    {
+      "seriesID": "anwar-umar",
+      "chapterID": "aq-06",
+      "title": "Ameer Ul Momineen#6",
+      "audioUrl": "https://archive.org/download/umar-ibn-al-khattab/06%20-%20Foundations%20Of%20Goverment.mp3",
+      "srtFile": "Ameer-Ul-Momineen6.srt",
+      "audioName": "06 - Foundations Of Goverment.mp3"
+    },
+    {
+      "seriesID": "anwar-umar",
+      "chapterID": "aq-07",
+      "title": "Justice Of Umar#7",
+      "audioUrl": "https://archive.org/download/umar-ibn-al-khattab/07%20-%20Ummar%20With%20His%20Family%20-%20Ummar%20And%20The%20Society.mp3",
+      "srtFile": "Justice-Of-Umar7.srt",
+      "audioName": "07 - Ummar With His Family - Ummar And The Society.mp3"
+    },
+    {
+      "seriesID": "anwar-umar",
+      "chapterID": "aq-08",
+      "title": "Land Of Pharaoh#8",
+      "audioUrl": "https://archive.org/download/umar-ibn-al-khattab/08%20-%20Ummar%20R.A.%20And%20The%20Society.mp3",
+      "srtFile": "Land-Of-Pharaoh8.srt",
+      "audioName": "08 - Ummar R.A. And The Society.mp3"
+    },
+    {
+      "seriesID": "anwar-umar",
+      "chapterID": "aq-09",
+      "title": "His Nightly Patrols#9",
+      "audioUrl": "https://archive.org/download/umar-ibn-al-khattab/09%20-%20Enjoing%20Good%20And%20Forbidding%20Evil.mp3",
+      "srtFile": "His-Nightly-Patrols9.srt",
+      "audioName": "09 - Enjoing Good And Forbidding Evil.mp3"
+    },
+    {
+      "seriesID": "anwar-umar",
+      "chapterID": "aq-10",
+      "title": "Aam Er Ramadah#10",
+      "audioUrl": "https://archive.org/download/umar-ibn-al-khattab/10%20-%20The%20Nightly%20Patrols.mp3",
+      "srtFile": "Aam-Er-Ramadah10.srt",
+      "audioName": "10 - The Nightly Patrols.mp3"
+    },
+    {
+      "seriesID": "anwar-umar",
+      "chapterID": "aq-11",
+      "title": "Governers Of Umar#11",
+      "audioUrl": "https://archive.org/download/umar-ibn-al-khattab/11%20-%20The%20Famine%20-%20The%20Plague.mp3",
+      "srtFile": "Governers-Of-Umar11.srt",
+      "audioName": "11 - The Famine - The Plague.mp3"
+    },
+    {
+      "seriesID": "anwar-umar",
+      "chapterID": "aq-12",
+      "title": "Courts Of Umar#12",
+      "audioUrl": "https://archive.org/download/umar-ibn-al-khattab/12%20-%20Ummar%20With%20His%20Governors.mp3",
+      "srtFile": "Courts-Of-Umar12.srt",
+      "audioName": "12 - Ummar With His Governors.mp3"
+    },
+    {
+      "seriesID": "anwar-umar",
+      "chapterID": "aq-13",
+      "title": "Conquest Of Umar#13",
+      "audioUrl": "https://archive.org/download/umar-ibn-al-khattab/13%20-%20Ummar%20With%20His%20Army%20Generals.mp3",
+      "srtFile": "Conquest-Of-Umar13.srt",
+      "audioName": "13 - Ummar With His Army Generals.mp3"
+    },
+    {
+      "seriesID": "anwar-umar",
+      "chapterID": "aq-14",
+      "title": "The Muslim Army#14",
+      "audioUrl": "https://archive.org/download/umar-ibn-al-khattab/14%20-%20The%20Opening%20Of%20The%20Persian%20Empire.mp3",
+      "srtFile": "The-Muslim-Army14.srt",
+      "audioName": "14 - The Opening Of The Persian Empire.mp3"
+    },
+    {
+      "seriesID": "anwar-umar",
+      "chapterID": "aq-15",
+      "title": "Conquest Of Byzantine Empire #15",
+      "audioUrl": "https://archive.org/download/umar-ibn-al-khattab/15%20-%20The%20Opening%20Of%20The%20Persian%20Empire.mp3",
+      "srtFile": "Conquest-Of-Byzantine-Empire-15.srt",
+      "audioName": "15 - The Opening Of The Persian Empire.mp3"
+    },
+    {
+      "seriesID": "anwar-umar",
+      "chapterID": "aq-16",
+      "title": "Frontier lands#16",
+      "audioUrl": "https://archive.org/download/umar-ibn-al-khattab/16%20-%20The%20Roman%20Front.mp3",
+      "srtFile": "Frontier-lands16.srt",
+      "audioName": "16 - The Roman Front.mp3"
+    },
+    {
+      "seriesID": "anwar-umar",
+      "chapterID": "aq-17",
+      "title": "Last Days Of Umar# 17",
+      "audioUrl": "https://archive.org/download/umar-ibn-al-khattab/17%20-%20Comments%20-%20Dreams.mp3",
+      "srtFile": "Last-Days-Of-Umar-17.srt",
+      "audioName": "17 - Comments - Dreams.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-01",
+      "title": "#1. Introduction To Seerah Re Edited",
+      "audioUrl": "https://archive.org/download/No0oor16/01_-_Introduction.mp3",
+      "srtFile": "1.-Introduction-To-Seerah-Re-Edited.srt",
+      "audioName": "01_-_Introduction.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-02",
+      "title": "#2. Background History",
+      "audioUrl": "https://archive.org/download/No0oor16/02_-_Background_History.mp3",
+      "srtFile": "2.-Background-History.srt",
+      "audioName": "02_-_Background_History.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-03",
+      "title": "#3. The Religious Situation Of Pre Islamic Arabia",
+      "audioUrl": "https://archive.org/download/No0oor16/03_-_The_Religious_Situation_Of_Pre-Islamic_Arabia.mp3",
+      "srtFile": "3.-The-Religious-Situation-Of-Pre-Islamic-Arabia.srt",
+      "audioName": "03_-_The_Religious_Situation_Of_Pre-Islamic_Arabia.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-04",
+      "title": "#4. Early Life",
+      "audioUrl": "https://archive.org/download/No0oor16/04_-_Early_Life.mp3",
+      "srtFile": "4.-Early-Life.srt",
+      "audioName": "04_-_Early_Life.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-05",
+      "title": "#5. Important Events",
+      "audioUrl": "https://archive.org/download/No0oor16/05_-_Important_Events.mp3",
+      "srtFile": "5.-Important-Events.srt",
+      "audioName": "05_-_Important_Events.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-06",
+      "title": "#6. In Persuit Of The Truth",
+      "audioUrl": "https://archive.org/download/No0oor16/06_-_In_Pursuit_Of_The_Truth.mp3",
+      "srtFile": "6.-In-Persuit-Of-The-Truth.srt",
+      "audioName": "06_-_In_Pursuit_Of_The_Truth.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-07",
+      "title": "#7. The Glad Tidings",
+      "audioUrl": "https://archive.org/download/No0oor16/07_-_The_Glad_Tidings.mp3",
+      "srtFile": "7.-The-Glad-Tidings.srt",
+      "audioName": "07_-_The_Glad_Tidings.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-08",
+      "title": "#8. The Revelation",
+      "audioUrl": "https://archive.org/download/No0oor16/08_-_The_Revelation.mp3",
+      "srtFile": "8.-The-Revelation.srt",
+      "audioName": "08_-_The_Revelation.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-09",
+      "title": "#9. The Reaction Part 1",
+      "audioUrl": "https://archive.org/download/No0oor16/09_-_The_Reaction_Part_1.mp3",
+      "srtFile": "9.-The-Reaction-Part-1.srt",
+      "audioName": "09_-_The_Reaction_Part_1.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-10",
+      "title": "#10. The Reaction Part 2",
+      "audioUrl": "https://archive.org/download/No0oor16/10_-_The_Reaction_Part_2.mp3",
+      "srtFile": "10.-The-Reaction-Part-2.srt",
+      "audioName": "10_-_The_Reaction_Part_2.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-11",
+      "title": "# 11. The Early Emmigrants Part 1",
+      "audioUrl": "https://archive.org/download/No0oor16/11_-_The_Early_Immigrants_Part_1.mp3",
+      "srtFile": "11.-The-Early-Emmigrants-Part-1.srt",
+      "audioName": "11_-_The_Early_Immigrants_Part_1.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-12",
+      "title": "# 12. The Early Emmigrants Part 2",
+      "audioUrl": "https://archive.org/download/No0oor16/12_-_The_Early_Immigrants_Part_2.mp3",
+      "srtFile": "12.-The-Early-Emmigrants-Part-2.srt",
+      "audioName": "12_-_The_Early_Immigrants_Part_2.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-13",
+      "title": "#13. Major Events",
+      "audioUrl": "https://archive.org/download/No0oor16/13_-_Major_Events.mp3",
+      "srtFile": "13.-Major-Events.srt",
+      "audioName": "13_-_Major_Events.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-14",
+      "title": "#14. The Later Years Of Makkah",
+      "audioUrl": "https://archive.org/download/No0oor16/14_-_The_Later_Years_Of_Makkah.mp3",
+      "srtFile": "14.-The-Later-Years-Of-Makkah.srt",
+      "audioName": "14_-_The_Later_Years_Of_Makkah.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-15",
+      "title": "#15. In Search Of Base",
+      "audioUrl": "https://archive.org/download/No0oor16/15_-_In_Search_Of_A_Base.mp3",
+      "srtFile": "15.-In-Search-Of-Base.srt",
+      "audioName": "15_-_In_Search_Of_A_Base.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-16",
+      "title": "#16. The Road To Madina",
+      "audioUrl": "https://archive.org/download/No0oor16/16_-_The_Road_To_Madinah.mp3",
+      "srtFile": "16.-The-Road-To-Madina.srt",
+      "audioName": "16_-_The_Road_To_Madinah.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-17",
+      "title": "#17. Introduction & Hijrah",
+      "audioUrl": "https://archive.org/download/noo00r12/01_-_Introduction_and_Hijarah.mp3",
+      "srtFile": "17.-Introduction-Hijrah.srt",
+      "audioName": "01_-_Introduction_and_Hijarah.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-18",
+      "title": "#18. Establishment Of The State 1",
+      "audioUrl": "https://archive.org/download/noo00r12/02_-_Establishment_Of_The_State_1.mp3",
+      "srtFile": "18.-Establishment-Of-The-State-1.srt",
+      "audioName": "02_-_Establishment_Of_The_State_1.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-19",
+      "title": "#19. Establishment Of The State 2",
+      "audioUrl": "https://archive.org/download/noo00r12/03_-_Establishment_Of_The_State_2.mp3",
+      "srtFile": "19.-Establishment-Of-The-State-2.srt",
+      "audioName": "03_-_Establishment_Of_The_State_2.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-20",
+      "title": "#20. Establishment Of The State 3",
+      "audioUrl": "https://archive.org/download/noo00r12/04_-_Establishment_Of_The_State_3.mp3",
+      "srtFile": "20.-Establishment-Of-The-State-3.srt",
+      "audioName": "04_-_Establishment_Of_The_State_3.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-21",
+      "title": "#21. The Battle Of Badr Part 1",
+      "audioUrl": "https://archive.org/download/noo00r12/05_-_Battle_Of_Badr_1.mp3",
+      "srtFile": "21.-The-Battle-Of-Badr-Part-1.srt",
+      "audioName": "05_-_Battle_Of_Badr_1.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-22",
+      "title": "#22. The Battle Of Badr Part 2",
+      "audioUrl": "https://archive.org/download/noo00r12/06_-_Battle_Of_Badr_2.mp3",
+      "srtFile": "22.-The-Battle-Of-Badr-Part-2.srt",
+      "audioName": "06_-_Battle_Of_Badr_2.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-23",
+      "title": "#23. The Battle Of Badr Part 3",
+      "audioUrl": "https://archive.org/download/noo00r12/07_-_Battle_Of_Badr_3.mp3",
+      "srtFile": "23.-The-Battle-Of-Badr-Part-3.srt",
+      "audioName": "07_-_Battle_Of_Badr_3.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-24",
+      "title": "#24 Events Between Battle Of Badr And Uhud",
+      "audioUrl": "https://archive.org/download/noo00r12/08_-_Events_Between_Badr_and_Uhud.mp3",
+      "srtFile": "24-Events-Between-Battle-Of-Badr-And-Uhud.srt",
+      "audioName": "08_-_Events_Between_Badr_and_Uhud.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-25",
+      "title": "#25. The Battle Of Uhud Part 1",
+      "audioUrl": "https://archive.org/download/noo00r12/09_-_Battle_Of_Uhud_1.mp3",
+      "srtFile": "25.-The-Battle-Of-Uhud-Part-1.srt",
+      "audioName": "09_-_Battle_Of_Uhud_1.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-26",
+      "title": "#26. The Battle Of Uhud Part 2",
+      "audioUrl": "https://archive.org/download/noo00r12/10_-_Battle_Of_Uhud_2.mp3",
+      "srtFile": "26.-The-Battle-Of-Uhud-Part-2.srt",
+      "audioName": "10_-_Battle_Of_Uhud_2.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-27",
+      "title": "#27. The Battle Of Uhud Part 3",
+      "audioUrl": "https://archive.org/download/noo00r12/11_-_Battle_Of_Uhud_3.mp3",
+      "srtFile": "27.-The-Battle-Of-Uhud-Part-3.srt",
+      "audioName": "11_-_Battle_Of_Uhud_3.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-28",
+      "title": "# 28. The Battle Of Uhud Part 4",
+      "audioUrl": "https://archive.org/download/noo00r12/12_-_Battle_Of_Uhud_4.mp3",
+      "srtFile": "28.-The-Battle-Of-Uhud-Part-4.srt",
+      "audioName": "12_-_Battle_Of_Uhud_4.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-29",
+      "title": "#29. Battle Of Uhud Part 5",
+      "audioUrl": "https://archive.org/download/noo00r12/13_-_Battle_Of_Uhud_5.mp3",
+      "srtFile": "29.-Battle-Of-Uhud-Part-5.srt",
+      "audioName": "13_-_Battle_Of_Uhud_5.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-30",
+      "title": "#30. Events Between Battle Of Uhud And Khandaq",
+      "audioUrl": "https://archive.org/download/noo00r12/14_-_Events_Between_..._1.mp3",
+      "srtFile": "30.-Events-Between-Battle-Of-Uhud-And-Khandaq.srt",
+      "audioName": "14_-_Events_Between_..._1.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-31",
+      "title": "#31. Events B.W Uhud And Trench&Bannu Mustalaq",
+      "audioUrl": "https://archive.org/download/noo00r12/15_-_Events_Between_..._2.mp3",
+      "srtFile": "31.-Events-B.W-Uhud-And-TrenchBannu-Mustalaq.srt",
+      "audioName": "15_-_Events_Between_..._2.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-32",
+      "title": "#32. Bannu Mustalaq & T.B.O. Trench",
+      "audioUrl": "https://archive.org/download/noo00r12/16_-_Banu_Al-Mustalaq_-_Battle_Of_The_Trench.mp3",
+      "srtFile": "32.-Bannu-Mustalaq-T.B.O.-Trench.srt",
+      "audioName": "16_-_Banu_Al-Mustalaq_-_Battle_Of_The_Trench.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-33",
+      "title": "#33. The Battle Of The Trench 2",
+      "audioUrl": "https://archive.org/download/noo00r12/17_-_Battle_Of_The_Trench.mp3",
+      "srtFile": "33.-The-Battle-Of-The-Trench-2.srt",
+      "audioName": "17_-_Battle_Of_The_Trench.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-34",
+      "title": "#34. The Battle Of Bannu Quraidha",
+      "audioUrl": "https://archive.org/download/noo00r12/18_-_Banu_Quraydah.mp3",
+      "srtFile": "34.-The-Battle-Of-Bannu-Quraidha.srt",
+      "audioName": "18_-_Banu_Quraydah.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-35",
+      "title": "#35. Events Between Battle Of Trench & Hudaybiyyah",
+      "audioUrl": "https://archive.org/download/rasulsaw.medina2/Medina_Part2_01.mp3",
+      "srtFile": "35.-Events-Between-Battle-Of-Trench-Hudaybiyyah.srt",
+      "audioName": "Medina_Part2_01.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-36",
+      "title": "#36. Events Between Battle Of Trench & Hudaybiyyah",
+      "audioUrl": "https://archive.org/download/rasulsaw.medina2/Medina_Part2_02.mp3",
+      "srtFile": "36.-Events-Between-Battle-Of-Trench-Hudaybiyyah.srt",
+      "audioName": "Medina_Part2_02.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-37",
+      "title": "#37. Sulh Al Hudaybiyyah Part 1",
+      "audioUrl": "https://archive.org/download/rasulsaw.medina2/Medina_Part2_03.mp3",
+      "srtFile": "37.-Sulh-Al-Hudaybiyyah-Part-1.srt",
+      "audioName": "Medina_Part2_03.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-38",
+      "title": "#38. Sulh Al Hudaybiyyah Part 2",
+      "audioUrl": "https://archive.org/download/rasulsaw.medina2/Medina_Part2_04.mp3",
+      "srtFile": "38.-Sulh-Al-Hudaybiyyah-Part-2.srt",
+      "audioName": "Medina_Part2_04.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-39",
+      "title": "#39. The Battle Of Khaybar Part 1",
+      "audioUrl": "https://archive.org/download/rasulsaw.medina2/Medina_Part2_05.mp3",
+      "srtFile": "39.-The-Battle-Of-Khaybar-Part-1.srt",
+      "audioName": "Medina_Part2_05.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-40",
+      "title": "#40. The Battle Of Khaybar Part 2",
+      "audioUrl": "https://archive.org/download/rasulsaw.medina2/Medina_Part2_06.mp3",
+      "srtFile": "40.-The-Battle-Of-Khaybar-Part-2.srt",
+      "audioName": "Medina_Part2_06.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-41",
+      "title": "#41. The Islam Of Amr Bin Aas and Khalid (RA)",
+      "audioUrl": "https://archive.org/download/rasulsaw.medina2/Medina_Part2_07.mp3",
+      "srtFile": "41.-The-Islam-Of-Amr-Bin-Aas-and-Khalid-RA.srt",
+      "audioName": "Medina_Part2_07.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-42",
+      "title": "#42. Battle Of Maota & Letter to the Kings",
+      "audioUrl": "https://archive.org/download/rasulsaw.medina2/Medina_Part2_08.mp3",
+      "srtFile": "42.-Battle-Of-Maota-Letter-to-the-Kings.srt",
+      "audioName": "Medina_Part2_08.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-43",
+      "title": "#43. Fath e Makkah 1",
+      "audioUrl": "https://archive.org/download/rasulsaw.medina2/Medina_Part2_09.mp3",
+      "srtFile": "43.-Fath-e-Makkah-1.srt",
+      "audioName": "Medina_Part2_09.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-44",
+      "title": "#44. Fath e Makkah 2",
+      "audioUrl": "https://archive.org/download/rasulsaw.medina2/Medina_Part2_10.mp3",
+      "srtFile": "44.-Fath-e-Makkah-2.srt",
+      "audioName": "Medina_Part2_10.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-45",
+      "title": "#45. Fath e Makkah Part 3",
+      "audioUrl": "https://archive.org/download/rasulsaw.medina2/Medina_Part2_11.mp3",
+      "srtFile": "45.-Fath-e-Makkah-Part-3.srt",
+      "audioName": "Medina_Part2_11.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-46",
+      "title": "#46. The Battle Of Hawazin",
+      "audioUrl": "https://archive.org/download/rasulsaw.medina2/Medina_Part2_12.mp3",
+      "srtFile": "46.-The-Battle-Of-Hawazin.srt",
+      "audioName": "Medina_Part2_12.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-47",
+      "title": "#47. Event After Battle Of Hunain",
+      "audioUrl": "https://archive.org/download/rasulsaw.medina2/Medina_Part2_13.mp3",
+      "srtFile": "47.-Event-After-Battle-Of-Hunain.srt",
+      "audioName": "Medina_Part2_13.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-48",
+      "title": "#48. The Battle Of Tabook 1",
+      "audioUrl": "https://archive.org/download/rasulsaw.medina2/Medina_Part2_14.mp3",
+      "srtFile": "48.-The-Battle-Of-Tabook-1.srt",
+      "audioName": "Medina_Part2_14.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-49",
+      "title": "#49. Battle Of Tabook Part 2",
+      "audioUrl": "https://archive.org/download/rasulsaw.medina2/Medina_Part2_15.mp3",
+      "srtFile": "49.-Battle-Of-Tabook-Part-2.srt",
+      "audioName": "Medina_Part2_15.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-50",
+      "title": "#50. Hadith Of Ka’ab Ibn Malik",
+      "audioUrl": "https://archive.org/download/rasulsaw.medina2/Medina_Part2_16.mp3",
+      "srtFile": "50.-Hadith-Of-Kaab-Ibn-Malik.srt",
+      "audioName": "Medina_Part2_16.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-51",
+      "title": "#51. End Of Nifaq and The Delegations.",
+      "audioUrl": "https://archive.org/download/rasulsaw.medina2/Medina_Part2_17.mp3",
+      "srtFile": "51.-End-Of-Nifaq-and-The-Delegations.srt",
+      "audioName": "Medina_Part2_17.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-52",
+      "title": "#52. His Governors to Yemen & Farewell Hajj",
+      "audioUrl": "https://archive.org/download/rasulsaw.medina2/Medina_Part2_18.mp3",
+      "srtFile": "52.-His-Governors-to-Yemen-Farewell-Hajj.srt",
+      "audioName": "Medina_Part2_18.mp3"
+    },
+    {
+      "seriesID": "anwar-seerah",
+      "chapterID": "aq-53",
+      "title": "#53. The Last Days Of Rasool Ullah",
+      "audioUrl": "https://archive.org/download/rasulsaw.medina2/Medina_Part2_19.mp3",
+      "srtFile": "53.-The-Last-Days-Of-Rasool-Ullah.srt",
+      "audioName": "Medina_Part2_19.mp3"
+    },
+    {
+      "seriesID": "anwar-boj",
+      "chapterID": "aq-01",
+      "title": "BOJ.1 Arabic+English",
+      "audioUrl": "https://archive.org/download/TheBookOfJihad_201801/The_Book_Of_Jihad_01.mp3",
+      "srtFile": "BOJ.1-ArabicEnglish.srt",
+      "audioName": "The_Book_Of_Jihad_01.mp3"
+    },
+    {
+      "seriesID": "anwar-boj",
+      "chapterID": "aq-02",
+      "title": "BOJ.2",
+      "audioUrl": "https://archive.org/download/TheBookOfJihad_201801/The_Book_Of_Jihad_02.mp3",
+      "srtFile": "BOJ.2.srt",
+      "audioName": "The_Book_Of_Jihad_02.mp3"
+    },
+    {
+      "seriesID": "anwar-boj",
+      "chapterID": "aq-03",
+      "title": "BOJ.3",
+      "audioUrl": "https://archive.org/download/TheBookOfJihad_201801/The_Book_Of_Jihad_03.mp3",
+      "srtFile": "BOJ.3.srt",
+      "audioName": "The_Book_Of_Jihad_03.mp3"
+    },
+    {
+      "seriesID": "anwar-boj",
+      "chapterID": "aq-04",
+      "title": "BOJ.4",
+      "audioUrl": "https://archive.org/download/TheBookOfJihad_201801/The_Book_Of_Jihad_04.mp3",
+      "srtFile": "BOJ.4.srt",
+      "audioName": "The_Book_Of_Jihad_04.mp3"
+    },
+    {
+      "seriesID": "anwar-boj",
+      "chapterID": "aq-05",
+      "title": "BOJ.5",
+      "audioUrl": "https://archive.org/download/TheBookOfJihad_201801/The_Book_Of_Jihad_05.mp3",
+      "srtFile": "BOJ.5.srt",
+      "audioName": "The_Book_Of_Jihad_05.mp3"
+    },
+    {
+      "seriesID": "anwar-boj",
+      "chapterID": "aq-06",
+      "title": "BOJ.6",
+      "audioUrl": "https://archive.org/download/TheBookOfJihad_201801/The_Book_Of_Jihad_06.mp3",
+      "srtFile": "BOJ.6.srt",
+      "audioName": "The_Book_Of_Jihad_06.mp3"
+    },
+    {
+      "seriesID": "anwar-boj",
+      "chapterID": "aq-07",
+      "title": "BOJ.7",
+      "audioUrl": "https://archive.org/download/TheBookOfJihad_201801/The_Book_Of_Jihad_07.mp3",
+      "srtFile": "BOJ.7.srt",
+      "audioName": "The_Book_Of_Jihad_07.mp3"
+    },
+    {
+      "seriesID": "anwar-boj",
+      "chapterID": "aq-08",
+      "title": "BOJ.8",
+      "audioUrl": "https://archive.org/download/TheBookOfJihad_201801/The_Book_Of_Jihad_08.mp3",
+      "srtFile": "BOJ.8.srt",
+      "audioName": "The_Book_Of_Jihad_08.mp3"
+    },
+    {
+      "seriesID": "anwar-boj",
+      "chapterID": "aq-09",
+      "title": "BOJ.9",
+      "audioUrl": "https://archive.org/download/TheBookOfJihad_201801/The_Book_Of_Jihad_09.mp3",
+      "srtFile": "BOJ.9.srt",
+      "audioName": "The_Book_Of_Jihad_09.mp3"
+    },
+    {
+      "seriesID": "anwar-boj",
+      "chapterID": "aq-10",
+      "title": "BOJ.10",
+      "audioUrl": "https://archive.org/download/TheBookOfJihad_201801/The_Book_Of_Jihad_10.mp3",
+      "srtFile": "BOJ.10.srt",
+      "audioName": "The_Book_Of_Jihad_10.mp3"
+    },
+    {
+      "seriesID": "anwar-boj",
+      "chapterID": "aq-11",
+      "title": "BOJ.11",
+      "audioUrl": "https://archive.org/download/TheBookOfJihad_201801/The_Book_Of_Jihad_11.mp3",
+      "srtFile": "BOJ.11.srt",
+      "audioName": "The_Book_Of_Jihad_11.mp3"
+    },
+    {
+      "seriesID": "anwar-boj",
+      "chapterID": "aq-12",
+      "title": "Dust Will Not Settle Down",
+      "audioUrl": "https://archive.org/download/DustDwn/Dust.mp3",
+      "srtFile": "Dust-Will-Not-Settle-Down-1.srt",
+      "audioName": "Dust.mp3"
+    }
+  ]
+}
