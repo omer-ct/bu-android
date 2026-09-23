@@ -16,7 +16,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.PostAdd
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.outlined.Share
+import androidx.compose.material.icons.outlined.Translate
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -34,7 +34,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.codefixr.beummati.data.Ayah
@@ -53,7 +52,8 @@ import com.codefixr.beummati.ui.NoteDialog
 import com.codefixr.beummati.ui.Routes
 import com.codefixr.beummati.ui.RtlText
 import com.codefixr.beummati.ui.ScreenScaffold
-import com.codefixr.beummati.ui.shareText
+import com.codefixr.beummati.ui.ShareCard
+import com.codefixr.beummati.ui.ShareMenuButton
 
 @Composable
 fun QuranListScreen(onOpenSurah: (Int) -> Unit) {
@@ -127,12 +127,13 @@ private fun NumberBadge(n: Int) {
 
 @Composable
 fun SurahScreen(number: Int, onBack: () -> Unit) {
-    val context = LocalContext.current
     var reload by remember { mutableIntStateOf(0) }
     var state by remember { mutableStateOf<LoadState<SurahDetail>>(LoadState.Loading) }
     var showTafsir by remember { mutableStateOf(false) }
     var tafsir by remember { mutableStateOf<LoadState<Map<Int, String>>?>(null) }
     var noteFor by remember { mutableStateOf<Ayah?>(null) }
+    // Words are fetched one ayah at a time, so expansion is opt-in per ayah.
+    var expandedWords by remember(number) { mutableStateOf(emptySet<String>()) }
 
     LaunchedEffect(number, reload) {
         state = LoadState.Loading
@@ -186,13 +187,23 @@ fun SurahScreen(number: Int, onBack: () -> Unit) {
                             ayah = ayah,
                             surahName = detail.surah.englishName.ifBlank { "Surah $number" },
                             tafsir = if (showTafsir) tafsirMap[ayah.numberInSurah] else null,
+                            showWords = ayah.key in expandedWords,
                             onNote = { noteFor = ayah },
-                            onShare = {
-                                shareText(context, "${ayah.arabic}\n\n${ayah.english}\n\n— Qur’an ${ayah.key}")
+                            onToggleWords = {
+                                expandedWords = if (ayah.key in expandedWords) {
+                                    expandedWords - ayah.key
+                                } else {
+                                    expandedWords + ayah.key
+                                }
                             }
                         )
                     }
-                    item { MutedText("Arabic: Uthmani · English: Saheeh International · via alquran.cloud") }
+                    item {
+                        MutedText(
+                            "Arabic: Uthmani · English: Saheeh International · via alquran.cloud · " +
+                                "word by word via quran.com"
+                        )
+                    }
                 }
             }
         }
@@ -216,14 +227,33 @@ private fun AyahCard(
     ayah: Ayah,
     surahName: String,
     tafsir: String?,
+    showWords: Boolean,
     onNote: () -> Unit,
-    onShare: () -> Unit
+    onToggleWords: () -> Unit
 ) {
     Column(Modifier.fillMaxWidth()) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             NumberBadge(ayah.numberInSurah)
             Box(Modifier.weight(1f))
-            IconButton(onClick = onShare) { Icon(Icons.Outlined.Share, contentDescription = "Share") }
+            IconButton(onClick = onToggleWords) {
+                Icon(
+                    Icons.Outlined.Translate,
+                    contentDescription = if (showWords) "Hide word by word" else "Word by word",
+                    tint = if (showWords) {
+                        MaterialTheme.colorScheme.primary
+                    } else {
+                        MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
+                    }
+                )
+            }
+            ShareMenuButton {
+                ShareCard(
+                    kind = "Qur’an",
+                    reference = ayah.key,
+                    arabic = ayah.arabic,
+                    english = ayah.english
+                )
+            }
             IconButton(onClick = onNote) { Icon(Icons.Outlined.PostAdd, contentDescription = "Add note") }
             BookmarkButton(
                 id = "ayah:${ayah.key}",
@@ -240,6 +270,9 @@ private fun AyahCard(
         }
         RtlText(ayah.arabic, fontSize = 24, modifier = Modifier.padding(vertical = 6.dp))
         Text(ayah.english, style = MaterialTheme.typography.bodyMedium)
+        if (showWords) {
+            WordByWordPanel(ayah.key, Modifier.padding(top = 10.dp))
+        }
         if (!tafsir.isNullOrBlank()) {
             Surface(
                 color = MaterialTheme.colorScheme.primary.copy(alpha = 0.06f),

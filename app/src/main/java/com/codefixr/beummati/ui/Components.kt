@@ -18,10 +18,13 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.outlined.BookmarkBorder
+import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -41,6 +44,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -262,4 +266,35 @@ fun shareText(context: Context, text: String) {
         putExtra(Intent.EXTRA_TEXT, text)
     }
     context.startActivity(Intent.createChooser(send, "Share"))
+}
+
+/**
+ * Share action offering the plain-text card or a rendered image of it. [card] is built lazily so
+ * callers can capture whatever is on screen at the moment of the tap.
+ */
+@Composable
+fun ShareMenuButton(card: () -> ShareCard) {
+    val context = LocalContext.current
+    var open by remember { mutableStateOf(false) }
+    Box {
+        IconButton(onClick = { open = true }) {
+            Icon(Icons.Outlined.Share, contentDescription = "Share")
+        }
+        DropdownMenu(expanded = open, onDismissRequest = { open = false }) {
+            DropdownMenuItem(
+                text = { Text("Share text") },
+                onClick = {
+                    open = false
+                    shareCard(context, card())
+                }
+            )
+            DropdownMenuItem(
+                text = { Text("Share as image") },
+                onClick = {
+                    open = false
+                    shareCardImage(context, card())
+                }
+            )
+        }
+    }
 }

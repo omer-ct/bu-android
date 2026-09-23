@@ -2,6 +2,14 @@
 
 package com.codefixr.beummati.ui.settings
 
+import android.Manifest
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
+import android.os.Build
+import android.provider.Settings
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -11,7 +19,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilterChip
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
@@ -21,14 +32,24 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.codefixr.beummati.data.AppAppearance
 import com.codefixr.beummati.data.Catalogs
+import com.codefixr.beummati.data.PrayerNotifications
+import com.codefixr.beummati.data.SalahName
 import com.codefixr.beummati.data.SettingsStore
 import com.codefixr.beummati.ui.ContentCard
 import com.codefixr.beummati.ui.MutedText
@@ -41,6 +62,7 @@ private const val SAMPLE_ARABIC = "بِسْمِ اللَّهِ الرَّحْم�
 
 @Composable
 fun SettingsScreen(onBack: () -> Unit) {
+    val context = LocalContext.current
     val appearance by SettingsStore.appearance.collectAsState()
     val arabicSize by SettingsStore.arabicFontSize.collectAsState()
     val showUrdu by SettingsStore.showUrdu.collectAsState()
@@ -52,6 +74,9 @@ fun SettingsScreen(onBack: () -> Unit) {
             contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
+            item { SectionHeader("Prayer notifications") }
+            item { PrayerNotificationCard(context) }
+
             item { SectionHeader("Theme") }
             item {
                 ContentCard {
@@ -123,6 +148,105 @@ fun SettingsScreen(onBack: () -> Unit) {
     }
 }
 
+/**
+ * Master switch, per-prayer switches and the heads-up window. Enabling asks for
+ * POST_NOTIFICATIONS first; [PrayerNotifications] arms the alarms from the cached day.
+ */
+@Composable
+private fun PrayerNotificationCard(context: Context) {
+    val enabled by PrayerNotifications.enabled.collectAsState()
+    val prayers by PrayerNotifications.prayers.collectAsState()
+    val preMinutes by PrayerNotifications.preMinutes.collectAsState()
+    // Notification and exact-alarm grants change outside the app, so re-read them on resume.
+    var permissionTick by remember { mutableIntStateOf(0) }
+    val lifecycleOwner = LocalLifecycleOwner.current
+    DisposableEffect(lifecycleOwner) {
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_RESUME) permissionTick++
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+        onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
+    }
+    val status = remember(enabled, permissionTick) { PrayerNotifications.statusText(context) }
+    val canScheduleExact = remember(permissionTick) { PrayerNotifications.canScheduleExact(context) }
+
+    val requestNotifications = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { granted ->
+        permissionTick++
+        PrayerNotifications.setEnabled(context, granted)
+    }
+
+    ContentCard {
+        ToggleRow(
+            title = "Notify me at prayer times",
+            subtitle = status,
+            checked = enabled,
+            onChange = { wanted ->
+                if (wanted && !PrayerNotifications.hasNotificationPermission(context)) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        requestNotifications.launch(Manifest.permission.POST_NOTIFICATIONS)
+                    } else {
+                        openAppNotificationSettings(context)
+                    }
+                } else {
+                    PrayerNotifications.setEnabled(context, wanted)
+                }
+            }
+        )
+
+        if (enabled) {
+            SalahName.entries.forEach { name ->
+                ToggleRow(
+                    title = name.title,
+                    subtitle = "",
+                    checked = name in prayers,
+                    onChange = { PrayerNotifications.setPrayerEnabled(context, name, it) }
+                )
+            }
+
+            Text("Heads-up before each prayer", fontWeight = FontWeight.Medium, modifier = Modifier.padding(top = 8.dp))
+            LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.padding(top = 6.dp)) {
+                items(PrayerNotifications.PRE_MINUTE_OPTIONS) { minutes ->
+                    FilterChip(
+                        selected = minutes == preMinutes,
+                        onClick = { PrayerNotifications.setPreMinutes(context, minutes) },
+                        label = { Text(if (minutes == 0) "Off" else "$minutes min") }
+                    )
+                }
+            }
+
+            if (!canScheduleExact) {
+                MutedText(
+                    "Android is holding these to inexact alarms, so a ping can land a few minutes late.",
+                    Modifier.padding(top = 8.dp)
+                )
+                TextButton(onClick = {
+                    openExactAlarmSettings(context)
+                    permissionTick++
+                }) {
+                    Text("Allow exact alarms")
+                }
+            }
+        }
+    }
+}
+
+private fun openAppNotificationSettings(context: Context) {
+    val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
+        .putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)
+        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    runCatching { context.startActivity(intent) }
+}
+
+private fun openExactAlarmSettings(context: Context) {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) return
+    val intent = Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM)
+        .setData(Uri.fromParts("package", context.packageName, null))
+        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    runCatching { context.startActivity(intent) }
+}
+
 @Composable
 private fun ToggleRow(title: String, subtitle: String, checked: Boolean, onChange: (Boolean) -> Unit) {
     Row(
@@ -131,7 +255,7 @@ private fun ToggleRow(title: String, subtitle: String, checked: Boolean, onChang
     ) {
         Column(Modifier.weight(1f)) {
             Text(title, fontWeight = FontWeight.Medium)
-            MutedText(subtitle)
+            if (subtitle.isNotBlank()) MutedText(subtitle)
         }
         Switch(checked = checked, onCheckedChange = onChange)
     }

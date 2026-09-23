@@ -10,11 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material3.FilterChip
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,7 +20,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -37,13 +32,13 @@ import com.codefixr.beummati.ui.EmptyState
 import com.codefixr.beummati.ui.MutedText
 import com.codefixr.beummati.ui.RtlText
 import com.codefixr.beummati.ui.ScreenScaffold
-import com.codefixr.beummati.ui.shareText
+import com.codefixr.beummati.ui.ShareCard
+import com.codefixr.beummati.ui.ShareMenuButton
 
 private fun ScholarQuote.stableId(): String = "quote:$scholarId:${title.ifBlank { english.take(40) }.hashCode()}"
 
 @Composable
 fun ScholarsScreen() {
-    val context = LocalContext.current
     val quotes = remember { Catalogs.scholarQuotes }
     val scholars = remember { quotes.map { it.scholarId to it.author }.distinct() }
     val themes = remember { quotes.map { it.theme }.filter { it.isNotBlank() }.distinct().sorted() }
@@ -79,24 +74,29 @@ fun ScholarsScreen() {
             if (filtered.isEmpty()) {
                 item { EmptyState("No quotes", "Try a different scholar or theme.") }
             }
-            items(filtered, key = { it.stableId() }) { q ->
-                QuoteCard(q, onShare = {
-                    shareText(context, "“${q.english}”\n\n— ${q.author}${if (q.reference.isNotBlank()) ", ${q.reference}" else ""}")
-                })
-            }
+            items(filtered, key = { it.stableId() }) { q -> QuoteCard(q) }
         }
     }
 }
 
 @Composable
-private fun QuoteCard(quote: ScholarQuote, onShare: () -> Unit) {
+private fun QuoteCard(quote: ScholarQuote) {
     ContentCard(modifier = Modifier.padding(horizontal = 16.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Column(Modifier.weight(1f)) {
                 if (quote.title.isNotBlank()) Text(quote.title, fontWeight = FontWeight.SemiBold)
                 MutedText(listOf(quote.author, quote.theme).filter { it.isNotBlank() }.joinToString(" · "))
             }
-            IconButton(onClick = onShare) { Icon(Icons.Outlined.Share, contentDescription = "Share") }
+            ShareMenuButton {
+                ShareCard(
+                    title = quote.title.ifBlank { quote.author },
+                    kind = quote.author,
+                    reference = quote.reference,
+                    arabic = quote.arabic,
+                    english = if (quote.english.isBlank()) "" else "“${quote.english}”",
+                    urdu = quote.urdu
+                )
+            }
             val id = quote.stableId()
             BookmarkButton(
                 id = id,

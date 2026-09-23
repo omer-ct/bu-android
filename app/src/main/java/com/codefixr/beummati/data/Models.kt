@@ -236,6 +236,15 @@ data class PrayerDay(
     val obligatory: List<Pair<String, String>>
         get() = listOf("Fajr" to fajr, "Dhuhr" to dhuhr, "Asr" to asr, "Maghrib" to maghrib, "Isha" to isha)
 
+    /** Raw `HH:mm` for one obligatory prayer. */
+    fun time(name: SalahName): String = when (name) {
+        SalahName.FAJR -> fajr
+        SalahName.DHUHR -> dhuhr
+        SalahName.ASR -> asr
+        SalahName.MAGHRIB -> maghrib
+        SalahName.ISHA -> isha
+    }
+
     /** Everything worth showing on a day card, including sunrise. */
     val all: List<Pair<String, String>>
         get() = listOf(

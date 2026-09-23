@@ -32,7 +32,6 @@ import androidx.compose.material.icons.outlined.NightsStay
 import androidx.compose.material.icons.outlined.Refresh
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.Settings
-import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material.icons.outlined.Spa
 import androidx.compose.material.icons.outlined.WbSunny
 import androidx.compose.material3.AssistChip
@@ -64,6 +63,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.codefixr.beummati.data.Catalogs
 import com.codefixr.beummati.data.Destination
+import com.codefixr.beummati.data.LibraryProgressStore
 import com.codefixr.beummati.data.PrayerDay
 import com.codefixr.beummati.data.PrayerService
 import com.codefixr.beummati.data.ReminderItem
@@ -79,9 +79,10 @@ import com.codefixr.beummati.ui.Routes
 import com.codefixr.beummati.ui.RtlText
 import com.codefixr.beummati.ui.ScreenScaffold
 import com.codefixr.beummati.ui.SectionHeader
+import com.codefixr.beummati.ui.ShareCard
+import com.codefixr.beummati.ui.ShareMenuButton
 import com.codefixr.beummati.ui.Tab
 import com.codefixr.beummati.ui.routeFor
-import com.codefixr.beummati.ui.shareText
 import kotlinx.coroutines.delay
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -183,6 +184,7 @@ fun HomeScreen(navigate: (String) -> Unit, onSwitchTab: (Tab) -> Unit) {
 
             item {
                 val np = state.nowPlaying
+                val touched by LibraryProgressStore.lastChapter.collectAsState()
                 when {
                     np != null -> ContinueCard(
                         title = np.chapterTitle,
@@ -204,6 +206,24 @@ fun HomeScreen(navigate: (String) -> Unit, onSwitchTab: (Tab) -> Unit) {
                                 onOpen = {
                                     if (LecturePlayerSession.resumeLastSession()) navigate(Routes.PLAYER)
                                 }
+                            )
+                        }
+                    }
+                    // Nothing has played yet, but a series may have been read — pick up from there.
+                    touched.isNotEmpty() -> {
+                        val series = LibraryProgressStore.primarySeries()
+                        val chapter = series?.let { LibraryProgressStore.resumeChapter(it) }
+                        if (series != null && chapter != null) {
+                            val done = LibraryProgressStore.progressCount(series.id, series.chapters.size)
+                            val open = { navigate(Routes.chapter(series.id, chapter.id)) }
+                            ContinueCard(
+                                title = chapter.title,
+                                subtitle = "${series.title} · $done of ${series.chapters.size}",
+                                playing = false,
+                                label = "CONTINUE READING",
+                                icon = Icons.AutoMirrored.Outlined.MenuBook,
+                                onToggle = open,
+                                onOpen = open
                             )
                         }
                     }
@@ -444,7 +464,6 @@ private fun laneIcon(lane: ReminderLane): ImageVector = when (lane) {
 
 @Composable
 private fun ReminderLaneCard(lane: ReminderLane, onOpen: (Destination) -> Unit) {
-    val context = LocalContext.current
     val items by ReminderStore.items.collectAsState()
     val loading by ReminderStore.loading.collectAsState()
     val errors by ReminderStore.errors.collectAsState()
@@ -490,8 +509,15 @@ private fun ReminderLaneCard(lane: ReminderLane, onOpen: (Destination) -> Unit) 
                     Spacer(Modifier.width(8.dp))
                     TextButton(onClick = { ReminderStore.refresh(lane) }) { Text("Next") }
                     Box(Modifier.weight(1f))
-                    IconButton(onClick = { shareText(context, item.shareBody()) }) {
-                        Icon(Icons.Outlined.Share, contentDescription = "Share")
+                    ShareMenuButton {
+                        ShareCard(
+                            title = item.title,
+                            kind = lane.title,
+                            reference = item.ref,
+                            arabic = item.arabic,
+                            english = item.english,
+                            urdu = item.urdu
+                        )
                     }
                 }
             }
@@ -507,10 +533,12 @@ private fun ContinueCard(
     subtitle: String,
     playing: Boolean,
     onToggle: () -> Unit,
-    onOpen: () -> Unit
+    onOpen: () -> Unit,
+    label: String = "CONTINUE LISTENING",
+    icon: ImageVector? = null
 ) {
     ContentCard(onClick = onOpen) {
-        MutedText("CONTINUE LISTENING")
+        MutedText(label)
         Row(verticalAlignment = Alignment.CenterVertically) {
             Column(Modifier.weight(1f)) {
                 Text(title, fontWeight = FontWeight.SemiBold, maxLines = 2, overflow = TextOverflow.Ellipsis)
@@ -518,8 +546,8 @@ private fun ContinueCard(
             }
             IconButton(onClick = onToggle) {
                 Icon(
-                    if (playing) Icons.Filled.Pause else Icons.Filled.PlayArrow,
-                    contentDescription = if (playing) "Pause" else "Play",
+                    icon ?: if (playing) Icons.Filled.Pause else Icons.Filled.PlayArrow,
+                    contentDescription = if (icon != null) "Open" else if (playing) "Pause" else "Play",
                     tint = MaterialTheme.colorScheme.primary
                 )
             }

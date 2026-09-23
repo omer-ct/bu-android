@@ -15,7 +15,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.PostAdd
-import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -31,7 +30,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.codefixr.beummati.data.Bookmark
@@ -50,7 +48,8 @@ import com.codefixr.beummati.ui.NoteDialog
 import com.codefixr.beummati.ui.Routes
 import com.codefixr.beummati.ui.RtlText
 import com.codefixr.beummati.ui.ScreenScaffold
-import com.codefixr.beummati.ui.shareText
+import com.codefixr.beummati.ui.ShareCard
+import com.codefixr.beummati.ui.ShareMenuButton
 
 @Composable
 fun HadithBooksScreen(onOpenBook: (String) -> Unit) {
@@ -136,7 +135,6 @@ fun HadithChaptersScreen(slug: String, onBack: () -> Unit, onOpenChapter: (Int) 
 
 @Composable
 fun HadithChapterScreen(slug: String, index: Int, onBack: () -> Unit) {
-    val context = LocalContext.current
     val book = remember(slug) { Catalogs.hadithBook(slug) }
     val chapter = remember(book, index) { book?.chapters?.firstOrNull { it.index == index } }
     var reload by remember { mutableIntStateOf(0) }
@@ -168,10 +166,7 @@ fun HadithChapterScreen(slug: String, index: Int, onBack: () -> Unit) {
                                 item = h,
                                 bookName = bookName,
                                 route = Routes.hadithChapter(slug, index),
-                                onNote = { noteFor = h },
-                                onShare = {
-                                    shareText(context, listOf(h.arabic, h.english).filter { it.isNotBlank() }.joinToString("\n\n") + "\n\n— $bookName ${h.number}")
-                                }
+                                onNote = { noteFor = h }
                             )
                         }
                     }
@@ -198,14 +193,21 @@ private fun HadithCard(
     item: HadithItem,
     bookName: String,
     route: String,
-    onNote: () -> Unit,
-    onShare: () -> Unit
+    onNote: () -> Unit
 ) {
     ContentCard {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text("$bookName ${item.number}", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary)
             Box(Modifier.weight(1f))
-            IconButton(onClick = onShare) { Icon(Icons.Outlined.Share, contentDescription = "Share") }
+            ShareMenuButton {
+                ShareCard(
+                    kind = "Hadith",
+                    reference = "$bookName ${item.number}",
+                    arabic = item.arabic,
+                    english = item.english,
+                    urdu = item.urdu
+                )
+            }
             IconButton(onClick = onNote) { Icon(Icons.Outlined.PostAdd, contentDescription = "Add note") }
             val id = "hadith:${item.book}:${item.number}"
             BookmarkButton(

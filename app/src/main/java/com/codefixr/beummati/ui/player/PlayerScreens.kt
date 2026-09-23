@@ -82,6 +82,8 @@ import com.codefixr.beummati.player.formatTime
 import com.codefixr.beummati.ui.MutedText
 import com.codefixr.beummati.ui.NoteDialog
 import com.codefixr.beummati.ui.SectionHeader
+import com.codefixr.beummati.ui.ShareCard
+import com.codefixr.beummati.ui.ShareMenuButton
 import kotlinx.coroutines.delay
 import kotlin.math.max
 
@@ -183,6 +185,17 @@ fun LecturePlayerScreen(onBack: () -> Unit) {
                     IconButton(onClick = onBack) { Icon(Icons.Filled.KeyboardArrowDown, contentDescription = "Minimise") }
                 },
                 actions = {
+                    ShareMenuButton {
+                        val line = cue?.text.orEmpty()
+                        val rtl = line.isNotBlank() && SrtCueParser.isPrimarilyRtl(line)
+                        ShareCard(
+                            title = np.chapterTitle,
+                            kind = np.seriesTitle,
+                            reference = formatTime(progress.position),
+                            arabic = if (rtl) line else "",
+                            english = if (rtl) "" else line
+                        )
+                    }
                     IconButton(onClick = { noteDraft = LecturePlayerSession.momentSnapshot() }) {
                         Icon(Icons.Outlined.PostAdd, contentDescription = "Save moment as note")
                     }

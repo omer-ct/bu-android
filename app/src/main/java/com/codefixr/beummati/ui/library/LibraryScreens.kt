@@ -23,20 +23,23 @@ import androidx.compose.material.icons.filled.Headphones
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.PlayCircleFilled
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material.icons.outlined.Description
 import androidx.compose.material.icons.outlined.AutoStories
 import androidx.compose.material.icons.outlined.PostAdd
 import androidx.compose.material.icons.outlined.Groups
-import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material3.Button
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -45,7 +48,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -53,6 +55,7 @@ import com.codefixr.beummati.data.Bookmark
 import com.codefixr.beummati.data.Catalogs
 import com.codefixr.beummati.data.Dua
 import com.codefixr.beummati.data.LibraryChapter
+import com.codefixr.beummati.data.LibraryProgressStore
 import com.codefixr.beummati.data.LibrarySeries
 import com.codefixr.beummati.data.SahabaStory
 import com.codefixr.beummati.data.SavedStore
@@ -68,7 +71,8 @@ import com.codefixr.beummati.ui.Routes
 import com.codefixr.beummati.ui.RtlText
 import com.codefixr.beummati.ui.ScreenScaffold
 import com.codefixr.beummati.ui.SectionHeader
-import com.codefixr.beummati.ui.shareText
+import com.codefixr.beummati.ui.ShareCard
+import com.codefixr.beummati.ui.ShareMenuButton
 
 private const val KIND_SAHABA = "sahaba"
 private const val KIND_TAFSIR = "quranTafsir"
@@ -153,7 +157,8 @@ private fun SeriesCard(series: LibrarySeries, icon: ImageVector, onClick: () -> 
 @Composable
 fun SeriesScreen(seriesId: String, onBack: () -> Unit, navigate: (String) -> Unit) {
     val found = remember(seriesId) { Catalogs.series(seriesId) }
-    val completed by LecturePlayerSession.completed.collectAsState()
+    val completedBySeries by LibraryProgressStore.completed.collectAsState()
+    val completed = completedBySeries[seriesId].orEmpty()
     val playerState by LecturePlayerSession.state.collectAsState()
 
     ScreenScaffold(
@@ -181,7 +186,6 @@ fun SeriesScreen(seriesId: String, onBack: () -> Unit, navigate: (String) -> Uni
             return@ScreenScaffold
         }
         val series: LibrarySeries = found
-        val hasAudio = series.id in Catalogs.audioSeriesIds
         val grouped = remember(series) { series.chapters.groupBy { it.volumeTitle } }
 
         fun openChapter(ch: LibraryChapter) {
@@ -198,21 +202,36 @@ fun SeriesScreen(seriesId: String, onBack: () -> Unit, navigate: (String) -> Uni
             item {
                 Column(Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
                     series.subtitle?.let { MutedText(it) }
-                    if (hasAudio) {
-                        val done = series.chapters.count { "${series.id}/${it.id}" in completed }
+                    if (series.chapters.isNotEmpty()) {
+                        val total = series.chapters.size
+                        val reached = LibraryProgressStore.progressCount(series.id, total)
                         Text(
-                            "$done of ${series.chapters.size} completed",
+                            "$reached of $total · ${completed.size} completed",
                             style = MaterialTheme.typography.labelMedium,
                             modifier = Modifier.padding(top = 6.dp)
                         )
-                        val firstUnfinished = series.chapters.firstOrNull {
-                            "${series.id}/${it.id}" !in completed && Catalogs.hasAudio(series.id, it.id)
-                        } ?: series.chapters.firstOrNull { Catalogs.hasAudio(series.id, it.id) }
-                        if (firstUnfinished != null) {
-                            Button(onClick = { openChapter(firstUnfinished) }, modifier = Modifier.padding(top = 8.dp)) {
-                                Icon(Icons.Filled.PlayArrow, contentDescription = null)
+                        LinearProgressIndicator(
+                            progress = { reached.toFloat() / total },
+                            modifier = Modifier.fillMaxWidth().padding(top = 6.dp)
+                        )
+                        val resume = LibraryProgressStore.resumeChapter(series)
+                        if (resume != null) {
+                            val playable = Catalogs.hasAudio(series.id, resume.id)
+                            Button(onClick = { openChapter(resume) }, modifier = Modifier.padding(top = 8.dp)) {
+                                Icon(
+                                    if (playable) Icons.Filled.PlayArrow else Icons.AutoMirrored.Outlined.MenuBook,
+                                    contentDescription = null
+                                )
                                 Spacer(Modifier.width(6.dp))
-                                Text(if (done == 0) "Start series" else "Continue · ${firstUnfinished.title}", maxLines = 1, overflow = TextOverflow.Ellipsis)
+                                Text(
+                                    if (completed.isEmpty() && LibraryProgressStore.last(series.id) == null) {
+                                        "Start series"
+                                    } else {
+                                        "Continue · ${resume.title}"
+                                    },
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis
+                                )
                             }
                         }
                     }
@@ -229,7 +248,7 @@ fun SeriesScreen(seriesId: String, onBack: () -> Unit, navigate: (String) -> Uni
                     ChapterRow(
                         series = series,
                         chapter = ch,
-                        isCompleted = "${series.id}/${ch.id}" in completed,
+                        isCompleted = ch.id in completed,
                         isNowPlaying = nowPlaying,
                         onClick = { openChapter(ch) },
                         onRead = { navigate(Routes.chapter(series.id, ch.id)) }
@@ -306,12 +325,16 @@ private enum class ReadLang(val label: String) { ENGLISH("English"), URDU("Urdu"
 
 @Composable
 fun ChapterReaderScreen(seriesId: String, chapterId: String, onBack: () -> Unit, navigate: (String) -> Unit) {
-    val context = LocalContext.current
     val series = remember(seriesId) { Catalogs.series(seriesId) }
     val chapter = remember(seriesId, chapterId) { Catalogs.chapter(seriesId, chapterId) }
     val text = remember(seriesId, chapterId) { Catalogs.chapterText(seriesId, chapterId) }
     val track = remember(seriesId, chapterId) { Catalogs.track(seriesId, chapterId) }
     var showNote by remember { mutableStateOf(false) }
+    val completedBySeries by LibraryProgressStore.completed.collectAsState()
+    val isCompleted = completedBySeries[seriesId]?.contains(chapterId) == true
+
+    // Opening a chapter is what "continue reading" resumes to.
+    LaunchedEffect(seriesId, chapterId) { LibraryProgressStore.mark(seriesId, chapterId) }
 
     val available = remember(text) {
         buildList {
@@ -339,8 +362,16 @@ fun ChapterReaderScreen(seriesId: String, chapterId: String, onBack: () -> Unit,
         actions = {
             IconButton(onClick = { showNote = true }) { Icon(Icons.Outlined.PostAdd, contentDescription = "Add note") }
             if (body.isNotBlank()) {
-                IconButton(onClick = { shareText(context, "$title\n\n${body.take(1500)}") }) {
-                    Icon(Icons.Outlined.Share, contentDescription = "Share")
+                ShareMenuButton {
+                    // Readers can be book-length, so share the opening passage rather than the lot.
+                    ShareCard(
+                        title = title,
+                        kind = series?.title.orEmpty(),
+                        reference = text?.reference.orEmpty(),
+                        arabic = if (lang == ReadLang.ARABIC) body.take(900) else "",
+                        english = if (lang == ReadLang.ENGLISH) body.take(900) else "",
+                        urdu = if (lang == ReadLang.URDU) body.take(900) else ""
+                    )
                 }
             }
             BookmarkButton(
@@ -399,6 +430,20 @@ fun ChapterReaderScreen(seriesId: String, chapterId: String, onBack: () -> Unit,
             }
             text?.reference?.takeIf { it.isNotBlank() }?.let { ref ->
                 item { MutedText(ref, modifier = Modifier.padding(top = 8.dp)) }
+            }
+            item {
+                TextButton(
+                    onClick = { LibraryProgressStore.toggleCompleted(seriesId, chapterId) },
+                    modifier = Modifier.padding(top = 8.dp)
+                ) {
+                    Icon(
+                        if (isCompleted) Icons.Filled.CheckCircle else Icons.Outlined.CheckCircle,
+                        contentDescription = null,
+                        modifier = Modifier.size(18.dp)
+                    )
+                    Spacer(Modifier.width(6.dp))
+                    Text(if (isCompleted) "Marked complete" else "Mark chapter complete")
+                }
             }
         }
     }
@@ -557,7 +602,6 @@ fun DuasScreen(onBack: () -> Unit, navigate: (String) -> Unit) {
 @Composable
 fun DuaCategoryScreen(id: Int, onBack: () -> Unit) {
     val category = remember(id) { Catalogs.duaCategory(id) }
-    val context = LocalContext.current
     ScreenScaffold(title = category?.titleEn ?: "Duas", onBack = onBack) { padding ->
         if (category == null) {
             EmptyState("Not found", "Category $id", Modifier.padding(padding))
@@ -569,24 +613,29 @@ fun DuaCategoryScreen(id: Int, onBack: () -> Unit) {
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             if (category.titleAr.isNotBlank()) item { RtlText(category.titleAr, fontSize = 20) }
-            items(category.duas, key = { it.id }) { dua ->
-                DuaCard(dua, category.titleEn, onShare = {
-                    shareText(context, "${dua.arabic}\n\n${dua.transliteration}\n\n${dua.english}\n\n— ${dua.reference}")
-                })
-            }
+            items(category.duas, key = { it.id }) { dua -> DuaCard(dua, category.titleEn) }
         }
     }
 }
 
 @Composable
-private fun DuaCard(dua: Dua, categoryTitle: String, onShare: () -> Unit) {
+private fun DuaCard(dua: Dua, categoryTitle: String) {
     ContentCard {
         Row(verticalAlignment = Alignment.CenterVertically) {
             if (dua.count > 1) {
                 Text("×${dua.count}", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary)
             }
             Box(Modifier.weight(1f))
-            IconButton(onClick = onShare) { Icon(Icons.Outlined.Share, contentDescription = "Share") }
+            ShareMenuButton {
+                ShareCard(
+                    title = categoryTitle,
+                    kind = "Dua",
+                    reference = dua.reference,
+                    arabic = dua.arabic,
+                    transliteration = dua.transliteration,
+                    english = dua.english
+                )
+            }
             BookmarkButton(
                 id = "dua:${dua.id}",
                 bookmark = {

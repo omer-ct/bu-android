@@ -78,18 +78,20 @@ object PrayerService {
 
     /** Loads today's times. Does nothing when they are already cached, unless [force]. */
     fun refresh(context: Context, force: Boolean = false) {
+        init(context)
         if (refreshJob?.isActive == true) return
         if (!force && _day.value?.date == todayKey()) return
         val app = context.applicationContext
         refreshJob = scope.launch {
             val coords = locate(app)
             _status.value = if (coords.isFallback) "Using Dubai times" else "Updating prayer times…"
-            load(coords)
+            load(app, coords)
         }
     }
 
     /** Resolves the device position, falling back to Dubai. Also used by the Qibla compass. */
     suspend fun locate(context: Context): Coordinates {
+        init(context)
         val app = context.applicationContext
         val location = if (hasLocationPermission(app)) currentLocation(app) else null
         val coords = if (location != null) {
@@ -131,7 +133,7 @@ object PrayerService {
             }
     }
 
-    private suspend fun load(coords: Coordinates) {
+    private suspend fun load(context: Context, coords: Coordinates) {
         val today = todayKey()
         val url = "https://api.aladhan.com/v1/timings" +
             "?latitude=${coords.latitude}&longitude=${coords.longitude}&method=4"
@@ -151,6 +153,7 @@ object PrayerService {
         _day.value = parsed
         persist(KEY_DAY, parsed)
         _status.value = if (coords.isFallback) "Dubai · default location" else "Updated for your location"
+        PrayerNotifications.reschedule(context, parsed)
     }
 
     private fun parse(raw: String, coords: Coordinates, today: String): PrayerDay? = runCatching {

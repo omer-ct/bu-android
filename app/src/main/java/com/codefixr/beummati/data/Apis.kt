@@ -15,6 +15,7 @@ import kotlinx.serialization.json.jsonPrimitive
 import java.io.IOException
 import java.net.HttpURLConnection
 import java.net.URL
+import java.util.concurrent.ConcurrentHashMap
 
 object Http {
     private const val MAX_REDIRECTS = 8
@@ -67,6 +68,10 @@ object Http {
             withContext(Dispatchers.IO) { Catalogs.readCache(cacheKey) } ?: throw e
         }
     }
+
+    /** Disk first, network only when nothing is cached. For payloads that never change. */
+    suspend fun getCacheFirst(url: String, cacheKey: String): String =
+        withContext(Dispatchers.IO) { Catalogs.readCache(cacheKey) } ?: getCached(url, cacheKey)
 }
 
 fun cleanHtml(raw: String): String =
@@ -137,9 +142,13 @@ object QuranApi {
         }
     }
 
-    /** Word-by-word Arabic with English gloss from quran.com, keyed by `surah:ayah`. */
+    /**
+     * Word-by-word Arabic with English gloss from quran.com, keyed by `surah:ayah`.
+     * Words never change, so a cached ayah is read straight off disk and works offline.
+     */
     suspend fun words(key: String): List<QuranWord> {
-        val text = Http.getCached(
+        wordCache[key]?.let { return it }
+        val text = Http.getCacheFirst(
             "https://api.quran.com/api/v4/verses/by_key/$key" +
                 "?language=en&words=true&word_fields=text_uthmani,translation,transliteration",
             "quran_words_${key.replace(':', '_')}.json"
@@ -160,8 +169,11 @@ object QuranApi {
                     transliteration = word["transliteration"].objectOrNull()?.get("text")?.stringOrEmpty().orEmpty()
                 )
             }
-        }
+        }.also { wordCache[key] = it }
     }
+
+    /** Ayahs already expanded this session, so collapsing and reopening is instant. */
+    private val wordCache = ConcurrentHashMap<String, List<QuranWord>>()
 
     private fun JsonObject.editionId(): String =
         this["edition"]?.jsonObject?.get("identifier")?.stringOrEmpty().orEmpty()

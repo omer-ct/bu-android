@@ -24,6 +24,7 @@ import com.codefixr.beummati.data.Catalogs
 import com.codefixr.beummati.data.Http
 import com.codefixr.beummati.data.LectureAudioTrack
 import com.codefixr.beummati.data.LibraryChapter
+import com.codefixr.beummati.data.LibraryProgressStore
 import com.codefixr.beummati.data.LibrarySeries
 import com.google.common.util.concurrent.ListenableFuture
 import kotlinx.coroutines.CoroutineScope
@@ -157,6 +158,7 @@ object LecturePlayerSession {
         if (::appContext.isInitialized) return
         appContext = context.applicationContext
         Catalogs.init(appContext)
+        LibraryProgressStore.init(appContext)
         prefs = appContext.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
         _completed.value = prefs.getStringSet(KEY_COMPLETED, emptySet()).orEmpty().toSet()
         _started.value = prefs.getStringSet(KEY_STARTED, emptySet()).orEmpty().toSet()
@@ -721,11 +723,13 @@ object LecturePlayerSession {
     private fun markStarted(seriesId: String, chapterId: String) {
         _started.update { it + key(seriesId, chapterId) }
         prefs.edit().putStringSet(KEY_STARTED, _started.value).apply()
+        LibraryProgressStore.mark(seriesId, chapterId)
     }
 
     private fun markCompleted(seriesId: String, chapterId: String) {
         _completed.update { it + key(seriesId, chapterId) }
         prefs.edit().putStringSet(KEY_COMPLETED, _completed.value).apply()
+        LibraryProgressStore.markCompleted(seriesId, chapterId)
     }
 
     private fun persistLastSession() {
