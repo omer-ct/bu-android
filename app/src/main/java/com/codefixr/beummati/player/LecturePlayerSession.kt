@@ -26,6 +26,7 @@ import com.codefixr.beummati.data.LectureAudioTrack
 import com.codefixr.beummati.data.LibraryChapter
 import com.codefixr.beummati.data.LibraryProgressStore
 import com.codefixr.beummati.data.LibrarySeries
+import com.codefixr.beummati.data.SettingsStore
 import com.google.common.util.concurrent.ListenableFuture
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -168,7 +169,7 @@ object LecturePlayerSession {
             ?: SubtitleLang.ENGLISH
         _state.update {
             it.copy(
-                rate = prefs.getFloat(KEY_RATE, 1.0f),
+                rate = prefs.getFloat(KEY_RATE, SettingsStore.defaultRate.value),
                 subtitleLang = savedLang,
                 streakDays = currentStreak()
             )

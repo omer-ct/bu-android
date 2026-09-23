@@ -10,7 +10,10 @@ import android.os.Build
 import android.provider.Settings
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -18,12 +21,16 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
@@ -40,6 +47,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -48,14 +56,19 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.codefixr.beummati.data.AppAppearance
 import com.codefixr.beummati.data.Catalogs
+import com.codefixr.beummati.data.PlayerSkin
 import com.codefixr.beummati.data.PrayerNotifications
 import com.codefixr.beummati.data.SalahName
 import com.codefixr.beummati.data.SettingsStore
+import com.codefixr.beummati.data.ShareTemplate
+import com.codefixr.beummati.player.LecturePlayerSession
 import com.codefixr.beummati.ui.ContentCard
 import com.codefixr.beummati.ui.MutedText
 import com.codefixr.beummati.ui.RtlText
 import com.codefixr.beummati.ui.ScreenScaffold
 import com.codefixr.beummati.ui.SectionHeader
+import com.codefixr.beummati.ui.ShareTemplateTile
+import com.codefixr.beummati.ui.player.skinColors
 import kotlin.math.roundToInt
 
 private const val SAMPLE_ARABIC = "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ"
@@ -67,6 +80,9 @@ fun SettingsScreen(onBack: () -> Unit) {
     val arabicSize by SettingsStore.arabicFontSize.collectAsState()
     val showUrdu by SettingsStore.showUrdu.collectAsState()
     val showTransliteration by SettingsStore.showTransliteration.collectAsState()
+    val playerSkin by SettingsStore.playerSkin.collectAsState()
+    val shareTemplate by SettingsStore.shareTemplate.collectAsState()
+    val defaultRate by SettingsStore.defaultRate.collectAsState()
 
     ScreenScaffold(title = "Settings", onBack = onBack) { padding ->
         LazyColumn(
@@ -74,10 +90,7 @@ fun SettingsScreen(onBack: () -> Unit) {
             contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            item { SectionHeader("Prayer notifications") }
-            item { PrayerNotificationCard(context) }
-
-            item { SectionHeader("Theme") }
+            item { SectionHeader("Appearance") }
             item {
                 ContentCard {
                     SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth()) {
@@ -93,6 +106,63 @@ fun SettingsScreen(onBack: () -> Unit) {
                     MutedText("Light and dark keep the same parchment and brass palette.", Modifier.padding(top = 8.dp))
                 }
             }
+
+            item { SectionHeader("Player skin") }
+            item {
+                ContentCard {
+                    MutedText("The lecture player and the mini bar keep this palette whatever the app theme is.")
+                    PlayerSkin.entries.forEach { skin ->
+                        PlayerSkinRow(
+                            skin = skin,
+                            selected = skin == playerSkin,
+                            onClick = { SettingsStore.setPlayerSkin(skin) }
+                        )
+                    }
+                }
+            }
+
+            item { SectionHeader("Playback") }
+            item {
+                ContentCard {
+                    Text("Default speed", fontWeight = FontWeight.Medium)
+                    MutedText("Applied now and to lectures you open later")
+                    LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.padding(top = 8.dp)) {
+                        items(SettingsStore.RATE_OPTIONS) { rate ->
+                            FilterChip(
+                                selected = rate == defaultRate,
+                                onClick = {
+                                    SettingsStore.setDefaultRate(rate)
+                                    LecturePlayerSession.setRate(rate)
+                                },
+                                label = { Text(formatRate(rate)) }
+                            )
+                        }
+                    }
+                }
+            }
+
+            item { SectionHeader("Share design") }
+            item {
+                ContentCard {
+                    Text(shareTemplate.label, fontWeight = FontWeight.Medium)
+                    MutedText("Used when you share a card as an image. You can still pick a one-off design from any share menu.")
+                    LazyRow(
+                        horizontalArrangement = Arrangement.spacedBy(10.dp),
+                        modifier = Modifier.padding(top = 10.dp)
+                    ) {
+                        items(ShareTemplate.entries, key = { it.name }) { template ->
+                            ShareTemplateTile(
+                                template = template,
+                                selected = template == shareTemplate,
+                                onClick = { SettingsStore.setShareTemplate(template) }
+                            )
+                        }
+                    }
+                }
+            }
+
+            item { SectionHeader("Prayer notifications") }
+            item { PrayerNotificationCard(context) }
 
             item { SectionHeader("Reading") }
             item {
@@ -144,9 +214,54 @@ fun SettingsScreen(onBack: () -> Unit) {
                     MutedText(Catalogs.hisnAlMuslim.source.orEmpty())
                 }
             }
+
+            item { SectionHeader("About") }
+            item {
+                val version = remember(context) {
+                    runCatching {
+                        context.packageManager.getPackageInfo(context.packageName, 0).versionName
+                    }.getOrNull().orEmpty()
+                }
+                ContentCard {
+                    Text("Be Ummati", fontWeight = FontWeight.Medium)
+                    MutedText("Version $version")
+                    MutedText("Soldier of Allah · @beummati", Modifier.padding(top = 4.dp))
+                }
+            }
         }
     }
 }
+
+@Composable
+private fun PlayerSkinRow(skin: PlayerSkin, selected: Boolean, onClick: () -> Unit) {
+    val colors = skinColors(skin)
+    Row(
+        Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(12.dp))
+            .clickable(onClick = onClick)
+            .padding(vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Box(
+            Modifier
+                .size(width = 56.dp, height = 40.dp)
+                .clip(RoundedCornerShape(8.dp))
+                .background(colors.background),
+            contentAlignment = Alignment.Center
+        ) {
+            Box(Modifier.size(16.dp).clip(CircleShape).background(colors.accent))
+        }
+        Column(Modifier.weight(1f).padding(start = 12.dp)) {
+            Text(skin.label, fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium)
+            MutedText(skin.blurb)
+        }
+        RadioButton(selected = selected, onClick = onClick)
+    }
+}
+
+private fun formatRate(rate: Float): String =
+    (if (rate == rate.toInt().toFloat()) rate.toInt().toString() else rate.toString().trimEnd('0')) + "×"
 
 /**
  * Master switch, per-prayer switches and the heads-up window. Enabling asks for

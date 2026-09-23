@@ -269,13 +269,15 @@ fun shareText(context: Context, text: String) {
 }
 
 /**
- * Share action offering the plain-text card or a rendered image of it. [card] is built lazily so
- * callers can capture whatever is on screen at the moment of the tap.
+ * Share action offering the plain-text card, a rendered image in the saved design, or the design
+ * picker. [card] is built lazily so callers capture whatever is on screen at the moment of the tap.
  */
 @Composable
 fun ShareMenuButton(card: () -> ShareCard) {
     val context = LocalContext.current
+    val template by SettingsStore.shareTemplate.collectAsState()
     var open by remember { mutableStateOf(false) }
+    var picking by remember { mutableStateOf<ShareCard?>(null) }
     Box {
         IconButton(onClick = { open = true }) {
             Icon(Icons.Outlined.Share, contentDescription = "Share")
@@ -289,12 +291,22 @@ fun ShareMenuButton(card: () -> ShareCard) {
                 }
             )
             DropdownMenuItem(
-                text = { Text("Share as image") },
+                text = { Text("Share as ${template.label}") },
                 onClick = {
                     open = false
-                    shareCardImage(context, card())
+                    shareCardImage(context, card(), template)
+                }
+            )
+            DropdownMenuItem(
+                text = { Text("Choose a design…") },
+                onClick = {
+                    open = false
+                    picking = card()
                 }
             )
         }
+    }
+    picking?.let { pending ->
+        ShareTemplateSheet(card = pending, onDismiss = { picking = null })
     }
 }
