@@ -1,0 +1,3552 @@
+﻿1
+00:00:01,071 --> 00:00:06,143
+Your source of Islamic literature presents, the Lives of Prophets Part One.
+
+2
+00:00:06,730 --> 00:00:13,787
+In Part One Imam Anwar Al-Awlaki will cover the lives of Adam عليه السّلام though Younas عليه السّلام.
+
+3
+00:00:15,556 --> 00:00:20,620
+أعوذ بالله من الشيطان الرجيم ۞
+
+4
+00:00:21,858 --> 00:00:26,798
+بِسمِ اللَّهِ الرَّحمٰنِ الرَّحيمِ۞
+
+5
+00:00:28,949 --> 00:00:33,679
+فَٱقْصُصِ ٱلْقَصَصَ لَعَلَّهُمْ يَتَفَكَّرُونَ۞
+
+6
+00:00:33,854 --> 00:00:38,562
+So relate the stories, perhaps they may reflect.
+
+7
+00:00:38,658 --> 00:00:43,764
+فَٱقْصُصِ ٱلْقَصَصَ لَعَلَّهُمْ يَتَفَكَّرُونَ۞
+
+8
+00:00:43,836 --> 00:00:48,510
+So relate the stories, perhaps they may reflect.
+
+9
+00:00:48,669 --> 00:00:55,862
+فَٱقْصُصِ ٱلْقَصَصَ لَعَلَّهُمْ يَتَفَكَّرُونَ۞
+
+10
+00:00:55,957 --> 00:01:00,592
+So relate the stories, perhaps they may reflect.
+
+11
+00:01:00,711 --> 00:01:01,409
+Adam(آدَم),
+
+12
+00:01:01,449 --> 00:01:02,259
+Sheeth(شيث‎),
+
+13
+00:01:02,330 --> 00:01:03,314
+Idrees(إدريس),
+
+14
+00:01:03,386 --> 00:01:04,203
+Noah(نوح),
+
+15
+00:01:04,298 --> 00:01:05,040
+Hud(هود),
+
+16
+00:01:05,140 --> 00:01:05,878
+Salih(صالح),
+
+17
+00:01:05,941 --> 00:01:06,970
+Ibrahim(اِبْراهِيْم),
+
+18
+00:01:07,050 --> 00:01:08,165
+Ismail(اِسْماعِيْل),
+
+19
+00:01:08,214 --> 00:01:09,235
+Is'haq(إسحَاقّ),
+
+20
+00:01:09,317 --> 00:01:10,088
+Lut(لوط),
+
+21
+00:01:10,128 --> 00:01:10,942
+Yaqoob(يعقوب),
+
+22
+00:01:10,982 --> 00:01:11,847
+Yusuf(يوسف),
+
+23
+00:01:12,118 --> 00:01:12,841
+Shoaib(شعيب),
+
+24
+00:01:12,896 --> 00:01:13,661
+Ayyub(ايوب),
+
+25
+00:01:13,872 --> 00:01:14,814
+Zul Kifl(ذوالكفل),
+
+26
+00:01:14,912 --> 00:01:15,686
+Musa(موسى),
+
+27
+00:01:15,781 --> 00:01:16,760
+Haroon(هارون),
+
+28
+00:01:16,900 --> 00:01:18,158
+Yusha Bin Noon(يوشع بن نون),
+
+29
+00:01:18,305 --> 00:01:19,219
+Al-Yasa(أليسع),
+
+30
+00:01:19,289 --> 00:01:20,285
+Ilyas(إلياس),
+
+31
+00:01:20,353 --> 00:01:21,126
+Daud(داؤد),
+
+32
+00:01:21,329 --> 00:01:22,342
+Sulaiman(سليمان),
+
+33
+00:01:22,432 --> 00:01:23,281
+Yunus(يونس),
+
+34
+00:01:23,345 --> 00:01:24,661
+Zakariya(زكريَّة),
+
+35
+00:01:24,811 --> 00:01:25,597
+Yahya(يحي),
+
+36
+00:01:25,732 --> 00:01:26,652
+Eesa(عيسى),
+
+37
+00:01:26,763 --> 00:01:34,218
+Muhammad صلى الله عليه وسلم وصلوات الله والسلام عليه اجمعين.
+
+38
+00:01:34,389 --> 00:01:41,248
+أو۟لَـٰٓئِكَ ٱلَّذِينَ هَدَى ٱللَّهُ ۖ فَبِهُدَىٰهُمُ ٱقْتَدِهْ
+
+39
+00:01:41,513 --> 00:01:45,791
+They are those, whom Allah has guided, so follow their guidance.
+
+40
+00:01:47,307 --> 00:01:49,265
+THE LIVES OF THE PROPHETS
+
+41
+00:01:50,396 --> 00:01:52,350
+أعوذ بالله من الشيطان الرجيم ۞
+
+42
+00:01:52,451 --> 00:01:54,232
+بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ۞
+
+43
+00:01:55,015 --> 00:01:59,055
+إن الحمد لله، نحمده ونستعينه ونستغفره ونستهديه،
+
+44
+00:01:59,719 --> 00:02:03,314
+ ونعوذ بالله من شرور أنفسنا ومن سيئات أعمالنا،
+
+45
+00:02:03,695 --> 00:02:07,560
+من يهده الله فلا مضل له ومن يضلل فلا هادي له،
+
+46
+00:02:07,624 --> 00:02:13,695
+وأشهد أن لا إله إلا الله وحده لا شريك له وأشهد أن محمداً عبده ورسوله،
+
+47
+00:02:13,814 --> 00:02:18,135
+وأدى الأمانة , ونصح الأمة , وجاهد في الله حق جهاده،
+
+48
+00:02:18,518 --> 00:02:19,586
+امَّا بعد
+
+49
+00:02:19,891 --> 00:02:22,992
+فانَّ اَصدق الحديث كتاب الله وخير الهدي،
+
+50
+00:02:23,270 --> 00:02:25,635
+ هدي محمدٍ صلى الله عليه وسلم
+
+51
+00:02:25,984 --> 00:02:29,258
+وشرَّ الأمورِ محدثاتُها وكلَّ محدثتٍ بدعةٍ ،
+
+52
+00:02:29,290 --> 00:02:32,766
+وكل بدعة ضلالةٌ ، وكلَّ ضلالةٍ في النارِ
+
+53
+00:02:33,091 --> 00:03:04,944
+نَحْنُ نَقُصُّ عَلَيْكَ أَحْسَنَ ٱلْقَصَصِ بِمَآ أَوْحَيْنَآ إِلَيْكَ هَـٰذَا ٱلْقُرْءَانَ وَإِن كُنتَ مِن قَبْلِهِۦ لَمِنَ ٱلْغَـٰفِلِينَ۞
+
+54
+00:03:06,412 --> 00:03:07,862
+Allah سبحانه وتعالى ‎says;
+
+55
+00:03:08,238 --> 00:03:16,273
+We relate unto you, O Muhammad(محمد), the best of stories through Our revelations unto you of this Qur'an,
+
+56
+00:03:16,583 --> 00:03:20,131
+and before this, you were among those who weren’t aware of it.
+
+57
+00:03:20,892 --> 00:03:22,123
+It is from Allah.
+
+58
+00:03:23,464 --> 00:03:28,767
+Allah سبحانه وتعالى is the One, Who is revealing this to Muhammad ﷺ and to this Ummah(أمة‎).
+
+59
+00:03:29,513 --> 00:03:31,601
+نَحْنُ نَقُصُّ عَلَيْكَ أَحْسَنَ ٱلْقَصَصِ
+
+60
+00:03:31,641 --> 00:03:34,899
+ Allah سبحانه وتعالى says: We relate unto you the best of stories.
+
+61
+00:03:35,451 --> 00:03:39,356
+These are the best of stories because they are dealing with the best of creation.
+
+62
+00:03:40,967 --> 00:03:45,137
+Some of the benefits of talking about the Ambiyaa(أنبِيَاء);
+
+63
+00:03:45,214 --> 00:03:46,097
+Number 1;
+
+64
+00:03:46,801 --> 00:03:49,896
+Because Rasool Allah ﷺ was commanded to do so.
+
+65
+00:03:51,428 --> 00:03:52,531
+Allah سبحانه وتعالى says;
+
+66
+00:03:52,587 --> 00:03:54,031
+فَٱقْصُصِ ٱلْقَصَصَ
+
+67
+00:03:54,968 --> 00:03:57,158
+Relate unto them the stories.
+
+68
+00:03:57,857 --> 00:04:01,203
+It's a command from Allah سبحانه وتعالى given to Rasool Allah ﷺ
+
+69
+00:04:01,891 --> 00:04:08,915
+Allah سبحانه وتعالى is commanding him that, you must narrate these stories unto the Ummah(امة).
+
+70
+00:04:10,534 --> 00:04:13,518
+So, it becomes a duty upon us to relate these stories.
+
+71
+00:04:13,923 --> 00:04:20,147
+It becomes mandatory on us to convey the message of the Ambiyaa(أنبِيَاء) of Allah سبحانه وتعالى and their stories.
+
+72
+00:04:20,972 --> 00:04:26,492
+So number 1, we are doing this as a Ibadah(عبادة) of Allah سبحانه وتعالى, to fulfill a commandment of Allah.
+
+73
+00:04:27,440 --> 00:04:28,511
+Number 2;
+
+74
+00:04:29,463 --> 00:04:30,632
+لَعَلَّهُمْ يَتَفَكَّرُونَ۝
+
+75
+00:04:30,797 --> 00:04:36,002
+فَٱقْصُصِ ٱلْقَصَصَ لَعَلَّهُمْ يَتَفَكَّرُونَ۝
+
+76
+00:04:36,367 --> 00:04:38,503
+Relate and convey to them the stories.
+
+77
+00:04:38,543 --> 00:04:39,264
+Why?
+
+78
+00:04:40,010 --> 00:04:41,276
+So that they may reflect.
+
+79
+00:04:42,272 --> 00:04:43,730
+لَعَلَّهُمْ يَتَفَكَّرُونَ۝
+
+80
+00:04:43,916 --> 00:04:45,408
+ So they may contemplate.
+
+81
+00:04:46,289 --> 00:04:47,225
+Al-Tafakkur(التفكر)
+
+82
+00:04:47,765 --> 00:04:50,606
+these stories are not to entertain us.
+
+83
+00:04:51,092 --> 00:04:53,992
+These stories are for us to derive lessons, and reflect,
+
+84
+00:04:54,450 --> 00:04:58,974
+and to contemplate, and to think about, to deeply reflect on them,
+
+85
+00:04:59,109 --> 00:05:00,616
+ that is what we need to do.
+
+86
+00:05:02,194 --> 00:05:03,292
+Number 3;
+
+87
+00:05:04,212 --> 00:05:10,730
+Another reason why it's extremely important to study the stories of the Ambiyaa(أنبِيَاء) of Allah سبحانه وتعالى.
+
+88
+00:05:10,920 --> 00:05:12,373
+Allah سبحانه وتعالى says:
+
+89
+00:05:12,643 --> 00:05:20,881
+أُوْلَـٰئِكَ ٱلَّذِينَ هَدَى ٱللَّهُ فَبِهُدَاهُمُ ٱقْتَدِهْ
+
+90
+00:05:21,349 --> 00:05:25,659
+They are those, whom Allah has guided, so follow their guidance.
+
+91
+00:05:26,992 --> 00:05:28,594
+They are the ones who are guided,
+
+92
+00:05:29,427 --> 00:05:35,330
+and Allah سبحانه وتعالى is instructing Rasool Allah ﷺ to follow them, to follow their guidance,
+
+93
+00:05:36,092 --> 00:05:37,727
+because they are the best.
+
+94
+00:05:38,068 --> 00:05:39,126
+We need to have role models.
+
+95
+00:05:39,219 --> 00:05:44,485
+It is very important for the human being to have models, especially in the early stages of our life.
+
+96
+00:05:45,271 --> 00:05:49,263
+You find that every human being has role models
+
+97
+00:05:49,909 --> 00:05:51,718
+if they are not good, they're gonna be bad.
+
+98
+00:05:52,877 --> 00:05:56,081
+That is our make-up as human beings;
+
+99
+00:05:56,369 --> 00:06:00,182
+we must have some role models, we must have some people whom we look up to.
+
+100
+00:06:01,349 --> 00:06:08,694
+If we’re not going to provide our children and our youth with the role models of the Ambiyaa(أنبِيَاء)
+
+101
+00:06:09,083 --> 00:06:13,098
+and the role models of Rasool Allah ﷺ and the role models of the Sahabah(صحابه),
+
+102
+00:06:13,186 --> 00:06:17,923
+they’re gonna find role models somewhere else, because human beings cannot live without role models.
+
+103
+00:06:20,479 --> 00:06:26,555
+And Allah سبحانه وتعالى is telling Muhammad ﷺ that he must follow the way of the Ambiyaa(أنبِيَاء) of Allah سبحانه وتعالى.
+
+104
+00:06:26,809 --> 00:06:30,651
+If this instruction was given to Rasool Allah ﷺ, then what should we do?
+
+105
+00:06:32,062 --> 00:06:33,742
+فَبِهُدَىٰهُمُ ٱقْتَدِهْ
+
+106
+00:06:34,157 --> 00:06:37,329
+Allah سبحانه وتعالى is commanding Rasool Allah ﷺ to follow their way.
+
+107
+00:06:38,353 --> 00:06:41,609
+So we need to study the lives of the Ambiyaa(أنبِيَاء) of Allah سبحانه وتعالى
+
+108
+00:06:41,649 --> 00:06:43,702
+so that they can become our role models.
+
+109
+00:06:45,246 --> 00:06:46,375
+Number 4;
+
+110
+00:06:47,557 --> 00:06:48,542
+TO LOVE THEM.
+
+111
+00:06:49,285 --> 00:06:50,235
+Al-Mahabbah(المحبة).
+
+112
+00:06:51,786 --> 00:06:54,091
+If you do not know someone, you cannot love him.
+
+113
+00:06:55,798 --> 00:06:58,449
+We all claim that we love the Ambiyaa(أنبِيَاء) of Allah.
+
+114
+00:07:00,330 --> 00:07:02,543
+But if we don't know the details of their life,
+
+115
+00:07:03,710 --> 00:07:06,710
+we don't know what they went through,
+
+116
+00:07:07,487 --> 00:07:11,289
+how could we have respect for them?
+
+117
+00:07:11,844 --> 00:07:15,067
+Abu Dharr(أبوذر) came to Rasool Allah ﷺ and asked him a question.
+
+118
+00:07:15,471 --> 00:07:17,331
+قال كم عدة الأنبياء؟
+
+119
+00:07:18,177 --> 00:07:19,915
+What is the total number of Ambiyaa(أنبِيَاء)?
+
+120
+00:07:22,218 --> 00:07:23,920
+Rasool Allah ﷺ said;
+
+121
+00:07:24,571 --> 00:07:32,351
+مائة وعشرون ألفا الرسل من ذلك ثلاثمائة وخمسة عشر جما غفيرا
+
+122
+00:07:33,629 --> 00:07:35,018
+Rasool Allah ﷺ said;
+
+123
+00:07:35,224 --> 00:07:36,962
+What is the number of the Ambiyaa(أنبِيَاء)?
+
+124
+00:07:37,621 --> 00:07:43,460
+120,000 and the messengers among them are 315.
+
+125
+00:07:44,888 --> 00:07:48,358
+So the Ambiyaa(أنبِيَاء) of Allah سبحانه وتعالى are 120,000
+
+126
+00:07:49,810 --> 00:07:53,588
+and the messengers, Al-Rusul(الرسل), are 315.
+
+127
+00:07:55,068 --> 00:08:00,231
+I’m translating Nabi(نبي) as “Prophet” and Rasool(رسول) as “Messenger”.
+
+128
+00:08:01,160 --> 00:08:05,353
+So there are two different things, Nabi(نبي) and Rasool(رسول);
+
+129
+00:08:06,710 --> 00:08:09,616
+Nabi (نبي), the plural of it is Ambiyaa(أنبِيَاء),
+
+130
+00:08:10,155 --> 00:08:12,704
+Rasool(رسول), the plural of it is Rusul(رسل).
+
+131
+00:08:13,553 --> 00:08:15,950
+So what is the difference between the Nabi(نبي) and the Rasool(رسول)?
+
+132
+00:08:15,990 --> 00:08:19,387
+What is the difference between the Prophet and the Messenger?
+
+133
+00:08:19,775 --> 00:08:21,813
+There are a few opinions of the Ulema(علماء‎) in this;
+
+134
+00:08:22,043 --> 00:08:29,051
+one of them is that the Rasool(رسول) is the Nabi(نبي) who is given a law.
+
+135
+00:08:31,795 --> 00:08:35,414
+The Rasool(رسول) is a Nabi(نبي) who is given a law,
+
+136
+00:08:36,779 --> 00:08:42,821
+but the Nabi(نبي) who is not a Rasool(رسول) is following the law of another Rasool(رسول).
+
+137
+00:08:43,400 --> 00:08:47,684
+So every Rasool(رسول) is a Nabi(نبي), but not every Nabi(نبي) is a Rasool(رسول).
+
+138
+00:08:47,915 --> 00:08:53,359
+Every Prophet is not a Messenger, but every Messenger is a Prophet.
+
+139
+00:08:53,732 --> 00:08:58,131
+If a Prophet is given a new law, then he becomes a Rasool(رسول) and a Nabi(نبي).
+
+140
+00:08:59,234 --> 00:09:03,449
+If he’s not given a new law, then he is a Nabi(نبي) - only a Prophet.
+
+141
+00:09:03,862 --> 00:09:09,687
+An example of that to make it little bit clearer Musa(موسی) is a Rasool(رسول).
+
+142
+00:09:10,760 --> 00:09:12,277
+Musa(موسی) is a Rasool(رسول).
+
+143
+00:09:12,362 --> 00:09:12,815
+Why?
+
+144
+00:09:12,855 --> 00:09:14,906
+Because he was given the Tawrah(توراة‎).
+
+145
+00:09:15,331 --> 00:09:18,285
+But Harun(هارون) is not a Rasool(رسول),
+
+146
+00:09:18,373 --> 00:09:20,563
+ Harun(هارون) is a Nabi(نبي).
+
+147
+00:09:20,873 --> 00:09:21,778
+Why?
+
+148
+00:09:22,309 --> 00:09:25,040
+Because he is following the law of his brother.
+
+149
+00:09:25,858 --> 00:09:28,588
+Harun(هارون) is following the law of Musa(موسی).
+
+150
+00:09:29,390 --> 00:09:34,219
+This is one difference that the Ulema(علماء‎) gave to between Nabi(نبي) and Rasool(رسول).
+
+151
+00:09:35,280 --> 00:09:42,523
+But before we start talking about Adam(آدم‎), let's look at the story of creation.
+
+152
+00:09:43,849 --> 00:09:52,165
+Rasool Allah ﷺ was asked this question by a group who came from Yemen,
+
+153
+00:09:52,721 --> 00:09:54,499
+and this is narrated in Bukhari(بخاری‎).
+
+154
+00:09:54,864 --> 00:09:57,050
+They came to Rasool Allah ﷺ and they said;
+
+155
+00:09:57,229 --> 00:10:00,730
+يا رسول الله ما أول هذا الأمر؟
+
+156
+00:10:01,825 --> 00:10:04,230
+"O Rasool Ullah, how did all of this start?"
+
+157
+00:10:05,476 --> 00:10:08,216
+They wanna know how this all came into existence.
+
+158
+00:10:09,422 --> 00:10:11,192
+فقال صلى الله عليه وسلم
+
+159
+00:10:11,668 --> 00:10:17,834
+كَانَ اللَّهُ ولم يكن معه شيء، وفي رواية: ولم يكن قبله شيء،
+
+160
+00:10:18,627 --> 00:10:21,818
+Rasool Allah ﷺ said: "In the beginning, there was Allah,
+
+161
+00:10:22,485 --> 00:10:26,638
+There was nothing before Him," another narration. "Nothing was with Him."
+
+162
+00:10:28,035 --> 00:10:29,956
+وكان عرشه على الماء
+
+163
+00:10:30,241 --> 00:10:32,262
+ "And His throne was on water."
+
+164
+00:10:32,952 --> 00:10:35,111
+وكتب في الذكر كل شىء،
+
+165
+00:10:35,318 --> 00:10:37,556
+ "And He wrote in the tablet everything."
+
+166
+00:10:37,802 --> 00:10:39,800
+وخلق السموات والأرض
+
+167
+00:10:40,079 --> 00:10:43,075
+ "And He created the heavens and the earth."
+
+168
+00:10:44,186 --> 00:10:45,043
+Again;
+
+169
+00:10:45,964 --> 00:10:51,894
+عن عمران بن حصين قال أهل اليمن لرسول الله صلى الله عليه وسلم
+
+170
+00:10:52,227 --> 00:10:57,206
+جئناك لنتفقه في الدين ولنسألك عن أول هذا الأمر
+
+171
+00:10:57,706 --> 00:11:03,074
+فقال كان اللَّه ولم يكن شىء قبله،
+
+172
+00:11:03,240 --> 00:11:08,896
+وكان عرشه على الماء، وكتب في الذكر كل شىء، وخلق السموات والأرض
+
+173
+00:11:10,364 --> 00:11:13,607
+Narrated by Al-Bukhari(البخاري‎), Imran bin Husain(عمران بن حصين) said;
+
+174
+00:11:13,797 --> 00:11:17,131
+People from Yemen came to Rasool Allah ﷺ and said;
+
+175
+00:11:17,472 --> 00:11:23,769
+We have came to you to learn our religion and to ask you, "How did all of this start?"
+
+176
+00:11:24,658 --> 00:11:26,214
+Rasool Allah ﷺ said;
+
+177
+00:11:26,412 --> 00:11:31,481
+There was Allah and nothing before Him, and His throne was on water,
+
+178
+00:11:31,648 --> 00:11:35,949
+and He wrote everything in the tablet, and He created the heavens and earth.
+
+179
+00:11:37,338 --> 00:11:39,028
+Rasool Allah ﷺ says;
+
+180
+00:11:39,139 --> 00:11:41,774
+إن أول ما خلق الله القلم،
+
+181
+00:11:41,933 --> 00:11:48,376
+ ثم قال له: اكتب، فجرى في تلك الساعة بما هو كائن إلى يوم الساعة
+
+182
+00:11:48,885 --> 00:11:53,750
+ Rasool Allah ﷺ says: The first thing Allah created was the Pen,
+
+183
+00:11:54,266 --> 00:12:00,620
+then Allah ordered it to write so it wrote everything that will happen until the Day of Judgment.
+
+184
+00:12:02,056 --> 00:12:03,405
+We worry about rizq(رزق),
+
+185
+00:12:04,157 --> 00:12:08,072
+we worry about our rizq(رزق).
+
+186
+00:12:08,241 --> 00:12:11,202
+Rizq(رزق) is sustenance, what Allah will provide us.
+
+187
+00:12:11,495 --> 00:12:13,503
+We worry about our wealth,
+
+188
+00:12:14,051 --> 00:12:19,382
+we’re always thinking about tomorrow, we are Rizq-o-Phobic.
+
+189
+00:12:19,541 --> 00:12:23,517
+We have a problem of paranoia of Rizq(رزق).
+
+190
+00:12:24,572 --> 00:12:26,282
+خلق الإنسان هلوعا
+
+191
+00:12:26,669 --> 00:12:30,878
+We’re always in a state of despair when it comes to wealth.
+
+192
+00:12:31,394 --> 00:12:36,813
+We’re always thinking about, “How will we make it in the future?”
+
+193
+00:12:37,183 --> 00:12:39,619
+worried and terrified and paranoid.
+
+194
+00:12:40,611 --> 00:12:41,889
+Well listen to this.
+
+195
+00:12:42,206 --> 00:12:45,541
+Rasool Allah ﷺ says in a Hadith(حديث) narrated by Muslim(ألمسلم).
+
+196
+00:12:45,716 --> 00:12:52,486
+كتب اللَّه مقادير الخلائق قبل أن يخلق السموات والأرض بخمسين ألف سنة
+
+197
+00:12:52,914 --> 00:12:55,757
+Rasool Allah ﷺ says in the Hadith(حديث) narrated by Muslim(ألمسلم);
+
+198
+00:12:55,964 --> 00:13:03,174
+Allah wrote down the sustenance of the creation 50,000 years before He created the heavens and the earth.
+
+199
+00:13:04,762 --> 00:13:10,417
+Everything that you will get is already written down, not 50,000 years before this day,
+
+200
+00:13:10,981 --> 00:13:14,465
+but 50,000 years before the heavens and the earth were created.
+
+201
+00:13:14,830 --> 00:13:19,621
+It's a done deal, what you will get is already written down.
+
+202
+00:13:21,065 --> 00:13:23,192
+Are you still going to be very concerned about it?
+
+203
+00:13:23,930 --> 00:13:25,283
+Rasool Allah ﷺ says;
+
+204
+00:13:25,394 --> 00:13:30,926
+خلقت الملائكة من نور وخلق الجان من مارج من نار
+
+205
+00:13:31,466 --> 00:13:40,385
+Rasool Allah ﷺ says: The angels were created from light and the Jin(جن) were created from fire.
+
+206
+00:13:41,608 --> 00:13:45,592
+So these are two other creations beside the human being which we know about.
+
+207
+00:13:45,656 --> 00:13:51,577
+The angels, whom were created from light, and the Jin(جن‎), they were created from fire.
+
+208
+00:13:53,092 --> 00:13:55,526
+Iblees(إبليس) was from Al-Jinn(الجن),
+
+209
+00:13:56,089 --> 00:13:58,999
+but because he was so righteous,
+
+210
+00:13:59,523 --> 00:14:04,950
+he was included with the angels and elevated to a very high level among the angels,
+
+211
+00:14:05,632 --> 00:14:07,759
+even though he was from Al-Jinn(الجن).
+
+212
+00:14:09,363 --> 00:14:13,005
+Adam(آدم‎) was created from dirt.
+
+213
+00:14:14,083 --> 00:14:15,798
+Allah سبحانه وتعالى says;
+
+214
+00:14:17,251 --> 00:14:27,257
+وَإِذْ قَالَ رَبُّكَ لِلْمَلَـٰئِكَةِ إِنِّى جَاعِلٌ فِى ٱلْأَرْضِ خَلِيفَةً
+
+215
+00:14:27,868 --> 00:14:29,566
+ Allah سبحانه وتعالى says;
+
+216
+00:14:30,654 --> 00:14:33,535
+And remember when your Lord said to the angels;
+
+217
+00:14:33,638 --> 00:14:38,219
+“Verily, I am going to place mankind generations after generations on Earth.”
+
+218
+00:14:39,481 --> 00:14:40,989
+Allah سبحانه وتعالى says;
+
+219
+00:14:41,362 --> 00:14:44,084
+إِنِّى جَاعِلٌ فِى ٱلْأَرْضِ خَلِيفَةً
+
+220
+00:14:44,815 --> 00:14:49,470
+Allah is telling the angels; I will place on Earth a Khalifah(خليفه).
+
+221
+00:14:50,343 --> 00:14:51,589
+What does “Khalifah(خليفة)” mean?
+
+222
+00:14:52,755 --> 00:14:55,260
+ “Khalifah(خليفة)” comes from the word “khalaf(خلف)”,
+
+223
+00:14:57,038 --> 00:15:04,489
+and khalaf(خلف) means to succeed someone else or to assume the position of someone else.
+
+224
+00:15:05,648 --> 00:15:07,656
+These are the meanings of the word khalaf(خلف).
+
+225
+00:15:08,894 --> 00:15:11,071
+Allah سبحانه وتعالى, for example, says in Qur’an;
+
+226
+00:15:11,508 --> 00:15:18,912
+فَخَلَفَ مِنۢ بَعْدِهِمْ خَلْفٌ أَضَاعُوا۟ ٱلصَّلَوٰةَ وَٱتَّبَعُوا۟ ٱلشَّهَوَٰتِ ۖ فَسَوْفَ يَلْقَوْنَ غَيًّا۞
+
+227
+00:15:19,125 --> 00:15:27,395
+A generation followed them, who lost prayer and followed desires, so they will be misguided.
+
+228
+00:15:28,718 --> 00:15:32,409
+In this Ayah(آية), it means a generation that came after them,
+
+229
+00:15:33,814 --> 00:15:35,841
+and that is why we have salaf(سلف‎) and khalaf(خلف).
+
+230
+00:15:35,960 --> 00:15:38,080
+We say salaf(سلف‎) - who are the salaf(سلف‎)?
+
+231
+00:15:38,476 --> 00:15:40,627
+The salaf(سلف‎) are the early 3 generations.
+
+232
+00:15:40,913 --> 00:15:43,838
+Everyone who comes after them, we call them khalaf(خلف).
+
+233
+00:15:45,512 --> 00:15:52,085
+And then what was Abu Bakr(ابوبكر) called when he assumed responsibility after Rasool Allah ﷺ?
+
+234
+00:15:52,921 --> 00:15:54,595
+خليفة رسول الله
+
+235
+00:15:55,524 --> 00:15:56,860
+The Khalifah(خليفه) of Rasool Ullah.
+
+236
+00:15:56,900 --> 00:15:57,490
+Why?
+
+237
+00:15:57,627 --> 00:16:01,655
+Because he assumed responsibility after Rasool Allah ﷺ
+
+238
+00:16:01,758 --> 00:16:03,573
+and he came after Rasool Allah ﷺ.
+
+239
+00:16:03,597 --> 00:16:08,784
+So we see that, in this word, which was used in reference of Abu Bakr(ابوبكر), it has two meanings;
+
+240
+00:16:09,038 --> 00:16:13,990
+first meaning is that he's assuming the responsibility of leading the Ummah(امة) after Rasool Allah ﷺ,
+
+241
+00:16:14,387 --> 00:16:20,233
+and the second meaning it says that he is coming after Rasool Ullah - Khalifah(خليفة), he comes after.
+
+242
+00:16:21,776 --> 00:16:29,058
+If we would apply these two meanings to the responsibility or the title that was given to humanity,
+
+243
+00:16:29,288 --> 00:16:30,298
+Allah سبحانه وتعالى said;
+
+244
+00:16:30,338 --> 00:16:32,130
+إِنِّى جَاعِلٌ فِى ٱلْأَرْضِ خَلِيفَةً
+
+245
+00:16:32,273 --> 00:16:34,527
+I will place a Khalifah(خليفه) on Earth.
+
+246
+00:16:35,327 --> 00:16:37,755
+So we find two explanations were given;
+
+247
+00:16:37,977 --> 00:16:43,796
+One explanation says that Allah سبحانه وتعالى has appointed Adam(آدم‎)
+
+248
+00:16:44,169 --> 00:16:52,095
+and his children, his descendants, in the position of responsibility to apply the Laws of Allah سبحانه وتعالى,
+
+249
+00:16:53,317 --> 00:16:56,975
+so they are representing the Law of Allah سبحانه وتعالى on Earth.
+
+250
+00:16:57,047 --> 00:17:02,555
+They are given the responsibility of applying the Law of Allah سبحانه وتعالى on Earth
+
+251
+00:17:02,920 --> 00:17:05,532
+and that is the explanation given by Ibn Mas'ud(ابن مسعود).
+
+252
+00:17:06,373 --> 00:17:17,650
+The second explanation is that humans beings would succeed each other in this world, generation after generation,
+
+253
+00:17:18,606 --> 00:17:20,527
+and this is the opinion of Ibn Abbas(ابن عباس).
+
+254
+00:17:21,273 --> 00:17:26,526
+Our responsibility on Earth is to establish Earth according to the Laws of Allah سبحانه وتعالى,
+
+255
+00:17:27,385 --> 00:17:30,948
+and also we see that we are succeeding each other.
+
+256
+00:17:30,988 --> 00:17:35,372
+We’re not like the angels who are living, and they’re not marrying and having children.
+
+257
+00:17:35,967 --> 00:17:38,657
+And we succeed each other on this earth,
+
+258
+00:17:39,483 --> 00:17:42,830
+that’s why Allah سبحانه وتعالى says about the people of Aad(عاد),
+
+259
+00:17:43,041 --> 00:17:47,041
+Allah سبحانه وتعالى says that you became the Khalaef(خلائف) of the earth,
+
+260
+00:17:47,136 --> 00:17:50,135
+which is plural of “Khalifah(خليفة)”, after the people of Nuh(نوح).
+
+261
+00:17:51,553 --> 00:17:53,180
+So this is the meaning of the word “Khalifah(خليفة)”.
+
+262
+00:17:54,118 --> 00:17:59,941
+If we look at the Ayah(آية) before this, it would help us in understanding our mission and our role in this world.
+
+263
+00:18:00,826 --> 00:18:03,896
+Allah سبحانه وتعالى says in the Ayah(آية) right before this Ayah(آية);
+
+264
+00:18:04,389 --> 00:18:12,247
+هُوَ الَّذي خَلَقَ لَكُم ما فِي الأَرضِ جَميعًا ثُمَّ استَوىٰ إِلَى السَّماءِ
+
+265
+00:18:12,493 --> 00:18:23,621
+ثُمَّ استَوىٰ إِلَى السَّماءِ فَسَوّاهُنَّ سَبعَ سَماواتٍ ۚ وَهُوَ بِكُلِّ شَيءٍ عَليمٌ۝
+
+266
+00:18:24,303 --> 00:18:28,351
+Allah سبحانه وتعالى has created for you everything in this world.
+
+267
+00:18:30,208 --> 00:18:33,242
+Everything in this world was created for the human being.
+
+268
+00:18:34,425 --> 00:18:37,816
+That is the honor that Allah سبحانه وتعالى has given this human being,
+
+269
+00:18:37,990 --> 00:18:41,213
+that everything is created for the exploitation of human beings
+
+270
+00:18:41,840 --> 00:18:45,334
+because they are the ultimate creation of this world
+
+271
+00:18:45,596 --> 00:18:51,899
+and they are the ones whom Allah سبحانه وتعالى has given the responsibility of establishing this Duniya(دنيا‎), this world.
+
+272
+00:18:52,614 --> 00:18:55,566
+So Allah سبحانه وتعالى has created everything for them.
+
+273
+00:18:56,804 --> 00:19:02,797
+Therefore, we should not give precedence to anything material over the human being.
+
+274
+00:19:03,265 --> 00:19:07,035
+We should not sacrifice the human being for a material thing
+
+275
+00:19:07,416 --> 00:19:12,994
+because Allah سبحانه وتعالى has given this noble position to human being
+
+276
+00:19:13,185 --> 00:19:17,132
+and he made them a Khalifah(خليفة) and he created everything for this human being;
+
+277
+00:19:17,259 --> 00:19:18,521
+the human being is sacred.
+
+278
+00:19:19,298 --> 00:19:22,816
+But the way we are dealing with the human being now on the face of the earth
+
+279
+00:19:22,981 --> 00:19:27,606
+is that we are killing human beings and destroying them for material gain,
+
+280
+00:19:29,424 --> 00:19:37,501
+and that's why Rasool Allah ﷺ says that the Muslim is sacred in the Eyes of Allah سبحانه وتعالى more than Al-Ka'aba(اَلْكَعْبَه).
+
+281
+00:19:38,850 --> 00:19:41,159
+حرمة دم المسلم
+
+282
+00:19:41,651 --> 00:19:48,537
+ The sanctity and the sacred position that is given to the blood of the Muslim is more than Al-Ka'aba(اَلْكَعْبَه).
+
+283
+00:19:49,513 --> 00:19:52,019
+That is the honor that Allah سبحانه وتعالى has given to the son of Adam(آدم‎).
+
+284
+00:19:52,059 --> 00:19:53,681
+وَلَقَدْ كَرَّمْنَا بَنِى ءَادَمَ
+
+285
+00:19:53,880 --> 00:19:55,419
+We have honored the son of Adam(آدَم).
+
+286
+00:19:56,975 --> 00:20:01,093
+When Allah سبحانه وتعالى told the angels that I will place a Khalifah(خليفه) on Earth,
+
+287
+00:20:01,196 --> 00:20:01,967
+what did they say?
+
+288
+00:20:02,157 --> 00:20:02,811
+They said;
+
+289
+00:20:02,998 --> 00:20:11,080
+قالوا أَتَجعَلُ فيها مَن يُفسِدُ فيها وَيَسفِكُ الدِّماءَ
+
+290
+00:20:11,516 --> 00:20:16,468
+ وَنَحنُ نُسَبِّحُ بِحَمدِكَ وَنُقَدِّسُ لَكَ
+
+291
+00:20:16,714 --> 00:20:22,388
+ Will You place therein those who will make mischief therein and shed blood
+
+292
+00:20:22,769 --> 00:20:26,359
+while we glorify You with praises and thanks?
+
+293
+00:20:27,589 --> 00:20:33,247
+Are You going to place on Earth someone who will shed blood and cause corruption
+
+294
+00:20:33,678 --> 00:20:36,091
+when we are glorifying You?
+
+295
+00:20:37,583 --> 00:20:42,434
+How did the angels know that human beings will corrupt on the face of the earth?
+
+296
+00:20:43,450 --> 00:20:45,291
+Adam(آدم‎) was not placed on the world yet.
+
+297
+00:20:45,521 --> 00:20:52,206
+Why did the angels say, “You are going to place someone who will cause corruption and shed blood in the world”?
+
+298
+00:20:52,873 --> 00:20:55,214
+There are two explanations given;
+
+299
+00:20:55,603 --> 00:21:01,156
+One explanation is that Allah سبحانه وتعالى told the angels ahead of time that
+
+300
+00:21:01,608 --> 00:21:03,251
+this is what human beings will do;
+
+301
+00:21:04,124 --> 00:21:09,574
+the second explanation, and this is mentioned by Ibn Abbas(ابن عباس),
+
+302
+00:21:10,582 --> 00:21:13,328
+that Jin(جن) were living in this world before
+
+303
+00:21:13,860 --> 00:21:17,256
+and they caused corruption and they shed blood
+
+304
+00:21:17,565 --> 00:21:21,279
+and they fought with each other and they corrupted this world,
+
+305
+00:21:21,875 --> 00:21:23,526
+and they caused so much evil,
+
+306
+00:21:24,692 --> 00:21:34,474
+ and then Allah سبحانه وتعالى sent on them armies from the angels, and also Iblees(إبليس), to fight against them,
+
+307
+00:21:35,577 --> 00:21:40,268
+and then they were pushed and cornered to the islands of the ocean.
+
+308
+00:21:41,823 --> 00:21:43,411
+So the angels said;
+
+309
+00:21:44,141 --> 00:21:48,867
+Why are You going to place someone on Earth who would cause corruption and shed blood again?
+
+310
+00:21:51,407 --> 00:21:53,203
+So these are the two explanations given,
+
+311
+00:21:53,854 --> 00:21:56,465
+there is no Hadith(حديث‎) to support any one of them.
+
+312
+00:21:56,592 --> 00:21:59,060
+These are two explanations given to the Ayah(آية).
+
+313
+00:22:00,155 --> 00:22:01,537
+Allah سبحانه وتعالى said;
+
+314
+00:22:02,231 --> 00:22:04,319
+قالَ إِنّي أَعلَمُ ما لا تَعلَمونَ۞
+
+315
+00:22:04,359 --> 00:22:06,731
+I know what you know not.
+
+316
+00:22:07,604 --> 00:22:10,175
+I know what you know not.
+
+317
+00:22:10,992 --> 00:22:15,692
+Allah سبحانه وتعالى created Adam(آدم‎) and Rasool Allah ﷺ says;
+
+318
+00:22:16,223 --> 00:22:22,423
+إن اللَّه تعالى خلق آدم من قبضة قبضها من جميع الأرض
+
+319
+00:22:22,883 --> 00:22:25,526
+فجاء بنو آدم على قدر الأرض
+
+320
+00:22:25,796 --> 00:22:29,320
+جاء منهم الأحمر والأبيض والأسود وبين ذلك
+
+321
+00:22:29,694 --> 00:22:33,313
+والسهل والحزن والخبيث والطيب وبين ذلك
+
+322
+00:22:34,343 --> 00:22:35,963
+Rasool Allah ﷺ says;
+
+323
+00:22:36,368 --> 00:22:45,803
+Allah created Adam(آدَم) from a handful of dirt, picked from all of the Earth,
+
+324
+00:22:46,679 --> 00:22:52,477
+so the children of Adam(آدَم) became red, white and black, and everything in between,
+
+325
+00:22:52,705 --> 00:22:58,360
+and they became soft and tough, bad and good, and everything in between.
+
+326
+00:22:59,253 --> 00:23:00,748
+Rasool Allah ﷺ says;
+
+327
+00:23:01,068 --> 00:23:05,524
+Allah سبحانه وتعالى created Adam(آدم‎) from a handful of dirt.
+
+328
+00:23:06,437 --> 00:23:11,576
+This dirt was taken from different parts of the earth.
+
+329
+00:23:12,013 --> 00:23:17,561
+So there was black soil, there was white soil, there was yellow soil, different colors.
+
+330
+00:23:17,729 --> 00:23:24,996
+And then some of this soil was taken from mountains, and some of it was taken from valleys, and it was mixed together.
+
+331
+00:23:26,474 --> 00:23:32,292
+So the son of Adam(آدم‎), the descendants of Adam(آدم‎), came out in different colors
+
+332
+00:23:32,739 --> 00:23:36,211
+because the dirt they were created from is from different colors,
+
+333
+00:23:36,915 --> 00:23:39,233
+and they came out with different qualities
+
+334
+00:23:39,948 --> 00:23:43,777
+because some of this dirt was taken from mountains, and some of it was valleys,
+
+335
+00:23:44,055 --> 00:23:48,893
+some of it was from fertile land, and some of it was from infertile land.
+
+336
+00:23:49,416 --> 00:23:52,146
+So you have some of them are righteous and some of them are evil,
+
+337
+00:23:52,343 --> 00:23:55,140
+some of them are easy to deal with and some of them are tough.
+
+338
+00:23:55,805 --> 00:23:58,572
+They came out according to the material they were created from.
+
+339
+00:23:59,753 --> 00:24:01,528
+What was Adam(آدم‎) created from?
+
+340
+00:24:01,697 --> 00:24:02,675
+Turab(تراب‎),
+
+341
+00:24:03,433 --> 00:24:04,023
+dirt.
+
+342
+00:24:04,280 --> 00:24:10,014
+But that was not the only name that was given to the material we were created from.
+
+343
+00:24:10,739 --> 00:24:19,815
+We find in Qur’an that the components of our body were described with different terms.
+
+344
+00:24:21,243 --> 00:24:24,240
+Allah سبحانه وتعالى has called it Turab(تراب‎),
+
+345
+00:24:25,069 --> 00:24:26,180
+which means dirt;
+
+346
+00:24:27,271 --> 00:24:30,178
+Allah has called it Tin(طين),
+
+347
+00:24:30,525 --> 00:24:31,785
+which means clay;
+
+348
+00:24:32,648 --> 00:24:35,214
+Tinin Laazib(طين لازب), sticky clay;
+
+349
+00:24:35,924 --> 00:24:36,995
+Salsal(صلصال),
+
+350
+00:24:37,154 --> 00:24:38,503
+ sounding clay;
+
+351
+00:24:38,999 --> 00:24:40,398
+Hama’im Masnoon(حمإ مسنون),
+
+352
+00:24:40,706 --> 00:24:42,233
+black smooth mud.
+
+353
+00:24:43,662 --> 00:24:48,602
+Why were these different terms used to refer to the material we were created from?
+
+354
+00:24:50,031 --> 00:24:51,003
+Turab(تراب‎),
+
+355
+00:24:51,331 --> 00:24:52,055
+tin(طين),
+
+356
+00:24:52,352 --> 00:24:53,444
+Salsal(صلصال),
+
+357
+00:24:53,751 --> 00:24:54,991
+Hama’im masnoon(حمإ مسنون),
+
+358
+00:24:55,269 --> 00:24:56,389
+Tinin Laazib(طين لازب)
+
+359
+00:24:56,859 --> 00:24:57,691
+ dirt,
+
+360
+00:24:58,099 --> 00:24:58,843
+mud,
+
+361
+00:24:59,141 --> 00:25:00,113
+clay,
+
+362
+00:25:00,500 --> 00:25:01,779
+sounding clay,
+
+363
+00:25:01,978 --> 00:25:03,654
+black smooth mud.
+
+364
+00:25:05,073 --> 00:25:07,447
+In the beginning, it was dirt.
+
+365
+00:25:08,012 --> 00:25:08,806
+turab(تراب‎)
+
+366
+00:25:09,292 --> 00:25:12,338
+dirt, soil that was taken from the earth,
+
+367
+00:25:13,677 --> 00:25:14,915
+and that is turab(تراب‎).
+
+368
+00:25:16,296 --> 00:25:26,821
+And then this dirt was mixed with the basis of every living being, and that is water.
+
+369
+00:25:27,665 --> 00:25:29,750
+وَجَعَلنا مِنَ الماءِ كُلَّ شَيءٍ حَيٍّ ۖ
+
+370
+00:25:29,969 --> 00:25:32,836
+We created from water every living being.
+
+371
+00:25:34,086 --> 00:25:38,678
+When it was mixed with water, it became mud, tin(طين).
+
+372
+00:25:39,724 --> 00:25:42,836
+And then this mud was left for a while,
+
+373
+00:25:43,315 --> 00:25:52,114
+and when you leave mud for a while and the moisture in it reduces, it becomes sticky.
+
+374
+00:25:52,420 --> 00:25:55,143
+In the beginning, it is loose mud because it has a lot of water,
+
+375
+00:25:55,282 --> 00:25:58,357
+then when the water level decreases and the moisture decreases,
+
+376
+00:25:58,536 --> 00:26:00,202
+it becomes sticky
+
+377
+00:26:00,450 --> 00:26:03,419
+and it holds to your hands; sticky,
+
+378
+00:26:04,084 --> 00:26:07,239
+and that is Tin Laazib(طين لازب), sticky clay.
+
+379
+00:26:07,764 --> 00:26:13,073
+And then that sticky clay was left for a longer while,
+
+380
+00:26:13,688 --> 00:26:18,281
+the smell of it changed and the color of it became darker,
+
+381
+00:26:18,896 --> 00:26:22,081
+and that is Hama’im Masnoon(حمإ مسنون),
+
+382
+00:26:23,486 --> 00:26:28,232
+which is black, smooth, and smelly clay
+
+383
+00:26:28,663 --> 00:26:30,623
+because it was left there for a while.
+
+384
+00:26:31,060 --> 00:26:40,637
+That material was taken, and Allah سبحانه وتعالى molded out of it the form of Adam(آدم‎), the body of Adam(آدم‎).
+
+385
+00:26:42,373 --> 00:26:50,634
+That body was left to dry, and it turned into Salsal Kal-Fakhar(صلصال كَٱلفخار)
+
+386
+00:26:51,849 --> 00:26:54,378
+clay-like pottery.
+
+387
+00:26:55,232 --> 00:27:00,719
+When you knock on dry clay, pottery, what happens?
+
+388
+00:27:01,185 --> 00:27:02,821
+It makes a ringing sound,
+
+389
+00:27:03,357 --> 00:27:07,936
+and that is Salsal(صلصال), Min Salsalah(من صلصلة), it makes a ringing sound like a bell.
+
+390
+00:27:09,226 --> 00:27:15,763
+So the body, the form of Adam(آدم‎), the empty form of Adam(آدم‎) that did not have the soul yet, it was just a material.
+
+391
+00:27:16,378 --> 00:27:20,851
+It was left to dry, and then when you would knock on it, it would make this ringing sound.
+
+392
+00:27:21,020 --> 00:27:31,443
+It is said, this is not a Hadith(حديث), but it is said that Iblis(إبليس), he saw this body lying on the ground.
+
+393
+00:27:31,949 --> 00:27:33,467
+He didn’t know what it was,
+
+394
+00:27:34,717 --> 00:27:39,885
+so Iblis(إبليس) walked up to the body of Adam(آدم‎) and he knocked it,
+
+395
+00:27:40,415 --> 00:27:45,266
+and it made a ringing sound and it was hollow.
+
+396
+00:27:46,238 --> 00:27:49,234
+When he knocked it, he knew that it was hollow from the inside, empty.
+
+397
+00:27:49,968 --> 00:27:50,514
+He said;
+
+398
+00:27:50,613 --> 00:27:52,399
+هذا خلق لا يتمالك
+
+399
+00:27:52,766 --> 00:27:54,988
+When he found out that it’s hollow, he said;
+
+400
+00:27:55,087 --> 00:27:57,647
+This is a creation that is weak.
+
+401
+00:27:58,430 --> 00:27:59,659
+It’s hollow from the inside.
+
+402
+00:28:00,989 --> 00:28:02,010
+And then he said;
+
+403
+00:28:02,407 --> 00:28:09,699
+لن يسلط عليك لهينك ولا أن يسلط علي لا عصيانك
+
+404
+00:28:09,967 --> 00:28:15,005
+If I am given influence over you, I will guide you astray
+
+405
+00:28:15,917 --> 00:28:20,253
+and if you are given influence over me, I would disobey you.
+
+406
+00:28:21,592 --> 00:28:23,866
+He is our enemy from day one.
+
+407
+00:28:24,419 --> 00:28:27,788
+Adam(آدَم) is not even alive yet,
+
+408
+00:28:28,255 --> 00:28:31,905
+it's just a body that is lying there, and he said;
+
+409
+00:28:31,945 --> 00:28:34,802
+If you are given influence over me, I'm going to disobey you.
+
+410
+00:28:35,169 --> 00:28:37,094
+Let's do the same thing and disobey him.
+
+411
+00:28:38,066 --> 00:28:41,280
+Rasool Allah ﷺ says in the Hadith(حديث) narrated by Muslim(ألمسلم);
+
+412
+00:28:42,391 --> 00:28:45,943
+خلق الله آدم على صورته
+
+413
+00:28:47,238 --> 00:28:50,878
+In the beginning, we know that Allah سبحانه وتعالى has created Adam(آدَم) with His own Hands.
+
+414
+00:28:51,662 --> 00:28:55,971
+Adam(آدَم) was honored that he was created with the Hands of Allah سبحانه وتعالى,
+
+415
+00:28:56,387 --> 00:28:59,780
+a great honor and that is mentioned in the Hadith(حديث) of Al-shafa'ah(الشفاعة‎)
+
+416
+00:28:59,959 --> 00:29:03,883
+when the humans would go to Sayyiduna Adam(سيدنا آدم‎) on the Day of Judgment, and they would say;
+
+417
+00:29:03,982 --> 00:29:07,286
+You are the one whom Allah سبحانه وتعالى blew his soul into you
+
+418
+00:29:07,326 --> 00:29:10,550
+and you are the one whom Allah سبحانه وتعالى created with His own Hands
+
+419
+00:29:10,689 --> 00:29:15,394
+and you are the one whom Allah سبحانه وتعالى made the angels bow down to, to make Sujud(سجود).
+
+420
+00:29:16,931 --> 00:29:22,537
+Honoring that Allah سبحانه وتعالى has given to Adam(آدم‎), he was created with the Hands of Allah.
+
+421
+00:29:23,598 --> 00:29:26,703
+Rasool Allah ﷺ says in the Hadith(حديث) narrated by Muslim(ألمسلم);
+
+422
+00:29:27,824 --> 00:29:30,741
+خلق الله آدم على صورته
+
+423
+00:29:31,138 --> 00:29:34,531
+Allah سبحانه وتعالى has created Adam(آدَم) on his image.
+
+424
+00:29:35,994 --> 00:29:37,561
+On his image.
+
+425
+00:29:38,225 --> 00:29:42,818
+Al-Nawawi(النووي‎) gives an explanation to this Hadith(حديث).
+
+426
+00:29:43,680 --> 00:29:44,879
+He says;
+
+427
+00:29:45,951 --> 00:29:50,925
+What is meant by, Allah has created Adam(آدَم) on his image?
+
+428
+00:29:51,679 --> 00:29:56,570
+It is not talking about the Image of Allah, it is talking about the image of Adam(آدَم).
+
+429
+00:29:58,157 --> 00:30:02,791
+Allah created Adam(آدَم) on the image of Adam(آدَم).
+
+430
+00:30:03,813 --> 00:30:05,956
+You might wonder, What does that mean?
+
+431
+00:30:06,492 --> 00:30:09,795
+What do you mean Allah created Adam(آدَم) on Adam's image?
+
+432
+00:30:10,599 --> 00:30:19,057
+That would mean that Allah سبحانه وتعالى created Adam(آدَم) as he was in his adult form that remained with him.
+
+433
+00:30:20,039 --> 00:30:24,460
+In other words, Adam(آدَم) did not go through the stages that we go through;
+
+434
+00:30:24,732 --> 00:30:32,015
+of being an embryo, and then a fetus, and then an infant, and then a child, and then an adult.
+
+435
+00:30:33,345 --> 00:30:34,794
+خلق الله آدم على صورته
+
+436
+00:30:34,834 --> 00:30:36,544
+Adam(آدم‎) was created on his image,
+
+437
+00:30:36,718 --> 00:30:39,996
+he didn't go through changes of images like we do.
+
+438
+00:30:40,244 --> 00:30:43,438
+We go through different changes of images;
+
+439
+00:30:43,657 --> 00:30:46,979
+from embryo to fetus…
+
+440
+00:30:47,089 --> 00:30:50,863
+it looks very different when you go from the one cell to another…
+
+441
+00:30:51,111 --> 00:30:55,597
+then it multiplies, and the embryo is in the early stages, and then the fetus.
+
+442
+00:30:55,823 --> 00:30:59,127
+If you look at it, the image could change within days.
+
+443
+00:31:00,298 --> 00:31:04,415
+But with Adam(آدم‎), he was created on that image from day One,
+
+444
+00:31:05,040 --> 00:31:10,372
+and this is diametrically opposed to what the Theory of Evolution says.
+
+445
+00:31:11,821 --> 00:31:18,151
+The Theory of Evolution states that human beings came through an evolution process
+
+446
+00:31:18,935 --> 00:31:21,346
+that started with a chemical reaction
+
+447
+00:31:21,822 --> 00:31:25,879
+and then the one cell, the single cell, and then multiple cells,
+
+448
+00:31:26,078 --> 00:31:31,321
+and then it goes up and up and up until it reaches to the human being in the end of that long chain.
+
+449
+00:31:31,838 --> 00:31:36,064
+That is contradicting, completely contradicting, to the truth
+
+450
+00:31:36,481 --> 00:31:42,408
+because Allah سبحانه وتعالى has created Adam(آدم‎) with His own Hands on that image
+
+451
+00:31:42,835 --> 00:31:44,938
+that remained with Adam(آدم‎) until he died.
+
+452
+00:31:45,821 --> 00:31:51,202
+But let me say that Islam does not completely disapprove everything in the Theory of Evolution;
+
+453
+00:31:51,519 --> 00:31:54,307
+Islam disapproves some and approves some.
+
+454
+00:31:54,823 --> 00:32:05,414
+Islam disapproves the part of the Theory of Evolution that states that nature is the creator or that things came out of random.
+
+455
+00:32:06,674 --> 00:32:15,632
+Islam is against the part of the Theory of Evolution that states that human being evolved from a single cell
+
+456
+00:32:15,880 --> 00:32:23,458
+and then it went up to the ape, which they call the closest relative of the human being, and then the human being.
+
+457
+00:32:23,864 --> 00:32:30,889
+But Islam is not opposed to the part of the Theory of Evolution that says that species adapt to their environment.
+
+458
+00:32:31,524 --> 00:32:37,635
+We see that around us, that different species learn how to adapt to different environments.
+
+459
+00:32:37,963 --> 00:32:40,713
+But, we say that that happens with the Will of Allah.
+
+460
+00:32:41,536 --> 00:32:46,159
+Allahسبحانه وتعالى blew the soul into Adam(آدم‎).
+
+461
+00:32:47,102 --> 00:32:48,064
+Ar-Ruh(الروح).
+
+462
+00:32:48,867 --> 00:32:54,959
+Our body without Ar-Ruh(الروح) is part of the earth, it is dirt.
+
+463
+00:32:55,871 --> 00:33:05,961
+Our body is made up of carbon, oxygen, copper, iron, sulfur that is our body.
+
+464
+00:33:07,002 --> 00:33:11,886
+And when the soul leaves, our body decomposes into its origin.
+
+465
+00:33:13,196 --> 00:33:14,426
+Allah سبحانه وتعالى says;
+
+466
+00:33:14,506 --> 00:33:20,894
+مِنْهَا خَلَقْنَـٰكُمْ وَفِيهَا نُعِيدُكُمْ وَمِنْهَا نُخْرِجُكُمْ تَارَةً أُخْرَىٰ
+
+467
+00:33:21,083 --> 00:33:26,260
+We created you from Earth, and you will return to Earth, and then We will resurrect you again from Earth.
+
+468
+00:33:26,994 --> 00:33:28,810
+We are nothing without the soul.
+
+469
+00:33:29,504 --> 00:33:33,148
+The essence of life is not in this materialistic body,
+
+470
+00:33:33,541 --> 00:33:42,202
+this body that we have is dead, it is material components that are dirt, it came from the dirt, from the earth.
+
+471
+00:33:43,253 --> 00:33:47,386
+What puts life in us is the soul, and that is the secret of life
+
+472
+00:33:47,544 --> 00:33:52,336
+and it remains as a secret even with all of the advancement in science and technology that we have.
+
+473
+00:33:53,636 --> 00:33:57,138
+They came to Rasool Allah ﷺ and said: Tell us about the soul.
+
+474
+00:33:57,366 --> 00:33:58,344
+Allah سبحانه وتعالى says;
+
+475
+00:33:58,384 --> 00:34:03,711
+وَيَسْـَٔلُونَكَ عَنِ ٱلرُّوحِ ۖ قُلِ ٱلرُّوحُ مِنْ أَمْرِ رَبِّى وَمَآ أُوتِيتُم مِّنَ ٱلْعِلْمِ إِلَّا قَلِيلًا۝
+
+476
+00:34:03,820 --> 00:34:09,585
+They ask you about the soul. Tell them that the knowledge of the soul belongs to Allah,
+
+477
+00:34:09,675 --> 00:34:11,996
+and you have been given very limited knowledge.
+
+478
+00:34:13,574 --> 00:34:16,208
+The soul is a secret that only Allah knows,
+
+479
+00:34:16,635 --> 00:34:18,877
+and our knowledge of the soul is very limited.
+
+480
+00:34:19,016 --> 00:34:22,647
+This question was asked to Rasool Allah ﷺ fourteen hundred years ago;
+
+481
+00:34:22,845 --> 00:34:25,533
+our knowledge about the soul did not change much since then.
+
+482
+00:34:27,577 --> 00:34:28,833
+We don’t know much about the soul.
+
+483
+00:34:29,044 --> 00:34:35,605
+The Soviet Union, under communism, they disbelieved in anything metaphysical.
+
+484
+00:34:36,706 --> 00:34:42,698
+They only believed in the physical world; everything that is metaphysical, they didn't believe in it.
+
+485
+00:34:43,630 --> 00:34:46,309
+So they thought that they could create a human being,
+
+486
+00:34:47,509 --> 00:34:52,609
+so in their labs, they looked at the composition of the human body
+
+487
+00:34:52,649 --> 00:34:59,530
+and they found out that it’s made of copper, and sulfur, and iron, and carbon, and oxygen, and hydrogen.
+
+488
+00:34:59,720 --> 00:35:05,784
+They brought those elements and they mixed them together with the same ratio that exists in our body,
+
+489
+00:35:06,323 --> 00:35:10,793
+and then they kept on sending some electrical shocks on it thinking that that would give it life.
+
+490
+00:35:12,293 --> 00:35:17,753
+It is not our body that makes us alive, our body is dirt, it belongs to this earth.
+
+491
+00:35:18,356 --> 00:35:24,658
+What makes us alive is the secret which Allah سبحانه وتعالى has placed in us, and that is the soul, Ar-Ruh(الروح).
+
+492
+00:35:25,253 --> 00:35:27,066
+ And that is something we don’t know about.
+
+493
+00:35:28,042 --> 00:35:31,510
+That is the difference between life and death, Ar-Ruh(الروح).
+
+494
+00:35:32,090 --> 00:35:36,071
+That is why when Musa(موسی) and the magicians were competing,
+
+495
+00:35:36,896 --> 00:35:39,643
+the magicians were throwing their sticks
+
+496
+00:35:39,723 --> 00:35:44,841
+and they were making those sticks look like snakes through optical illusion,
+
+497
+00:35:45,444 --> 00:35:51,155
+but with Musa(موسی), his stick turned into an actual living snake
+
+498
+00:35:51,464 --> 00:35:54,274
+because Allah سبحانه وتعالى’s the One, Who controls life,
+
+499
+00:35:54,631 --> 00:35:58,352
+so Allah put life in that stick and it became a snake.
+
+500
+00:35:59,186 --> 00:36:04,910
+But with the magicians, all what they could do is fool the people through an optical illusion
+
+501
+00:36:05,185 --> 00:36:07,510
+because they do not have the power to put life,
+
+502
+00:36:08,113 --> 00:36:14,114
+and when they saw what was happening with the stick of Musa(موسی), they knew that this is a miracle
+
+503
+00:36:14,257 --> 00:36:15,937
+and they immediately became Muslim
+
+504
+00:36:16,136 --> 00:36:21,295
+because they knew that this is something outside the capacity and the capability of the human being.
+
+505
+00:36:21,747 --> 00:36:26,361
+So the soul is what gives us life, and this is as Allah سبحانه وتعالى says;
+
+506
+00:36:26,401 --> 00:36:27,334
+مِنْ أَمْرِ رَبِّى
+
+507
+00:36:27,374 --> 00:36:31,343
+This is knowledge that belongs to Allah, this is an issue that belongs to Allah.
+
+508
+00:36:32,113 --> 00:36:36,795
+When the soul entered into the body of Adam(آدم‎), the first thing that happened is,
+
+509
+00:36:37,556 --> 00:36:38,668
+ he sneezed.
+
+510
+00:36:39,787 --> 00:36:44,082
+When the soul entered into his body, Adam(آدم‎) sneezed.
+
+511
+00:36:44,765 --> 00:36:49,550
+لما خلق اللَّه آدم ونفخ فيه الروح عطس
+
+512
+00:36:50,360 --> 00:36:56,899
+ Rasool Allah ﷺ says when Allah سبحانه وتعالى created Adam(آدم‎) and He blew the soul into him,
+
+513
+00:36:57,114 --> 00:36:58,704
+Adam(آدم‎) sneezed.
+
+514
+00:37:00,136 --> 00:37:02,176
+فقال الحمد للَّه
+
+515
+00:37:02,533 --> 00:37:04,771
+Adam(آدم‎) said: Al-hamdulillah(ألحمدلله).
+
+516
+00:37:04,850 --> 00:37:06,826
+ “Praise be to Allah.”
+
+517
+00:37:07,776 --> 00:37:09,165
+Allah سبحانه وتعالى told him;
+
+518
+00:37:09,205 --> 00:37:10,498
+يرحمك اللَّه
+
+519
+00:37:11,760 --> 00:37:14,514
+ “The Mercy of Allah be upon you.”
+
+520
+00:37:15,690 --> 00:37:22,666
+The first thing that happened to Adam(آدم‎) was the deliverance of mercy onto him from Allah سبحانه وتعالى.
+
+521
+00:37:23,523 --> 00:37:28,304
+When he was created, Allah سبحانه وتعالى Himself told Adam(آدم‎);
+
+522
+00:37:28,344 --> 00:37:29,402
+يرحمك اللَّه
+
+523
+00:37:29,759 --> 00:37:31,415
+The Mercy of Allah be upon you.
+
+524
+00:37:31,559 --> 00:37:34,682
+That was the first thing that was told to Sayyiduna Adam عليه السلام.
+
+525
+00:37:34,928 --> 00:37:37,333
+He had the Mercy of Allah سبحانه وتعالى from the beginning.
+
+526
+00:37:37,936 --> 00:37:39,294
+Allah سبحانه وتعالى told him;
+
+527
+00:37:39,334 --> 00:37:43,270
+اذهب إلى أولئك الملائكة إلى نفر منهم جلوس
+
+528
+00:37:44,238 --> 00:37:48,667
+Allah سبحانه وتعالى told Adam(آدم‎): “Go to those angels who are sitting over there.”
+
+529
+00:37:48,849 --> 00:37:55,820
+Allah سبحانه وتعالى told Adam(آدم‎) to go to those angels and to deliver Salam(سلام‎) to them.
+
+530
+00:37:56,169 --> 00:38:02,784
+اذهب إلى أولئك الملائكة إلى نفر منهم جلوس فقل السلام عليكم
+
+531
+00:38:03,419 --> 00:38:07,760
+ “Go to those angels who are sitting over there and tell them;
+
+532
+00:38:07,800 --> 00:38:09,165
+السلام عليكم
+
+533
+00:38:10,038 --> 00:38:12,530
+Allah سبحانه وتعالى is teaching Adam(آدم‎),
+
+534
+00:38:13,014 --> 00:38:14,937
+“Go to those angels and tell them;
+
+535
+00:38:14,977 --> 00:38:15,863
+السلام عليكم
+
+536
+00:38:16,648 --> 00:38:18,554
+Adam(آدم‎) went up to the angels and he said;
+
+537
+00:38:18,594 --> 00:38:19,985
+السلام عليكم‏!‏
+
+538
+00:38:20,265 --> 00:38:24,129
+قالوا وعليك السلام ورحمة اللَّه
+
+539
+00:38:25,042 --> 00:38:26,828
+He went to the angels, he told them;
+
+540
+00:38:26,899 --> 00:38:27,718
+السلام عليكم
+
+541
+00:38:27,758 --> 00:38:28,352
+They said;
+
+542
+00:38:28,590 --> 00:38:32,714
+وعليك السلام ورحمة اللَّه وبركاته
+
+543
+00:38:33,151 --> 00:38:39,587
+ “May the Peace of Allah سبحانه وتعالى be upon you and His Mercy be upon you and His Blessings be upon you.”
+
+544
+00:38:40,612 --> 00:38:44,147
+ So Adam(آدم‎) came back to Allah سبحانه وتعالى, Allah told him;
+
+545
+00:38:44,258 --> 00:38:48,766
+إن هذه تحيتك وتحية بنيك بينهم
+
+546
+00:38:48,972 --> 00:38:52,404
+“This is your greeting and this is the greeting of your descendents.”
+
+547
+00:38:52,650 --> 00:38:56,961
+So Allah سبحانه وتعالى has taught us our greeting from the beginning
+
+548
+00:38:57,001 --> 00:39:03,795
+and it was taught to Adam عليه السلام, and this is the greeting that Allah سبحانه وتعالى wanted for the children of Adam(آدم‎).
+
+549
+00:39:03,842 --> 00:39:05,215
+It is; Assalam O Alaikum(السلام عليكم).
+
+550
+00:39:05,525 --> 00:39:07,291
+“Peace be upon you.
+
+551
+00:39:07,938 --> 00:39:13,019
+” Not “hi”, “hello”, “good morning”, or “good night”, or “what's up”.
+
+552
+00:39:14,320 --> 00:39:15,954
+السلام عليكم
+
+553
+00:39:16,058 --> 00:39:19,570
+ Peace be upon you, first,
+
+554
+00:39:20,277 --> 00:39:24,054
+and then after that, after you deliver the peace…
+
+555
+00:39:24,420 --> 00:39:28,782
+Subhaan Allah(سُبْحَان الله) look at the beauty of Islam, we are spreading peace.
+
+556
+00:39:28,822 --> 00:39:30,607
+أفشوا السلام بينكم
+
+557
+00:39:30,813 --> 00:39:33,948
+Rasool Allah ﷺ says: “Spread peace among you.”
+
+558
+00:39:34,393 --> 00:39:36,534
+Spread peace whenever you see somebody,
+
+559
+00:39:36,709 --> 00:39:37,756
+السلام عليكم
+
+560
+00:39:37,812 --> 00:39:39,375
+“Peace be upon you.”
+
+561
+00:39:39,494 --> 00:39:41,455
+Alhamdulillah (الحمد لله) on the Niʿmah(نعمة) of being Muslim.
+
+562
+00:39:42,193 --> 00:39:43,066
+After you say;
+
+563
+00:39:43,106 --> 00:39:44,135
+السلام عليكم
+
+564
+00:39:44,375 --> 00:39:48,180
+And you receive the blessing of your brother telling you;
+
+565
+00:39:48,220 --> 00:39:50,599
+وعليكم السلام ورحمة الله وبركاته
+
+566
+00:39:50,734 --> 00:39:53,598
+Then you are free to use any greeting you want,
+
+567
+00:39:53,878 --> 00:40:05,668
+whether it is “hi” or “hello” or “good morning” or “good afternoon” or “storestee” or “صح خبس”, or “cómo estás”...or whatever, whatever you want…
+
+568
+00:40:06,017 --> 00:40:07,168
+”Sabah al-khayr(صباح الخير)”.
+
+569
+00:40:07,208 --> 00:40:08,525
+In the beginning, Assalam O Alaikum(السلام عليكم).
+
+570
+00:40:08,565 --> 00:40:11,037
+And then after that you could use any greeting you want
+
+571
+00:40:11,077 --> 00:40:14,625
+because we know that Rasool Allah ﷺ used to tell the Sahabah(صحابة) for example: Kaifa Asbahat(كيف أصبحت)”.
+
+572
+00:40:15,299 --> 00:40:17,334
+“Kaifa Asbaht(كيف أصبحت)” is like saying “good morning”.
+
+573
+00:40:17,857 --> 00:40:19,274
+But in the beginning, it needs to be:
+
+574
+00:40:19,322 --> 00:40:20,500
+السلام عليكم
+
+575
+00:40:21,167 --> 00:40:23,127
+Allah سبحانه وتعالى says;
+
+576
+00:40:23,508 --> 00:40:30,363
+وَإِذْ أَخَذَ رَبُّكَ مِنۢ بَنِىٓ ءَادَمَ مِن ظُهُورِهِمْ ذُرِّيَّتَهُمْ
+
+577
+00:40:30,514 --> 00:40:36,352
+وَأَشْهَدَهُمْ عَلَىٰٓ أَنفُسِهِمْ أَلَسْتُ بِرَبِّكُمْ ۖ
+
+578
+00:40:36,526 --> 00:40:41,876
+قَالُوا۟ بَلَىٰ ۛ شَهِدْنَآ ۛ أَن تَقُولُوا۟ يَوْمَ ٱلْقِيَـٰمَةِ
+
+579
+00:40:41,992 --> 00:40:49,098
+أَن تَقُولُوا۟ يَوْمَ ٱلْقِيَـٰمَةِ إِنَّا كُنَّا عَنْ هَـٰذَا غَـٰفِلِينَ ۝
+
+580
+00:40:49,329 --> 00:40:59,585
+أَوْ تَقُولُوٓا۟ إِنَّمَآ أَشْرَكَ ءَابَآؤُنَا مِن قَبْلُ وَكُنَّا ذُرِّيَّةً مِّنۢ بَعْدِهِمْ ۖ
+
+581
+00:40:59,815 --> 00:41:03,720
+أَفَتُهْلِكُنَا بِمَا فَعَلَ ٱلْمُبْطِلُونَ۝
+
+582
+00:41:04,109 --> 00:41:05,618
+Allah سبحانه وتعالى says;
+
+583
+00:41:06,096 --> 00:41:12,970
+And remember when your Lord brought forth from the children of Adam(آدَم) from their loins their seed
+
+584
+00:41:14,187 --> 00:41:19,300
+and made them testify as to themselves, saying: “Am I not your Lord?”
+
+585
+00:41:19,427 --> 00:41:21,244
+They said: “Yes, we testify.”
+
+586
+00:41:21,673 --> 00:41:25,746
+Lest you should say on the Day of Resurrection: “Verily, we have been unaware of this.”
+
+587
+00:41:27,024 --> 00:41:31,161
+This is talking about a very important concept, and that is Al-Mithaq(الميثاق), the covenant.
+
+588
+00:41:32,971 --> 00:41:36,915
+Do you know that there is an agreement between us and Allah سبحانه وتعالى?
+
+589
+00:41:38,755 --> 00:41:42,743
+Do you know that there is a covenant between us and Allah, an agreement?
+
+590
+00:41:43,525 --> 00:41:45,796
+This Ayah(آية‎) is talking about that agreement.
+
+591
+00:41:46,320 --> 00:41:54,511
+Allah سبحانه وتعالى has made a covenant with us and that is we worship no one but Him,
+
+592
+00:41:56,031 --> 00:42:01,450
+and we witnessed upon ourselves that we shall not worship anyone but Allah.
+
+593
+00:42:02,767 --> 00:42:04,418
+And then Allah سبحانه وتعالى says;
+
+594
+00:42:04,672 --> 00:42:07,804
+Lest you should say on the Day of Judgment that “we are unaware of this.”
+
+595
+00:42:07,982 --> 00:42:11,768
+Don't say, in other words, don’t say on the Day of Judgement that “I didn't know about that.”
+
+596
+00:42:12,213 --> 00:42:13,911
+We have given this covenant.
+
+597
+00:42:15,118 --> 00:42:17,829
+Two explanations have been given to this Ayah(آية).
+
+598
+00:42:19,662 --> 00:42:26,732
+One explanation says that this covenant is a covenant of Fitrah(فطرة‎).
+
+599
+00:42:27,462 --> 00:42:29,177
+Fitrah(فطرة‎) is the original state;
+
+600
+00:42:29,883 --> 00:42:36,111
+everyone of us has an original state, and that original state is Islam, Al-Fitrah(الفطرة‎).
+
+601
+00:42:36,920 --> 00:42:39,738
+Allah سبحانه وتعالى has created us on fitrah(فطرة‎).
+
+602
+00:42:40,738 --> 00:42:45,857
+Rasool Allah ﷺ says everyone is born on the fitrah(فطرة‎) of Islam, on the original creation of Islam,
+
+603
+00:42:45,976 --> 00:42:49,759
+and then their parents make them a Christian or a Jew or a Zoroastrian.
+
+604
+00:42:50,465 --> 00:42:51,926
+But in the beginning, we are Muslim.
+
+605
+00:42:52,172 --> 00:42:59,026
+Every one of us is Muslim and that’s why many who embrace Islam - they don’t like to be called “converts”;
+
+606
+00:43:00,470 --> 00:43:04,034
+they say: “We never converted to Islam, we reverted.
+
+607
+00:43:04,709 --> 00:43:06,087
+We reverted to Islam
+
+608
+00:43:06,357 --> 00:43:11,929
+because we were Muslim in the beginning and then we lost it and then we came back to it again.
+
+609
+00:43:12,361 --> 00:43:18,937
+So we are reverts because everyone of us started out as a Muslim submitting to Allah سبحانه وتعالى.
+
+610
+00:43:21,070 --> 00:43:23,673
+The next explanation is that
+
+611
+00:43:24,260 --> 00:43:32,672
+Allah سبحانه وتعالى took out the seed of Adam(آدم‎), every one of us, from Adam(آدم‎) until the Day of Judgment,
+
+612
+00:43:32,856 --> 00:43:33,892
+ every one of us,
+
+613
+00:43:34,551 --> 00:43:37,075
+and we were placed in the Hand of Allah سبحانه وتعالى
+
+614
+00:43:38,321 --> 00:43:40,638
+and then Allah سبحانه وتعالى asked us;
+
+615
+00:43:41,534 --> 00:43:43,010
+Am I your Lord?
+
+616
+00:43:43,748 --> 00:43:44,903
+And we said: “Yes.”
+
+617
+00:43:45,343 --> 00:43:47,424
+And that is mentioned in a hadith(حديث‎).
+
+618
+00:43:48,130 --> 00:43:52,162
+Now the only reason why we have another opinion is that
+
+619
+00:43:52,248 --> 00:43:56,102
+is because some of the Ulema(علماء‎) critiqued this hadith(حديث‎).
+
+620
+00:43:56,515 --> 00:43:59,134
+Some of them accept it as strong and some don't.
+
+621
+00:43:59,571 --> 00:44:00,419
+But the hadith(حديث‎) is;
+
+622
+00:44:00,459 --> 00:44:07,816
+إن الله أخذ الميثاق من ظهر آدم  بنعمان - يوم عرفة - وأخرج من صلبه
+
+623
+00:44:07,879 --> 00:44:12,234
+ كل ذرية ذرأها، فنثرهم بين يديه كالذر،
+
+624
+00:44:12,416 --> 00:44:16,360
+ثم كلمهم قبله، قال: أَلَسْتُ بِرَبِّكُمْ ۖ قَالُوا۟ بَلَىٰ
+
+625
+00:44:17,924 --> 00:44:21,999
+Allah has taken the covenant in Nuʿman(نعمان) - the Day of ʿArafah(عرفة).
+
+626
+00:44:22,396 --> 00:44:27,813
+Allah has taken out of Adam(آدَم) all of his seed and scattered them in His Hand like pearls,
+
+627
+00:44:28,329 --> 00:44:29,733
+then Allah asked them;
+
+628
+00:44:29,956 --> 00:44:32,044
+Isn’t it that I am your Lord?
+
+629
+00:44:32,145 --> 00:44:33,534
+They said: Yes.
+
+630
+00:44:33,867 --> 00:44:38,243
+According to this hadith(حديث‎), every one of us has spoken to Allah سبحانه وتعالى and said;
+
+631
+00:44:38,291 --> 00:44:42,037
+Yes, You are our Lord and we will worship nobody but You.
+
+632
+00:44:43,870 --> 00:44:45,270
+Allah سبحانه وتعالى says;
+
+633
+00:44:45,532 --> 00:44:54,512
+وَعَلَّمَ ءَادَمَ ٱلْأَسْمَاءَ كُلَّهَا ثُمَّ عَرَضَهُمْ عَلَى ٱلْمَلَـٰئِكَةِ
+
+634
+00:44:54,726 --> 00:44:59,091
+Allah سبحانه وتعالى says: And He taught Adam(آدَم) all of the names.
+
+635
+00:45:00,290 --> 00:45:05,856
+In tafsir(تفسير‎), it mentions, this is the opinion of Sayyiduna Ibn Abbas رضي الله عنه,
+
+636
+00:45:07,134 --> 00:45:09,799
+that Allah سبحانه وتعالى taught him the names of everything
+
+637
+00:45:11,315 --> 00:45:16,053
+the nouns and the verbs and the adjectives, all the names.
+
+638
+00:45:16,203 --> 00:45:20,291
+And if we take this literally, it would mean that he knew the names of everything.
+
+639
+00:45:21,918 --> 00:45:25,251
+But then there is another meaning that is mentioned also,
+
+640
+00:45:26,949 --> 00:45:33,159
+and that is that Allah سبحانه وتعالى has given him the ability to identify objects
+
+641
+00:45:33,842 --> 00:45:36,651
+and to designate names for these objects,
+
+642
+00:45:37,913 --> 00:45:40,627
+and that is the ability of speaking a language.
+
+643
+00:45:42,133 --> 00:45:48,177
+Again, it’s the ability to identify objects and to designate names for these objects,
+
+644
+00:45:48,257 --> 00:45:51,167
+and we find that that is a human ability.
+
+645
+00:45:52,811 --> 00:45:55,048
+We have different languages in the world,
+
+646
+00:45:55,710 --> 00:46:01,313
+and all of these languages were founded by human beings by giving names to objects
+
+647
+00:46:01,607 --> 00:46:05,402
+and then finding verbs and adjectives to tie these things together.
+
+648
+00:46:06,449 --> 00:46:10,368
+Now imagine that we did not have this ability;
+
+649
+00:46:11,177 --> 00:46:15,010
+so you want to tell your friend about a tree,
+
+650
+00:46:15,859 --> 00:46:18,204
+you cannot name and identify that object
+
+651
+00:46:18,244 --> 00:46:20,759
+so what you have to do is take him to the tree,
+
+652
+00:46:21,132 --> 00:46:22,958
+or you want to tell him about an apple
+
+653
+00:46:23,196 --> 00:46:27,284
+you cannot describe the apple, you have to bring an apple to him and start pointing at it.
+
+654
+00:46:28,744 --> 00:46:33,842
+So Allah سبحانه وتعالى has given the son of Adam(آدم‎) this ability, and Allah سبحانه وتعالى says;
+
+655
+00:46:34,287 --> 00:46:37,236
+ خَلَقَ ٱلْإِنسَـٰنَ ۝ عَلَّمَهُ ٱلْبَيَانَ۝
+
+656
+00:46:37,276 --> 00:46:42,253
+ Allah سبحانه وتعالى created the human and He taught him bayan(بيان), the ability of speaking, speech.
+
+657
+00:46:43,451 --> 00:46:46,316
+This is an ability that Allah سبحانه وتعالى did not give the angels.
+
+658
+00:46:46,396 --> 00:46:51,407
+The angels only know specific knowledge which Allah سبحانه وتعالى has given them
+
+659
+00:46:51,741 --> 00:46:53,820
+because they do not need this knowledge.
+
+660
+00:46:53,860 --> 00:46:56,225
+Allah سبحانه وتعالى taught them what they need.
+
+661
+00:46:56,820 --> 00:47:00,781
+They get orders, they receive orders from Allah سبحانه وتعالى and they do what they’re commanded.
+
+662
+00:47:00,923 --> 00:47:02,261
+يفعلون ما يؤمرون
+
+663
+00:47:02,844 --> 00:47:08,108
+But because the human being - Allah سبحانه وتعالى created him for the Khilafah(خلافة‎) on Earth.
+
+664
+00:47:08,369 --> 00:47:09,854
+عن عمارة الأرض
+
+665
+00:47:10,655 --> 00:47:17,091
+“To the establishment of the Khilafah(خِلَافَه) on Earth,” and to establish this earth and live in it.
+
+666
+00:47:17,694 --> 00:47:19,805
+That ability is necessary for us.
+
+667
+00:47:19,948 --> 00:47:22,440
+Imagine how our life would be;
+
+668
+00:47:22,526 --> 00:47:26,923
+actually, we wouldn't be living if we didn't have the ability to identify objects and name them.
+
+669
+00:47:27,169 --> 00:47:29,962
+This is a necessity for us to communicate,
+
+670
+00:47:30,295 --> 00:47:33,491
+and Allah سبحانه وتعالى has given the son of Adam(آدم‎) that ability.
+
+671
+00:47:34,753 --> 00:47:35,899
+So we’re able to name things,
+
+672
+00:47:35,939 --> 00:47:39,955
+and you find out that we’re producing every now and then thousands and thousands of objects
+
+673
+00:47:40,137 --> 00:47:43,338
+and we’re designating names to these objects,
+
+674
+00:47:44,179 --> 00:47:47,743
+microphone, speakers - all of these are new names,
+
+675
+00:47:48,052 --> 00:47:53,924
+but the son of Adam(آدم‎) is able and throw a thousand things in the market, we have the ability to find names for them.
+
+676
+00:47:55,868 --> 00:47:57,543
+وَعَلَّمَ ءَادَمَ ٱلْأَسْمَاءَ كُلَّهَا
+
+677
+00:47:57,773 --> 00:48:00,238
+Allah سبحانه وتعالى taught Adam (آدم‎) all of the names.
+
+678
+00:48:01,142 --> 00:48:03,127
+ثُمَّ عَرَضَهُمْ عَلَى ٱلْمَلَـٰئِكَةِ
+
+679
+00:48:04,325 --> 00:48:09,658
+And then Allah made a test and presented some objects on the angels.
+
+680
+00:48:10,396 --> 00:48:19,963
+فَقَالَ أَنبِـُٔونِى بِأَسْمَاءِ هَـٰؤُلَاءِ إِن كُنتُمْ صَـٰدِقِينَ۝
+
+681
+00:48:20,892 --> 00:48:25,935
+Tell Me the names of these if you are true. “if you are truthful, if you are right,”
+
+682
+00:48:26,142 --> 00:48:29,293
+because the angels, they said at the beginning;
+
+683
+00:48:29,333 --> 00:48:34,055
+“Why are You going to create a human being who will cause bloodshed and corruption?”
+
+684
+00:48:34,444 --> 00:48:39,007
+Allah سبحانه وتعالى made this test and told the angels to identify these objects.
+
+685
+00:48:39,110 --> 00:48:40,253
+What did the angels say?
+
+686
+00:48:40,451 --> 00:48:54,031
+قَالُوا سُبْحَـٰنَكَ لَا عِلْمَ لَنَا إِلَّا مَا عَلَّمْتَنَا ۖ إِنَّكَ أَنتَ ٱلْعَلِيمُ ٱلْحَكِيمُ۝
+
+687
+00:48:54,200 --> 00:48:55,192
+They said;
+
+688
+00:48:55,721 --> 00:49:01,991
+“Glory be to You, we have no knowledge but the knowledge that You have given us.”
+
+689
+00:49:02,738 --> 00:49:03,841
+إِنَّكَ أَنتَ ٱلْعَلِيمُ ٱلْحَكِيمُ۝
+
+690
+00:49:03,881 --> 00:49:07,293
+ You are the Most Knowledgeable and the All-Wise.
+
+691
+00:49:08,405 --> 00:49:11,805
+And now it’s Adam(آدم‎)’s turn to go through the test.
+
+692
+00:49:12,297 --> 00:49:19,553
+قَالَ يَـٰـَٔادَمُ أَنبِئْهُم بِأَسْمَائِهِمْ
+
+693
+00:49:19,736 --> 00:49:23,347
+O Adam(آدَم), tell them these names.
+
+694
+00:49:23,847 --> 00:49:25,275
+Allah سبحانه وتعالى says;
+
+695
+00:49:25,601 --> 00:49:34,433
+فَلَمَّا أَنبَأَهُم بِأَسْمَائِهِمْ قَالَ أَلَمْ أَقُل لَّكُمْ
+
+696
+00:49:34,680 --> 00:49:42,210
+أَلَمْ أَقُل لَّكُمْ إِنِّى أَعْلَمُ غَيْبَ ٱلسَّمَـٰوَٰتِ وَٱلْأَرْضِ
+
+697
+00:49:42,345 --> 00:49:50,198
+وَأَعْلَمُ مَا تُبْدُونَ وَمَا كُنتُمْ تَكْتُمُونَ۝
+
+698
+00:49:50,634 --> 00:49:55,022
+And when he told them the names, Allah سبحانه وتعالى told the angels;
+
+699
+00:49:55,062 --> 00:49:59,892
+Didn’t I tell you that I know the knowledge of the Unseen in the heavens and the earth
+
+700
+00:50:00,091 --> 00:50:04,000
+and I know what you reveal and what you conceal.
+
+701
+00:50:04,040 --> 00:50:05,982
+Allah سبحانه وتعالى knows all knowledge.
+
+702
+00:50:06,197 --> 00:50:10,742
+So Allah is telling the angels there is a hikmah(حكمة‎) for the creation of Adam(آدم‎) you don't know.
+
+703
+00:50:11,560 --> 00:50:14,163
+There is a hikmah(حكمة‎)‎ that you don't know,
+
+704
+00:50:14,472 --> 00:50:20,573
+and that is a lesson for us whenever we see something that we’re not able to understand or comprehend.
+
+705
+00:50:20,613 --> 00:50:22,987
+We need to understand that Allah has a wisdom behind it.
+
+706
+00:50:23,939 --> 00:50:27,421
+There is a hikmah(حكمة‎), there is a wisdom behind every action.
+
+707
+00:50:28,810 --> 00:50:30,294
+There is a hikmah(حكمة‎) behind everything
+
+708
+00:50:30,683 --> 00:50:36,536
+because many times human beings fall into that trap of questioning why some events are happening.
+
+709
+00:50:36,711 --> 00:50:39,409
+I mean, “Why is this happening?” And we question Qadr(قدر)
+
+710
+00:50:39,592 --> 00:50:45,752
+and we question misery and we question disease and we question disasters and we question wars.
+
+711
+00:50:45,943 --> 00:50:47,570
+“Why are these things happening?”
+
+712
+00:50:48,316 --> 00:50:52,916
+We need to realize Allah has a wisdom in everything that is happening around us, there is a reason.
+
+713
+00:50:53,537 --> 00:50:55,608
+We don't know it, Allah سبحانه وتعالى knows it.
+
+714
+00:50:56,926 --> 00:50:58,412
+So that's the story of the names.
+
+715
+00:50:59,586 --> 00:51:00,801
+Adam(آدم‎) was alone.
+
+716
+00:51:01,539 --> 00:51:03,066
+هُوَ ٱلَّذِى خَلَقَكُم مِّن نَّفْسٍ وَٰحِدَةٍ
+
+717
+00:51:03,106 --> 00:51:08,343
+Allah سبحانه وتعالى says you were created from one self, one nafs(نفس), one soul
+
+718
+00:51:09,143 --> 00:51:10,366
+and that is Adam(آدم‎).
+
+719
+00:51:12,056 --> 00:51:17,553
+And then Allah سبحانه وتعالى created out of Adam(آدم‎) his mate, Hawa(هوى‎).
+
+720
+00:51:18,299 --> 00:51:24,432
+And then the hadith(حديث‎) tells us that Hawa(هوى‎) was created from the rib of Sayyiduna Adam(سيدنا آدم‎).
+
+721
+00:51:25,337 --> 00:51:26,813
+Allah سبحانه وتعالى says;
+
+722
+00:51:27,448 --> 00:51:38,404
+يَـٰٓأَيُّهَا ٱلنَّاسُ ٱتَّقُوا۟ رَبَّكُمُ ٱلَّذِى خَلَقَكُم مِّن نَّفْسٍ وَٰحِدَةٍ
+
+723
+00:51:38,610 --> 00:51:41,561
+وَخَلَقَ مِنْهَا زَوْجَهَا
+
+724
+00:51:41,624 --> 00:51:50,272
+وَبَثَّ مِنْهُمَا رِجَالًا كَثِيرًا وَنِسَآءً ۚ
+
+725
+00:51:50,367 --> 00:51:58,176
+وَٱتَّقُوا۟ ٱللَّهَ ٱلَّذِى تَسَآءَلُونَ بِهِۦ وَٱلْأَرْحَامَ ۚ
+
+726
+00:51:58,291 --> 00:52:04,005
+إِنَّ ٱللَّهَ كَانَ عَلَيْكُمْ رَقِيبًا۝
+
+727
+00:52:04,069 --> 00:52:08,191
+O mankind, be dutiful to your Lord who created you from a single person,
+
+728
+00:52:08,445 --> 00:52:14,128
+and from him He created his wife, and from them both He created many men and women.
+
+729
+00:52:14,223 --> 00:52:15,900
+And then Rasool Allah ﷺ says in the Hadith(حديث);
+
+730
+00:52:16,146 --> 00:52:17,583
+استوصوا بالنساء خيرا
+
+731
+00:52:18,622 --> 00:52:21,241
+فإن المرأة خلقت من ضلع
+
+732
+00:52:22,090 --> 00:52:24,763
+وإن أعوج شيء في الضلع أعلاه
+
+733
+00:52:24,993 --> 00:52:31,950
+فإن ذهبت تقيمه كسرته وإن تركته لم يزل أعوج فاستوصوا بالنساء خيرا
+
+734
+00:52:32,022 --> 00:52:32,895
+متفق عليه
+
+735
+00:52:33,379 --> 00:52:37,910
+Rasool Allah ﷺ says: “Take good care of women.
+
+736
+00:52:38,680 --> 00:52:41,046
+Women were created from a rib,
+
+737
+00:52:41,356 --> 00:52:45,459
+and the most bent part of the rib is the top of it.
+
+738
+00:52:46,332 --> 00:52:49,591
+If you try to make it straight, you'll break it,
+
+739
+00:52:49,817 --> 00:52:54,079
+and if you leave it, it’ll remain bent, so take good care of women.
+
+740
+00:52:54,849 --> 00:53:00,626
+If we understand this hadith(حديث‎), the communication between men and women would be much better and easier.
+
+741
+00:53:01,491 --> 00:53:04,859
+Adam(آدم‎) and Hawa(هوى‎) were living in Jannah(جنة).
+
+742
+00:53:05,456 --> 00:53:13,544
+They had all of Jannah(جنة‎), but there was an exception and that is the tree.
+
+743
+00:53:13,774 --> 00:53:16,675
+One tree, now what type of tree is this?
+
+744
+00:53:17,433 --> 00:53:23,416
+Apple tree? Banana tree? Asking this question, to start with, is part of
+
+745
+00:53:23,456 --> 00:53:24,812
+علم لا ينفع
+
+746
+00:53:25,162 --> 00:53:26,717
+knowledge that does not benefit.
+
+747
+00:53:27,424 --> 00:53:34,083
+Going into this is part of the knowledge that does not benefit and that's why Allah سبحانه وتعالى did not mention it in Qur’an.
+
+748
+00:53:35,774 --> 00:53:43,016
+The details of these stories are not mentioned in Qur’an - what type of tree was it, what’s the name of it, how long it was.
+
+749
+00:53:43,167 --> 00:53:45,882
+I mean, just like for example, in the story of the people of the cave,
+
+750
+00:53:46,278 --> 00:53:50,610
+to show you that Allah سبحانه وتعالى is telling us about knowledge that would benefit us
+
+751
+00:53:50,650 --> 00:53:54,770
+but sometimes we try to go into areas that would not benefit us.
+
+752
+00:53:55,135 --> 00:53:56,914
+Allah سبحانه وتعالى left it
+
+753
+00:53:57,342 --> 00:54:00,207
+and we try to go and investigate(wrong practice).
+
+754
+00:54:00,636 --> 00:54:04,218
+In the story of the young men, when they went in the cave,
+
+755
+00:54:04,406 --> 00:54:06,557
+وَكَلْبُهُم بَـٰسِطٌ ذِرَاعَيْهِ بِٱلْوَصِيدِ
+
+756
+00:54:06,779 --> 00:54:11,782
+It says that their dog was spreading its arms on the entrance of the cave.
+
+757
+00:54:12,335 --> 00:54:15,013
+Some started questioning: “what type of dog was it”?
+
+758
+00:54:15,299 --> 00:54:16,561
+and “what’s the color of the dog”?
+
+759
+00:54:16,648 --> 00:54:21,682
+Some of them said: “It's white” and some of them said: “It’s black” and some of them said: “No, it’s a mixture of black and white.”
+
+760
+00:54:22,031 --> 00:54:25,428
+I mean, what kind of benefit can we learn from this knowledge? Nothing.
+
+761
+00:54:26,809 --> 00:54:31,996
+The reason why these stories are mentioned in Qur’an are not as a historical account,
+
+762
+00:54:32,175 --> 00:54:34,325
+but they are mentioned for their Ibrah(عبرة).
+
+763
+00:54:35,206 --> 00:54:36,143
+Allah سبحانه وتعالى says;
+
+764
+00:54:36,183 --> 00:54:37,368
+لَعَلَّهُمْ يَتَفَكَّرُونَ
+
+765
+00:54:37,408 --> 00:54:40,772
+So that they may contemplate.
+
+766
+00:54:41,185 --> 00:54:42,238
+And Allah سبحانه وتعالى says;
+
+767
+00:54:42,278 --> 00:54:44,454
+عِبْرَةٌ لِّأُولِى ٱلْأَلْبَـٰابِ
+
+768
+00:54:44,494 --> 00:54:46,871
+These are lessons for the ones of understanding.
+
+769
+00:54:47,331 --> 00:54:50,474
+So the tree was mentioned in Qur’an;
+
+770
+00:54:50,499 --> 00:54:51,154
+شَجَرَةِ ٱلْخُلْدِ
+
+771
+00:54:51,305 --> 00:54:52,646
+It’s just a tree,
+
+772
+00:54:53,353 --> 00:54:58,670
+but we do not know what kind of tree was it and where it was and how tall it was…
+
+773
+00:54:59,234 --> 00:55:00,217
+we don’t know those details.
+
+774
+00:55:00,336 --> 00:55:01,193
+It was a tree
+
+775
+00:55:01,534 --> 00:55:05,598
+that is the only part of Jannah(جنة‎) Adam(آدم‎) and Hawa(هوى‎) were not supposed to touch.
+
+776
+00:55:06,669 --> 00:55:08,009
+Allah سبحانه وتعالى says;
+
+777
+00:55:08,336 --> 00:55:15,066
+وَقُلْنَا يَـٰـَٔادَمُ ٱسْكُنْ أَنتَ وَزَوْجُكَ ٱلْجَنَّةَ
+
+778
+00:55:15,248 --> 00:55:19,989
+وَكُلَا مِنْهَا رَغَدًا حَيْثُ شِئْتُمَا
+
+779
+00:55:20,076 --> 00:55:27,268
+ وَلَا تَقْرَبَا هَـٰذِهِ ٱلشَّجَرَةَ فَتَكُونَا مِنَ ٱلظَّـٰلِمِينَ۝
+
+780
+00:55:27,308 --> 00:55:35,028
+And We said: O Adam(آدَم), live, and your mate, in Jannah(جنة) and eat from it wherever you want,
+
+781
+00:55:35,282 --> 00:55:37,337
+but do not touch this tree.
+
+782
+00:55:37,853 --> 00:55:39,147
+Allah سبحانه وتعالى says;
+
+783
+00:55:39,227 --> 00:55:41,200
+فَوَسْوَسَ إِلَيْهِ ٱلشَّيْطَـٰنُ
+
+784
+00:55:41,724 --> 00:55:44,763
+Shaitan(شيطان) gave Adam(آدم‎) waswasah(وسوسة).
+
+785
+00:55:45,001 --> 00:55:52,016
+Waswasah(وسوسة) is some hidden speech that he’s delivering in one's mind, evil inspiration.
+
+786
+00:55:53,000 --> 00:55:55,778
+What did Iblis(إبليس), Shaytan(شيطان) tell Adam (آدم‎)?
+
+787
+00:55:56,643 --> 00:55:59,302
+Did he tell Adam(آدم‎): “Go and eat from the tree Allah told you: ‘Don't touch’”?
+
+788
+00:56:00,524 --> 00:56:03,821
+Did he tell Adam(آدم‎): “Go and disobey Allah سبحانه وتعالى”?
+
+789
+00:56:04,599 --> 00:56:06,702
+Did he tell him: “Go and commit Haram(حرام)”?
+
+790
+00:56:08,226 --> 00:56:10,742
+He knew how to deal with the human being.
+
+791
+00:56:10,941 --> 00:56:14,256
+فَوَسْوَسَ إِلَيْهِ ٱلشَّيْطَـٰنُ
+
+792
+00:56:14,336 --> 00:56:20,698
+قَالَ يَـٰـَٔادَمُ هَلْ أَدُلُّكَ عَلَىٰ شَجَرَةِ ٱلْخُلْدِ وَمُلْكٍ لَّا يَبْلَىٰ
+
+793
+00:56:21,372 --> 00:56:27,468
+He said: Shall I tell you about the tree that will give you infinite life, eternity,
+
+794
+00:56:28,111 --> 00:56:33,167
+and will give you the greatest kingdom that will not end?
+
+795
+00:56:34,024 --> 00:56:38,873
+Shaytan(شيطان) knows our points of weakness and that's where he attacks from.
+
+796
+00:56:39,961 --> 00:56:41,778
+He didn't go to Adam(آدم‎) bluntly and tell him;
+
+797
+00:56:41,818 --> 00:56:44,723
+“Go and disobey Allah سبحانه وتعالى.” Otherwise, Adam(آدم‎) wouldn't have done it.
+
+798
+00:56:45,207 --> 00:56:50,009
+He told him: This tree would give you continuous life, eternal life,
+
+799
+00:56:50,159 --> 00:56:51,644
+and it would give you kingdom.
+
+800
+00:56:52,366 --> 00:56:57,606
+Adam(آدم‎) and Hawa(هوى‎) - they ate from that tree, and because of that, Allah سبحانه وتعالى sent them down to Earth.
+
+801
+00:56:59,217 --> 00:57:01,741
+Whenever you read this Ayah(آية) or hear about this story,
+
+802
+00:57:01,781 --> 00:57:09,055
+do you ever wonder how could such a great Nabi(نبي) commit such a mistake?
+
+803
+00:57:09,579 --> 00:57:14,901
+Do you ever wonder how come Allah سبحانه وتعالى told him: “Don't touch from that tree”
+
+804
+00:57:14,941 --> 00:57:16,639
+and then he went and ate from it?
+
+805
+00:57:17,956 --> 00:57:19,837
+Do you ever wonder how could that happen?
+
+806
+00:57:21,075 --> 00:57:24,432
+I think some of you may had that idea.
+
+807
+00:57:24,721 --> 00:57:27,265
+How come, this is a Nabi(نبي) of Allah سبحانه وتعالى, how could he do that?
+
+808
+00:57:27,345 --> 00:57:29,085
+By the way, at that time, he was not a Nabi(نبي) yet,
+
+809
+00:57:29,482 --> 00:57:31,497
+but later in Earth, he became of the Ambiya(أنبياء‎).
+
+810
+00:57:33,990 --> 00:57:36,651
+Instead of thinking about why Adam(آدم‎) did so,
+
+811
+00:57:37,571 --> 00:57:41,908
+why not think about yourself that you are committing sins and mistakes.
+
+812
+00:57:42,175 --> 00:57:49,973
+ It is much more difficult to understand how we can commit sins
+
+813
+00:57:50,695 --> 00:57:54,476
+because, with Adam(آدم‎), he did not have any experience whatsoever;
+
+814
+00:57:54,714 --> 00:57:59,901
+he did not know about Shaytan(شيطان), he had only knowledge about Shaytan(شيطان), but he had no experience with him.
+
+815
+00:58:00,877 --> 00:58:02,485
+An experience is different than knowledge.
+
+816
+00:58:02,559 --> 00:58:07,908
+With Adam(آدم‎), he knew that Shaytan(شيطان) is his enemy, but he never experienced it.
+
+817
+00:58:08,527 --> 00:58:09,916
+And even Rasool Allah ﷺ says;
+
+818
+00:58:09,956 --> 00:58:12,001
+ليس الخبر كالمعاينة
+
+819
+00:58:12,588 --> 00:58:14,997
+ “Knowing the news is not like seeing it.”
+
+820
+00:58:15,628 --> 00:58:19,510
+Adam(آدم‎) had the knowledge, but he didn't have any experience with Shaytan(شيطان) yet.
+
+821
+00:58:20,296 --> 00:58:24,598
+We know what happened to Adam(آدم‎) and we know it was caused by Shaytan(شيطان)
+
+822
+00:58:24,876 --> 00:58:31,140
+and we have seen a long history, of mankind and we’re still committing the same mistake again and again.
+
+823
+00:58:32,648 --> 00:58:36,854
+We should question that, we should not question the fact that Adam(آدم‎) committed this mistake
+
+824
+00:58:37,795 --> 00:58:40,311
+because for Adam(آدم‎), it was a very innocent mistake,
+
+825
+00:58:41,382 --> 00:58:43,309
+and Allah سبحانه وتعالى forgave him
+
+826
+00:58:44,444 --> 00:58:50,171
+because Adam(آدم‎) did not have any experience yet and Allah سبحانه وتعالى wanted this to be a test for Adam(آدم‎)
+
+827
+00:58:50,298 --> 00:58:55,395
+so that he could learn from it and this could be experience for Adam(آدم‎) to prepare him
+
+828
+00:58:55,435 --> 00:58:57,834
+because he will be a Nabi(نبي) of Allah سبحانه وتعالى.
+
+829
+00:58:58,501 --> 00:59:01,338
+It's a preparation for Adam(آدم‎); Allah’s preparing him
+
+830
+00:59:01,529 --> 00:59:06,688
+just like Allah سبحانه وتعالى was preparing Dawud(داود) through the mistake that he committed and we’re gonna talk about that.
+
+831
+00:59:06,979 --> 00:59:10,257
+Allah سبحانه وتعالى was preparing Dawud(داود) for the position of Khilafah(خلافة‎)
+
+832
+00:59:10,392 --> 00:59:13,798
+so Allah سبحانه وتعالى made him go through that judgment and he made a mistake in it
+
+833
+00:59:14,068 --> 00:59:16,648
+and then Allah سبحانه وتعالى corrected that mistake for him.
+
+834
+00:59:16,838 --> 00:59:20,195
+They say that Dawud(داود), after the mistake, was better than he was before.
+
+835
+00:59:21,092 --> 00:59:26,703
+So Allah سبحانه وتعالى was preparing Adam(آدم‎) so that he would go through this experience and learn from it
+
+836
+00:59:27,020 --> 00:59:32,747
+and it would prepare him for living on this earth to realize that Shaytan(شيطان), Iblis(إبليس), is your enemy.
+
+837
+00:59:33,659 --> 00:59:35,199
+Allah سبحانه وتعالى says;
+
+838
+00:59:35,477 --> 00:59:40,299
+وَقُلْنَا ٱهْبِطُوا بَعْضُكُمْ لِبَعْضٍ عَدُوٌّ
+
+839
+00:59:40,545 --> 00:59:44,632
+Allah سبحانه وتعالى says: Get you down, all.
+
+840
+00:59:46,124 --> 00:59:51,371
+Allah سبحانه وتعالى told Adam(آدم‎) and Hawa(هوى‎) to get out of Jannah(جنة‎).
+
+841
+00:59:51,918 --> 01:00:01,978
+In Arabic, there is singular, which is for one, and then there is another form for two and then there is plural for three and more.
+
+842
+01:00:02,200 --> 01:00:05,132
+In English, we have only singular and plural;
+
+843
+01:00:05,489 --> 01:00:08,783
+singular is for one, plural is for how many?
+
+844
+01:00:09,727 --> 01:00:10,346
+Two or more.
+
+845
+01:00:10,561 --> 01:00:14,936
+In English, if you are talking about two people, you say “they”. You don’t say “he”.
+
+846
+01:00:15,261 --> 01:00:15,849
+“They”
+
+847
+01:00:16,388 --> 01:00:17,047
+it’s two of them.
+
+848
+01:00:17,277 --> 01:00:21,707
+But in Arabic, plural is not 2, plural is three or more.
+
+849
+01:00:22,106 --> 01:00:25,075
+There is another form that is used for the two.
+
+850
+01:00:26,432 --> 01:00:28,233
+Adam(آدم‎) and Hawa(هوى‎) are two.
+
+851
+01:00:29,091 --> 01:00:32,078
+Allah سبحانه وتعالى referred to them in the plural form.
+
+852
+01:00:32,118 --> 01:00:32,854
+ ٱهْبِطُوا۟
+
+853
+01:00:33,078 --> 01:00:33,904
+All of you…
+
+854
+01:00:33,944 --> 01:00:37,285
+All of you descend down from Jannah(جنة) in a plural form…
+
+855
+01:00:37,325 --> 01:00:38,559
+but they were only two.
+
+856
+01:00:39,988 --> 01:00:43,868
+Al-Farah(الفرح) says, one of the Mufassireen(مفسرين‎), he says;
+
+857
+01:00:44,122 --> 01:00:48,696
+Because this command is to Adam(آدم‎) and his wife and all of us with them.
+
+858
+01:00:49,609 --> 01:00:53,228
+All of us were in Jannah(جنة‎), that's where we were.
+
+859
+01:00:53,514 --> 01:00:58,347
+But because of Iblis(إبليس) and Shaytan(شيطان) and that mistake, we all came down to Duniya(دنيا‎).
+
+860
+01:00:58,720 --> 01:01:00,530
+So we do not really belong to Duniya(دنيا‎)
+
+861
+01:01:00,934 --> 01:01:02,473
+this is not where we belong to.
+
+862
+01:01:02,513 --> 01:01:05,854
+We are here for a temporary time, we belong to Al-Akhirah(الآخرة‎).
+
+863
+01:01:08,188 --> 01:01:11,324
+وَلَكُمْ فِى ٱلْأَرْضِ مُسْتَقَرٌّ وَمَتَـٰعٌ إِلَىٰ حِينٍ۝
+
+864
+01:01:11,364 --> 01:01:15,149
+On Earth will be a dwelling place for you and an enjoyment for a time.
+
+865
+01:01:15,189 --> 01:01:16,741
+You’re gonna stay there for a while.
+
+866
+01:01:18,217 --> 01:01:21,122
+Allah سبحانه وتعالى taught Adam(آدم‎) some words to learn.
+
+867
+01:01:21,534 --> 01:01:28,487
+فَتَلَقَّىٰ ءَادَمُ مِن رَّبِّهِۦ كَلِمَـٰتٍ فَتَابَ عَلَيْهِ ۚ
+
+868
+01:01:28,749 --> 01:01:33,236
+إِنَّهُۥ هُوَ ٱلتَّوَّابُ ٱلرَّحِيمُ۝
+
+869
+01:01:33,505 --> 01:01:40,649
+Then Adam(آدَم) received from his Lord words, and His Lord pardoned him and accepted his repentance.
+
+870
+01:01:40,840 --> 01:01:43,054
+Verily, He is the One who forgives.
+
+871
+01:01:43,665 --> 01:01:50,845
+So Allah taught Adam(آدم‎) words to say, Allah taught Adam(آدم‎) a Dua(دُعَا) to say, and then Allah سبحانه وتعالى forgave him.
+
+872
+01:01:50,948 --> 01:01:52,297
+What was this Dua(دُعَا)?
+
+873
+01:01:52,599 --> 01:01:58,398
+قَالَا رَبَّنَا ظَلَمْنَا أَنفُسَنَا
+
+874
+01:01:58,612 --> 01:02:06,561
+وَإِن لَّمْ تَغْفِرْ لَنَا وَتَرْحَمْنَا لَنَكُونَنَّ مِنَ ٱلْخَـٰسِرِينَ۝
+
+875
+01:02:06,641 --> 01:02:08,235
+Allah سبحانه وتعالى says;
+
+876
+01:02:08,743 --> 01:02:12,922
+They said: Our Lord, we have wronged ourselves.
+
+877
+01:02:13,246 --> 01:02:20,566
+If You forgive us not and bestow not upon us Your mercy, we shall certainly be of the losers.
+
+878
+01:02:22,034 --> 01:02:23,915
+We have wronged ourselves. Look at this Dua(دُعَا),
+
+879
+01:02:24,248 --> 01:02:29,157
+very important Dua(دُعَا), and please memorize it and use it because it is the Duʿa(دعاء) of the sinners.
+
+880
+01:02:30,863 --> 01:02:32,141
+رَبَّنَا ظَلَمْنَا أَنفُسَنَا
+
+881
+01:02:32,839 --> 01:02:35,188
+O Allah, we have wronged ourselves, we have committed wrong
+
+882
+01:02:35,768 --> 01:02:40,417
+and we have harmed ourselves by this wrong, we’re not harming Allah, we’re harming our own selves.
+
+883
+01:02:41,615 --> 01:02:43,980
+وَإِن لَّمْ تَغْفِرْ لَنَا وَتَرْحَمْنَا
+
+884
+01:02:44,020 --> 01:02:49,057
+If You do not have forgiveness on us and mercy, we would be of the losers.
+
+885
+01:02:51,176 --> 01:02:54,215
+If you do not forgive us and have mercy on us, we would be losers.
+
+886
+01:02:54,311 --> 01:02:58,898
+We need You, O Allah, so please, O Allah, we beg You to forgive us and have mercy on us.
+
+887
+01:02:59,382 --> 01:03:03,206
+This is the Duʿa(دعاء) that Allah سبحانه وتعالى taught Adam(آدم‎) and Hawa(هوى‎).
+
+888
+01:03:04,548 --> 01:03:07,183
+صَلَّى الله عَلى سَيَّدِنَا محمد وَعَلى اَلِهِ وَ صَحْبِهِ وَسَلِّمْ
+

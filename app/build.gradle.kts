@@ -59,10 +59,16 @@ dependencies {
     implementation("androidx.compose.material:material-icons-extended")
     implementation("androidx.navigation:navigation-compose:2.8.4")
 
+    implementation("androidx.annotation:annotation-experimental:1.4.1")
+
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
-    implementation("androidx.media3:media3-exoplayer:1.4.1")
-    implementation("androidx.media3:media3-ui:1.4.1")
-    implementation("androidx.media3:media3-session:1.4.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
+
+    val media3 = "1.4.1"
+    implementation("androidx.media3:media3-exoplayer:$media3")
+    implementation("androidx.media3:media3-datasource:$media3")
+    implementation("androidx.media3:media3-session:$media3")
+    implementation("com.google.guava:guava:33.3.1-android")
 
     debugImplementation("androidx.compose.ui:ui-tooling")
 }

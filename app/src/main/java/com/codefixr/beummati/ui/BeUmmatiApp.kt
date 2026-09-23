@@ -1,272 +1,181 @@
 package com.codefixr.beummati.ui
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Forward10
-import androidx.compose.material.icons.filled.Pause
-import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.filled.Replay10
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material.icons.automirrored.outlined.MenuBook
+import androidx.compose.material.icons.outlined.AutoStories
+import androidx.compose.material.icons.outlined.BookmarkBorder
+import androidx.compose.material.icons.outlined.Groups
+import androidx.compose.material.icons.outlined.LocalLibrary
+import androidx.compose.material.icons.outlined.WbSunny
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.codefixr.beummati.data.CatalogRepository
-import com.codefixr.beummati.data.LibrarySeries
-import com.codefixr.beummati.player.LecturePlayer
+import androidx.navigation.NavGraph.Companion.findStartDestination
+import com.codefixr.beummati.ui.hadith.HadithBooksScreen
+import com.codefixr.beummati.ui.hadith.HadithChapterScreen
+import com.codefixr.beummati.ui.hadith.HadithChaptersScreen
+import com.codefixr.beummati.ui.home.HomeScreen
+import com.codefixr.beummati.ui.library.ChapterReaderScreen
+import com.codefixr.beummati.ui.library.DuaCategoryScreen
+import com.codefixr.beummati.ui.library.DuasScreen
+import com.codefixr.beummati.ui.library.LibraryScreen
+import com.codefixr.beummati.ui.library.SahabaScreen
+import com.codefixr.beummati.ui.library.SeriesScreen
+import com.codefixr.beummati.ui.player.LecturePlayerScreen
+import com.codefixr.beummati.ui.player.MiniPlayerBar
+import com.codefixr.beummati.ui.quran.QuranListScreen
+import com.codefixr.beummati.ui.quran.SurahScreen
+import com.codefixr.beummati.ui.saved.SavedScreen
+import com.codefixr.beummati.ui.scholars.ScholarsScreen
+
+enum class Tab(val route: String, val label: String, val icon: ImageVector) {
+    HOME("home", "Today", Icons.Outlined.WbSunny),
+    QURAN("quran", "Qur’an", Icons.AutoMirrored.Outlined.MenuBook),
+    HADITH("hadith", "Hadith", Icons.Outlined.AutoStories),
+    LIBRARY("library", "Library", Icons.Outlined.LocalLibrary),
+    SCHOLARS("scholars", "Scholars", Icons.Outlined.Groups),
+    SAVED("saved", "Saved", Icons.Outlined.BookmarkBorder)
+}
+
+object Routes {
+    const val PLAYER = "player"
+    fun surah(n: Int) = "quran/$n"
+    fun hadithBook(slug: String) = "hadith/$slug"
+    fun hadithChapter(slug: String, index: Int) = "hadith/$slug/$index"
+    fun series(id: String) = "library/series/$id"
+    fun chapter(seriesId: String, chapterId: String) = "library/series/$seriesId/$chapterId"
+    const val SAHABA = "library/sahaba"
+    const val DUAS = "library/duas"
+    fun duaCategory(id: Int) = "library/duas/$id"
+}
+
+private fun tabFor(route: String?): Tab? =
+    route?.let { r -> Tab.entries.firstOrNull { r == it.route || r.startsWith(it.route + "/") } }
+
+private fun NavHostController.switchTab(tab: Tab, currentTab: Tab?) {
+    if (tab == currentTab && popBackStack(tab.route, inclusive = false)) return
+    navigate(tab.route) {
+        popUpTo(graph.findStartDestination().id) { saveState = true }
+        launchSingleTop = true
+        restoreState = true
+    }
+}
 
 @Composable
 fun BeUmmatiApp() {
-    val context = LocalContext.current
-    val repo = remember { CatalogRepository(context) }
-    val player = remember { LecturePlayer(context) }
-    DisposableEffect(Unit) {
-        onDispose { player.release() }
-    }
-
     val nav = rememberNavController()
-    val audioSeriesIds = remember {
-        repo.audio.tracks.map { it.seriesId }.toSet()
-    }
-    val lectureSeries = remember {
-        repo.library.series.filter { it.id in audioSeriesIds && it.chapters.isNotEmpty() }
-    }
+    val entry by nav.currentBackStackEntryAsState()
+    val route = entry?.destination?.route
+    val onPlayer = route == Routes.PLAYER
+    val currentTab = tabFor(route)
+    val navigate: (String) -> Unit = { nav.navigate(it) }
+    val back: () -> Unit = { nav.popBackStack() }
 
     Scaffold(
-        bottomBar = { MiniPlayerBar(player) }
+        contentWindowInsets = WindowInsets(0, 0, 0, 0),
+        bottomBar = {
+            if (!onPlayer) {
+                Column {
+                    MiniPlayerBar(onOpen = { nav.navigate(Routes.PLAYER) { launchSingleTop = true } })
+                    NavigationBar {
+                        Tab.entries.forEach { tab ->
+                            NavigationBarItem(
+                                selected = tab == currentTab,
+                                onClick = { nav.switchTab(tab, currentTab) },
+                                icon = { Icon(tab.icon, contentDescription = tab.label) },
+                                label = { Text(tab.label, maxLines = 1, overflow = TextOverflow.Clip) }
+                            )
+                        }
+                    }
+                }
+            }
+        }
     ) { padding ->
         NavHost(
             navController = nav,
-            startDestination = "home",
+            startDestination = Tab.HOME.route,
             modifier = Modifier.padding(padding)
         ) {
-            composable("home") {
-                HomeScreen(
-                    series = lectureSeries,
-                    attribution = repo.audio.attribution.orEmpty(),
-                    onOpen = { nav.navigate("series/${it.id}") }
-                )
+            composable(Tab.HOME.route) {
+                HomeScreen(navigate = navigate, onSwitchTab = { nav.switchTab(it, currentTab) })
+            }
+
+            composable(Tab.QURAN.route) {
+                QuranListScreen(onOpenSurah = { navigate(Routes.surah(it)) })
+            }
+            composable("quran/{n}", arguments = listOf(navArgument("n") { type = NavType.IntType })) {
+                SurahScreen(number = it.arguments?.getInt("n") ?: 1, onBack = back)
+            }
+
+            composable(Tab.HADITH.route) {
+                HadithBooksScreen(onOpenBook = { navigate(Routes.hadithBook(it)) })
+            }
+            composable("hadith/{slug}", arguments = listOf(navArgument("slug") { type = NavType.StringType })) {
+                val slug = it.arguments?.getString("slug").orEmpty()
+                HadithChaptersScreen(slug = slug, onBack = back, onOpenChapter = { idx -> navigate(Routes.hadithChapter(slug, idx)) })
             }
             composable(
-                route = "series/{id}",
-                arguments = listOf(navArgument("id") { type = NavType.StringType })
-            ) { entry ->
-                val id = entry.arguments?.getString("id").orEmpty()
-                val series = lectureSeries.firstOrNull { it.id == id }
-                if (series == null) {
-                    Text("Series not found", modifier = Modifier.padding(24.dp))
-                } else {
-                    SeriesScreen(
-                        series = series,
-                        onBack = { nav.popBackStack() },
-                        onPlay = { chapterId, title ->
-                            val track = repo.trackFor(series.id, chapterId)
-                            if (track != null) {
-                                player.play(track.audioUrl, title, series.title)
-                            }
-                        },
-                        hasAudio = { chapterId ->
-                            repo.trackFor(series.id, chapterId) != null
-                        }
-                    )
-                }
-            }
-        }
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun HomeScreen(
-    series: List<LibrarySeries>,
-    attribution: String,
-    onOpen: (LibrarySeries) -> Unit
-) {
-    Scaffold(
-        topBar = {
-            TopAppBar(title = { Text("Be Ummati", fontWeight = FontWeight.Bold) })
-        }
-    ) { padding ->
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding),
-            contentPadding = PaddingValues(16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            item {
-                Text(
-                    "Lectures",
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.SemiBold
+                "hadith/{slug}/{index}",
+                arguments = listOf(
+                    navArgument("slug") { type = NavType.StringType },
+                    navArgument("index") { type = NavType.IntType }
                 )
-                Text(
-                    "Stream from archive.org · same catalogs as iOS",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.65f)
+            ) {
+                HadithChapterScreen(
+                    slug = it.arguments?.getString("slug").orEmpty(),
+                    index = it.arguments?.getInt("index") ?: 1,
+                    onBack = back
                 )
-                Spacer(Modifier.height(8.dp))
             }
-            items(series, key = { it.id }) { s ->
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable { onOpen(s) },
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.surface
-                    )
-                ) {
-                    Column(Modifier.padding(16.dp)) {
-                        Text(s.title, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
-                        if (!s.subtitle.isNullOrBlank()) {
-                            Text(
-                                s.subtitle,
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
-                            )
-                        }
-                        Text(
-                            "${s.chapters.count { true }} chapters",
-                            style = MaterialTheme.typography.labelMedium,
-                            modifier = Modifier.padding(top = 6.dp)
-                        )
-                    }
-                }
-            }
-            if (attribution.isNotBlank()) {
-                item {
-                    Text(
-                        attribution,
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
-                        modifier = Modifier.padding(top = 8.dp, bottom = 24.dp)
-                    )
-                }
-            }
-        }
-    }
-}
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun SeriesScreen(
-    series: LibrarySeries,
-    onBack: () -> Unit,
-    onPlay: (chapterId: String, title: String) -> Unit,
-    hasAudio: (chapterId: String) -> Boolean
-) {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(series.title) },
-                navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
-                    }
-                }
-            )
-        }
-    ) { padding ->
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding),
-            contentPadding = PaddingValues(16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            items(series.chapters, key = { it.id }) { ch ->
-                val playable = hasAudio(ch.id)
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable(enabled = playable) { onPlay(ch.id, ch.title) }
-                        .padding(vertical = 10.dp, horizontal = 4.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Column(modifier = Modifier.weight(1f)) {
-                        Text(ch.title, fontWeight = FontWeight.Medium)
-                        Text(
-                            if (playable) "Tap to play" else "No audio mapped yet",
-                            style = MaterialTheme.typography.labelSmall,
-                            color = MaterialTheme.colorScheme.onSurface.copy(
-                                alpha = if (playable) 0.55f else 0.35f
-                            )
-                        )
-                    }
-                    if (playable) {
-                        Icon(Icons.Default.PlayArrow, contentDescription = null)
-                    }
-                }
+            composable(Tab.LIBRARY.route) {
+                LibraryScreen(navigate = navigate, onOpenQuran = { nav.switchTab(Tab.QURAN, currentTab) })
             }
-        }
-    }
-}
+            composable(Routes.SAHABA) { SahabaScreen(onBack = back) }
+            composable(Routes.DUAS) { DuasScreen(onBack = back, navigate = navigate) }
+            composable("library/duas/{id}", arguments = listOf(navArgument("id") { type = NavType.IntType })) {
+                DuaCategoryScreen(id = it.arguments?.getInt("id") ?: 1, onBack = back)
+            }
+            composable("library/series/{id}", arguments = listOf(navArgument("id") { type = NavType.StringType })) {
+                SeriesScreen(seriesId = it.arguments?.getString("id").orEmpty(), onBack = back, navigate = navigate)
+            }
+            composable(
+                "library/series/{id}/{chapter}",
+                arguments = listOf(
+                    navArgument("id") { type = NavType.StringType },
+                    navArgument("chapter") { type = NavType.StringType }
+                )
+            ) {
+                ChapterReaderScreen(
+                    seriesId = it.arguments?.getString("id").orEmpty(),
+                    chapterId = it.arguments?.getString("chapter").orEmpty(),
+                    onBack = back,
+                    navigate = navigate
+                )
+            }
 
-@Composable
-private fun MiniPlayerBar(player: LecturePlayer) {
-    val playing by player.isPlaying.collectAsState()
-    val title by player.title.collectAsState()
-    val subtitle by player.subtitle.collectAsState()
-    if (title.isBlank()) return
+            composable(Tab.SCHOLARS.route) { ScholarsScreen() }
 
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(12.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        Column(modifier = Modifier.weight(1f)) {
-            Text(title, maxLines = 1, fontWeight = FontWeight.SemiBold)
-            Text(
-                subtitle,
-                maxLines = 1,
-                style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
-            )
-        }
-        IconButton(onClick = { player.skip(-10) }) {
-            Icon(Icons.Default.Replay10, contentDescription = "Back 10s")
-        }
-        IconButton(onClick = { player.toggle() }) {
-            Icon(
-                if (playing) Icons.Default.Pause else Icons.Default.PlayArrow,
-                contentDescription = "Play/Pause"
-            )
-        }
-        IconButton(onClick = { player.skip(10) }) {
-            Icon(Icons.Default.Forward10, contentDescription = "Forward 10s")
+            composable(Tab.SAVED.route) { SavedScreen(navigate = navigate) }
+
+            composable(Routes.PLAYER) { LecturePlayerScreen(onBack = back) }
         }
     }
 }
