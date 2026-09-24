@@ -13,8 +13,8 @@ android {
         applicationId = "com.codefixr.beummati"
         minSdk = 26
         targetSdk = 35
-        versionCode = 6
-        versionName = "1.4.0"
+        versionCode = 8
+        versionName = "1.4.2"
     }
 
     buildTypes {

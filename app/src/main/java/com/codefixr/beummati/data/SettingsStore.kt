@@ -12,6 +12,16 @@ enum class AppAppearance(val label: String) {
     DARK("Dark")
 }
 
+/** Named colour themes — port of iOS `AppThemeKind`. */
+enum class AppThemeKind(val label: String, val blurb: String) {
+    MANUSCRIPT("Manuscript", "Parchment · teal · brass"),
+    MIDNIGHT("Midnight", "Dark night · gold accents"),
+    EMERALD("Emerald", "Deep green · cream"),
+    OCEAN("Ocean", "Cool blue · soft mist"),
+    UMMATI("Ummati", "Red · white · charcoal (brand)"),
+    SOFT_DAY("Soft Day", "Light airy · sage")
+}
+
 /** Colour treatment for the lecture player, mirroring the iOS `LecturePlayerView` skins. */
 enum class PlayerSkin(val label: String, val blurb: String) {
     DARK("Dark", "Deep charcoal with the brass accent"),
@@ -59,6 +69,7 @@ object SettingsStore {
 
     private const val PREFS = "beummati.settings"
     private const val KEY_APPEARANCE = "appearance"
+    private const val KEY_THEME_KIND = "themeKind"
     private const val KEY_ARABIC_SIZE = "arabicSize"
     private const val KEY_SHOW_URDU = "showUrdu"
     private const val KEY_SHOW_TRANSLITERATION = "showTransliteration"
@@ -90,6 +101,9 @@ object SettingsStore {
 
     private val _appearance = MutableStateFlow(AppAppearance.SYSTEM)
     val appearance: StateFlow<AppAppearance> = _appearance.asStateFlow()
+
+    private val _themeKind = MutableStateFlow(AppThemeKind.MANUSCRIPT)
+    val themeKind: StateFlow<AppThemeKind> = _themeKind.asStateFlow()
 
     private val _arabicFontSize = MutableStateFlow(DEFAULT_ARABIC_SIZE)
     val arabicFontSize: StateFlow<Float> = _arabicFontSize.asStateFlow()
@@ -175,6 +189,9 @@ object SettingsStore {
         _appearance.value = prefs.getString(KEY_APPEARANCE, null)
             ?.let { raw -> AppAppearance.entries.firstOrNull { it.name == raw } }
             ?: AppAppearance.SYSTEM
+        _themeKind.value = prefs.getString(KEY_THEME_KIND, null)
+            ?.let { raw -> AppThemeKind.entries.firstOrNull { it.name == raw } }
+            ?: AppThemeKind.MANUSCRIPT
         _arabicFontSize.value = prefs.getFloat(KEY_ARABIC_SIZE, DEFAULT_ARABIC_SIZE)
             .coerceIn(MIN_ARABIC_SIZE, MAX_ARABIC_SIZE)
         _englishFontSize.value = prefs.getFloat(KEY_ENGLISH_SIZE, DEFAULT_ENGLISH_SIZE)
@@ -219,6 +236,11 @@ object SettingsStore {
     fun setAppearance(value: AppAppearance) {
         _appearance.value = value
         prefs.edit().putString(KEY_APPEARANCE, value.name).apply()
+    }
+
+    fun setThemeKind(value: AppThemeKind) {
+        _themeKind.value = value
+        prefs.edit().putString(KEY_THEME_KIND, value.name).apply()
     }
 
     fun setArabicFontSize(value: Float) {

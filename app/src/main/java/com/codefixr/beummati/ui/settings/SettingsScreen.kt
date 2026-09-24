@@ -57,6 +57,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.codefixr.beummati.data.AppAppearance
+import com.codefixr.beummati.data.AppThemeKind
 import com.codefixr.beummati.data.Catalogs
 import com.codefixr.beummati.data.PlayerSkin
 import com.codefixr.beummati.data.PrayerNotifications
@@ -71,6 +72,7 @@ import com.codefixr.beummati.ui.ScreenScaffold
 import com.codefixr.beummati.ui.SectionHeader
 import com.codefixr.beummati.ui.ShareTemplateTile
 import com.codefixr.beummati.ui.player.skinColors
+import com.codefixr.beummati.ui.theme.palette
 import kotlin.math.roundToInt
 
 private const val SAMPLE_ARABIC = "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ"
@@ -79,6 +81,7 @@ private const val SAMPLE_ARABIC = "بِسْمِ اللَّهِ الرَّحْم�
 fun SettingsScreen(onBack: () -> Unit, onOpenReading: () -> Unit) {
     val context = LocalContext.current
     val appearance by SettingsStore.appearance.collectAsState()
+    val themeKind by SettingsStore.themeKind.collectAsState()
     val arabicSize by SettingsStore.arabicFontSize.collectAsState()
     val arabicFont by SettingsStore.arabicFont.collectAsState()
     val readingLanguage by SettingsStore.readingLanguage.collectAsState()
@@ -97,7 +100,8 @@ fun SettingsScreen(onBack: () -> Unit, onOpenReading: () -> Unit) {
             item { SectionHeader("Appearance") }
             item {
                 ContentCard {
-                    SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth()) {
+                    Text("Mode", fontWeight = FontWeight.Medium)
+                    SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth().padding(top = 8.dp)) {
                         AppAppearance.entries.forEachIndexed { index, option ->
                             SegmentedButton(
                                 selected = appearance == option,
@@ -107,7 +111,23 @@ fun SettingsScreen(onBack: () -> Unit, onOpenReading: () -> Unit) {
                             )
                         }
                     }
-                    MutedText("Light and dark keep the same parchment and brass palette.", Modifier.padding(top = 8.dp))
+                    MutedText(
+                        "System follows your phone. Light themes switch to Midnight when Dark is on.",
+                        Modifier.padding(top = 8.dp)
+                    )
+                }
+            }
+            item { SectionHeader("Theme") }
+            item {
+                ContentCard {
+                    MutedText("Colour palettes for the whole app — same set as iOS.")
+                    AppThemeKind.entries.forEach { kind ->
+                        ThemeKindRow(
+                            kind = kind,
+                            selected = kind == themeKind,
+                            onClick = { SettingsStore.setThemeKind(kind) }
+                        )
+                    }
                 }
             }
 
@@ -238,6 +258,37 @@ fun SettingsScreen(onBack: () -> Unit, onOpenReading: () -> Unit) {
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun ThemeKindRow(kind: AppThemeKind, selected: Boolean, onClick: () -> Unit) {
+    val palette = kind.palette()
+    Row(
+        Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(12.dp))
+            .clickable(onClick = onClick)
+            .padding(vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Box(
+            Modifier
+                .size(width = 56.dp, height = 40.dp)
+                .clip(RoundedCornerShape(8.dp))
+                .background(palette.parchment),
+            contentAlignment = Alignment.Center
+        ) {
+            Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                Box(Modifier.size(12.dp).clip(CircleShape).background(palette.teal))
+                Box(Modifier.size(12.dp).clip(CircleShape).background(palette.brass))
+            }
+        }
+        Column(Modifier.weight(1f).padding(start = 12.dp)) {
+            Text(kind.label, fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium)
+            MutedText(kind.blurb)
+        }
+        RadioButton(selected = selected, onClick = onClick)
     }
 }
 

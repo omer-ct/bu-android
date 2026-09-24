@@ -9,6 +9,7 @@ import android.graphics.Paint
 import android.graphics.RectF
 import android.graphics.Shader
 import android.graphics.Typeface
+import android.os.Build
 import android.text.Layout
 import android.text.StaticLayout
 import android.text.TextDirectionHeuristics
@@ -119,10 +120,15 @@ fun shareCardImage(
 
 private const val CARD_WIDTH = 1080
 
+/** Cards aim for the 4:5 portrait the reference artwork uses, and only grow past it if forced. */
+private const val CARD_RATIO = 1.25f
+private const val CARD_MIN_RATIO = 1f
+
 private const val BRAND = "Be Ummati"
 private const val TAGLINE = "Soldier of Allah"
-private const val JOIN_US = "J O I N   U S   A N D   S H A R E   I T"
-private const val HANDLES = "@beummatireminders     @beummati"
+private const val JOIN_US = "JOIN US AND SHARE IT"
+private const val HANDLE_LEFT = "@beummatireminders"
+private const val HANDLE_RIGHT = "@beummati"
 
 private const val BRAND_RED = 0xFFD8262C.toInt()
 private const val CORAL = 0xFFE85A4F.toInt()
@@ -132,22 +138,49 @@ private const val INK = 0xFF23201B.toInt()
 private const val BRASS = 0xFF8A6A2F.toInt()
 private const val FOREST_GREEN = 0xFF10322C.toInt()
 private const val SLATE = 0xFF2F3E3B.toInt()
+private const val WHITE = 0xFFFFFFFF.toInt()
 
-private enum class Role { TITLE, SUBHEAD, ARABIC, TRANSLIT, ENGLISH, URDU }
+private const val W_LIGHT = 300
+private const val W_NORMAL = 400
+private const val W_MEDIUM = 500
+private const val W_SEMIBOLD = 600
+private const val W_BOLD = 700
+
+// Branding metrics, quoted against CARD_WIDTH like everything else in this region.
+private const val EDGE = 56f
+private const val PILL_HEIGHT = 52f
+private const val PILL_TO_TAG = 12f
+private const val TAG_HEIGHT = 30f
+private const val STRIP_HEIGHT = 58f
+private const val HANDLE_HEIGHT = 34f
+private const val BAND_GAP = 24f
+private const val TOP_BADGE_HEIGHT = 96f
+private const val BADGE_RADIUS = 7f
+
+/** Reading order: the reference line closes the card, the way it does on the reference artwork. */
+private enum class Role { TITLE, ARABIC, TRANSLIT, ENGLISH, URDU, SUBHEAD }
 
 /** Roles that sit above the fold on the split templates. */
-private val UPPER_ROLES = setOf(Role.TITLE, Role.SUBHEAD, Role.ARABIC)
+private val UPPER_ROLES = setOf(Role.TITLE, Role.ARABIC, Role.TRANSLIT)
+
+/** Roles a template's translucent body box is drawn behind. */
+private val BODY_ROLES = setOf(Role.ARABIC, Role.TRANSLIT, Role.ENGLISH, Role.URDU)
 
 private enum class BadgeSpot { BOTTOM_LEFT, TOP_RIGHT }
 
 private data class Ink(
     val size: Float,
     val color: Int,
-    val bold: Boolean = false,
+    val weight: Int = W_NORMAL,
     val italic: Boolean = false,
     val rtl: Boolean = false,
     val serif: Boolean = true,
     val center: Boolean = false,
+    val caps: Boolean = false,
+    /** Extra tracking in ems — the caps reference lines want a lot, body text barely any. */
+    val tracking: Float = 0f,
+    /** Leading added between lines, as a fraction of the type size. */
+    val lead: Float = 0.16f,
     val alpha: Float = 1f,
     val shadow: Boolean = false
 )
@@ -161,10 +194,11 @@ private data class Ink(
  */
 private class Design(
     val inks: Map<Role, Ink>,
-    val badge: BadgeSpot = BadgeSpot.BOTTOM_LEFT,
+    val badge: BadgeSpot? = BadgeSpot.BOTTOM_LEFT,
     val taglineInk: Int = INK,
     val joinUs: Boolean = false,
-    val joinUsInk: Int = INK,
+    val handles: Boolean = false,
+    val handleInk: Int = INK,
     val bodyBox: Int = 0,
     val railWidth: Float = 0f,
     val split: Boolean = false,
@@ -174,12 +208,12 @@ private class Design(
 private fun designFor(template: ShareTemplate): Design = when (template) {
     ShareTemplate.PARCHMENT -> Design(
         inks = mapOf(
-            Role.TITLE to Ink(46f, INK, bold = true),
-            Role.SUBHEAD to Ink(32f, BRASS, bold = true),
-            Role.ARABIC to Ink(52f, INK, rtl = true),
-            Role.TRANSLIT to Ink(32f, INK, italic = true, alpha = 0.7f),
-            Role.ENGLISH to Ink(38f, INK),
-            Role.URDU to Ink(40f, INK, rtl = true)
+            Role.TITLE to Ink(40f, INK, weight = W_SEMIBOLD, lead = 0.08f),
+            Role.SUBHEAD to Ink(22f, BRASS, weight = W_MEDIUM, caps = true, tracking = 0.16f),
+            Role.ARABIC to Ink(54f, INK, rtl = true, lead = 0.30f),
+            Role.TRANSLIT to Ink(26f, INK, weight = W_LIGHT, italic = true, alpha = 0.66f),
+            Role.ENGLISH to Ink(33f, INK, lead = 0.18f, tracking = 0.01f),
+            Role.URDU to Ink(34f, INK, rtl = true, lead = 0.34f)
         ),
         taglineInk = BRASS,
         railWidth = 10f
@@ -191,14 +225,14 @@ private fun designFor(template: ShareTemplate): Design = when (template) {
 
     ShareTemplate.NIGHT_CORAL -> Design(
         inks = mapOf(
-            Role.TITLE to Ink(46f, 0xFFFFFFFF.toInt(), bold = true, serif = false),
-            Role.SUBHEAD to Ink(30f, CORAL, bold = true, serif = false),
-            Role.ARABIC to Ink(52f, 0xFFFFFFFF.toInt(), rtl = true),
-            Role.TRANSLIT to Ink(31f, CORAL, italic = true, serif = false),
-            Role.ENGLISH to Ink(40f, 0xFFF3F1EE.toInt(), serif = false),
-            Role.URDU to Ink(40f, 0xFFF3F1EE.toInt(), rtl = true)
+            Role.TITLE to Ink(40f, WHITE, weight = W_SEMIBOLD, serif = false, lead = 0.08f),
+            Role.SUBHEAD to Ink(22f, CORAL, serif = false, caps = true, tracking = 0.18f),
+            Role.ARABIC to Ink(52f, WHITE, rtl = true, lead = 0.30f),
+            Role.TRANSLIT to Ink(26f, CORAL, weight = W_LIGHT, italic = true, serif = false),
+            Role.ENGLISH to Ink(33f, 0xFFF3F1EE.toInt(), serif = false, lead = 0.20f, tracking = 0.01f),
+            Role.URDU to Ink(34f, 0xFFF3F1EE.toInt(), rtl = true, lead = 0.34f)
         ),
-        taglineInk = 0xFFFFFFFF.toInt()
+        taglineInk = WHITE
     ) { canvas, width, height, _, scale ->
         canvas.gradient(width, height, 0xFF242424.toInt(), 0xFF111111.toInt())
         canvas.fill(0f, 0f, width.toFloat(), 8f * scale, CORAL)
@@ -206,43 +240,47 @@ private fun designFor(template: ShareTemplate): Design = when (template) {
 
     ShareTemplate.QUOTE_WARM -> Design(
         inks = mapOf(
-            Role.TITLE to Ink(48f, 0xFFFFFFFF.toInt(), bold = true, serif = false),
-            Role.SUBHEAD to Ink(30f, 0xFFFFE9C9.toInt(), bold = true, serif = false),
-            Role.ARABIC to Ink(52f, 0xFFFFFFFF.toInt(), rtl = true),
-            Role.TRANSLIT to Ink(31f, 0xFFFFE9C9.toInt(), italic = true, serif = false),
-            Role.ENGLISH to Ink(40f, 0xFFFFFFFF.toInt(), serif = false),
-            Role.URDU to Ink(40f, 0xFFFFFFFF.toInt(), rtl = true)
+            Role.TITLE to Ink(40f, WHITE, weight = W_SEMIBOLD, serif = false, lead = 0.08f),
+            Role.SUBHEAD to Ink(22f, 0xFFFFEBD0.toInt(), serif = false, caps = true, tracking = 0.16f),
+            Role.ARABIC to Ink(52f, WHITE, rtl = true, lead = 0.30f),
+            Role.TRANSLIT to Ink(26f, 0xFFFFEBD0.toInt(), weight = W_LIGHT, italic = true, serif = false),
+            Role.ENGLISH to Ink(33f, WHITE, serif = false, lead = 0.20f, tracking = 0.01f),
+            Role.URDU to Ink(34f, WHITE, rtl = true, lead = 0.34f)
         ),
         badge = BadgeSpot.TOP_RIGHT,
         joinUs = true,
-        joinUsInk = 0xFFFFFFFF.toInt()
+        handles = true,
+        handleInk = WHITE
     ) { canvas, width, height, _, _ ->
         canvas.gradient(width, height, 0xFFF0871B.toInt(), 0xFFD1560A.toInt())
     }
 
     ShareTemplate.FOREST -> Design(
         inks = mapOf(
-            Role.TITLE to Ink(46f, 0xFFF1EFE6.toInt(), bold = true, serif = false),
-            Role.SUBHEAD to Ink(30f, 0xFF63C7B2.toInt(), bold = true, serif = false),
-            Role.ARABIC to Ink(52f, 0xFFF1EFE6.toInt(), rtl = true),
-            Role.TRANSLIT to Ink(31f, 0xFF63C7B2.toInt(), italic = true, serif = false),
-            Role.ENGLISH to Ink(38f, 0xFFF1EFE6.toInt(), serif = false),
-            Role.URDU to Ink(40f, 0xFFF1EFE6.toInt(), rtl = true)
+            Role.TITLE to Ink(40f, 0xFFF1EFE6.toInt(), weight = W_SEMIBOLD, serif = false, lead = 0.08f),
+            Role.SUBHEAD to Ink(22f, 0xFF63C7B2.toInt(), serif = false, caps = true, tracking = 0.16f),
+            Role.ARABIC to Ink(52f, 0xFFF1EFE6.toInt(), rtl = true, lead = 0.30f),
+            Role.TRANSLIT to Ink(26f, 0xFF63C7B2.toInt(), weight = W_LIGHT, italic = true, serif = false),
+            Role.ENGLISH to Ink(33f, 0xFFF1EFE6.toInt(), serif = false, lead = 0.20f, tracking = 0.01f),
+            Role.URDU to Ink(34f, 0xFFF1EFE6.toInt(), rtl = true, lead = 0.34f)
         ),
-        taglineInk = 0xFFF1EFE6.toInt(),
-        bodyBox = 0x14FFFFFF
+        badge = BadgeSpot.TOP_RIGHT,
+        joinUs = true,
+        handles = true,
+        handleInk = 0xFFA9CFC5.toInt(),
+        bodyBox = 0x12FFFFFF
     ) { canvas, width, height, _, _ ->
         canvas.gradient(width, height, 0xFF14403A.toInt(), FOREST_GREEN)
     }
 
     ShareTemplate.SPLIT_DUAL -> Design(
         inks = mapOf(
-            Role.TITLE to Ink(46f, FOREST_GREEN, bold = true, serif = false),
-            Role.SUBHEAD to Ink(30f, BRAND_RED, bold = true, serif = false),
-            Role.ARABIC to Ink(52f, FOREST_GREEN, rtl = true),
-            Role.TRANSLIT to Ink(31f, 0xFFDCCFA8.toInt(), italic = true, serif = false),
-            Role.ENGLISH to Ink(38f, CREAM, serif = false),
-            Role.URDU to Ink(40f, CREAM, rtl = true)
+            Role.TITLE to Ink(40f, FOREST_GREEN, weight = W_SEMIBOLD, serif = false, lead = 0.08f),
+            Role.SUBHEAD to Ink(22f, 0xFFBFD8CF.toInt(), weight = W_MEDIUM, serif = false, caps = true, tracking = 0.16f),
+            Role.ARABIC to Ink(52f, FOREST_GREEN, rtl = true, lead = 0.30f),
+            Role.TRANSLIT to Ink(26f, 0xFF6F6B52.toInt(), weight = W_LIGHT, italic = true, serif = false),
+            Role.ENGLISH to Ink(33f, CREAM, serif = false, lead = 0.20f, tracking = 0.01f),
+            Role.URDU to Ink(34f, CREAM, rtl = true, lead = 0.34f)
         ),
         taglineInk = CREAM,
         split = true
@@ -253,12 +291,12 @@ private fun designFor(template: ShareTemplate): Design = when (template) {
 
     ShareTemplate.DHIKR_SLATE -> Design(
         inks = mapOf(
-            Role.TITLE to Ink(46f, CREAM, bold = true, serif = false, center = true),
-            Role.SUBHEAD to Ink(30f, 0xFFC9A227.toInt(), bold = true, serif = false, center = true),
-            Role.ARABIC to Ink(56f, CREAM, rtl = true),
-            Role.TRANSLIT to Ink(32f, 0xFF5B5347.toInt(), italic = true, center = true),
-            Role.ENGLISH to Ink(38f, INK, center = true),
-            Role.URDU to Ink(40f, INK, rtl = true)
+            Role.TITLE to Ink(40f, CREAM, weight = W_SEMIBOLD, serif = false, center = true, lead = 0.08f),
+            Role.SUBHEAD to Ink(22f, 0xFF7A6A46.toInt(), weight = W_MEDIUM, serif = false, center = true, caps = true, tracking = 0.16f),
+            Role.ARABIC to Ink(54f, CREAM, rtl = true, center = true, lead = 0.30f),
+            Role.TRANSLIT to Ink(26f, 0xFFBEB6A3.toInt(), weight = W_LIGHT, italic = true, center = true),
+            Role.ENGLISH to Ink(33f, INK, center = true, lead = 0.20f, tracking = 0.01f),
+            Role.URDU to Ink(34f, INK, rtl = true, center = true, lead = 0.34f)
         ),
         taglineInk = INK,
         split = true
@@ -266,8 +304,8 @@ private fun designFor(template: ShareTemplate): Design = when (template) {
         canvas.fill(0f, 0f, width.toFloat(), height.toFloat(), CREAM)
         canvas.fill(0f, 0f, width.toFloat(), splitY, SLATE)
         // Faint diagonal weave so the band reads as fabric rather than flat fill.
-        val thread = Paint().apply {
-            color = 0xFFFFFFFF.toInt()
+        val thread = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            color = WHITE
             this.alpha = 10
             strokeWidth = 2f * scale
         }
@@ -280,12 +318,12 @@ private fun designFor(template: ShareTemplate): Design = when (template) {
 
     ShareTemplate.VERSE_BANNER -> Design(
         inks = mapOf(
-            Role.TITLE to Ink(44f, FOREST_GREEN, bold = true),
-            Role.SUBHEAD to Ink(30f, BRASS, bold = true),
-            Role.ARABIC to Ink(54f, INK, rtl = true),
-            Role.TRANSLIT to Ink(31f, BRASS, italic = true),
-            Role.ENGLISH to Ink(38f, INK),
-            Role.URDU to Ink(40f, INK, rtl = true)
+            Role.TITLE to Ink(40f, FOREST_GREEN, weight = W_SEMIBOLD, lead = 0.08f),
+            Role.SUBHEAD to Ink(22f, BRASS, weight = W_MEDIUM, caps = true, tracking = 0.16f),
+            Role.ARABIC to Ink(52f, INK, rtl = true, lead = 0.30f),
+            Role.TRANSLIT to Ink(26f, BRASS, weight = W_LIGHT, italic = true),
+            Role.ENGLISH to Ink(33f, INK, lead = 0.18f, tracking = 0.01f),
+            Role.URDU to Ink(34f, INK, rtl = true, lead = 0.34f)
         ),
         taglineInk = FOREST_GREEN,
         railWidth = 150f
@@ -302,12 +340,12 @@ private fun designFor(template: ShareTemplate): Design = when (template) {
 
     ShareTemplate.PLUSH_LIGHT -> Design(
         inks = mapOf(
-            Role.TITLE to Ink(46f, 0xFF2B2620.toInt(), bold = true, center = true, shadow = true),
-            Role.SUBHEAD to Ink(30f, 0xFF8C7C63.toInt(), bold = true, center = true),
-            Role.ARABIC to Ink(56f, 0xFF2B2620.toInt(), rtl = true, shadow = true),
-            Role.TRANSLIT to Ink(32f, 0xFF8C7C63.toInt(), italic = true, center = true),
-            Role.ENGLISH to Ink(40f, 0xFF2B2620.toInt(), italic = true, center = true, shadow = true),
-            Role.URDU to Ink(40f, 0xFF2B2620.toInt(), rtl = true)
+            Role.TITLE to Ink(40f, 0xFF2B2620.toInt(), weight = W_SEMIBOLD, center = true, lead = 0.08f, shadow = true),
+            Role.SUBHEAD to Ink(22f, 0xFF8C7C63.toInt(), weight = W_MEDIUM, center = true, caps = true, tracking = 0.16f),
+            Role.ARABIC to Ink(54f, 0xFF2B2620.toInt(), rtl = true, center = true, lead = 0.30f, shadow = true),
+            Role.TRANSLIT to Ink(26f, 0xFF8C7C63.toInt(), weight = W_LIGHT, italic = true, center = true),
+            Role.ENGLISH to Ink(33f, 0xFF2B2620.toInt(), italic = true, center = true, lead = 0.20f),
+            Role.URDU to Ink(34f, 0xFF2B2620.toInt(), rtl = true, center = true, lead = 0.34f)
         ),
         taglineInk = 0xFF8C7C63.toInt()
     ) { canvas, width, height, _, scale ->
@@ -340,53 +378,73 @@ fun renderShareCard(
 ): Bitmap {
     val scale = width / CARD_WIDTH.toFloat()
     val design = designFor(template)
-    val pad = 72f * scale
-    val gap = 36f * scale
-    val boxPad = 22f * scale
-    val contentLeft = pad + design.railWidth * scale
+    val pad = 88f * scale
+    val boxPad = 24f * scale
+    val railInset = design.railWidth * scale
+    val contentLeft = pad + railInset
     val inner = (width - contentLeft - pad).coerceAtLeast(1f)
 
     val parts = buildList {
         if (card.title.isNotBlank()) add(Role.TITLE to card.title.trim())
-        card.subheading.takeIf { it.isNotBlank() }?.let { add(Role.SUBHEAD to it) }
         if (SettingsStore.shareArabic.value && card.arabic.isNotBlank()) add(Role.ARABIC to card.arabic.trim())
         if (card.transliteration.isNotBlank() && SettingsStore.showTransliteration.value) {
             add(Role.TRANSLIT to card.transliteration.trim())
         }
         if (SettingsStore.shareEnglish.value && card.english.isNotBlank()) add(Role.ENGLISH to card.english.trim())
         if (SettingsStore.shareUrdu.value && card.urdu.isNotBlank()) add(Role.URDU to card.urdu.trim())
+        card.subheading.takeIf { it.isNotBlank() }?.let { add(Role.SUBHEAD to it) }
     }.ifEmpty { listOf(Role.ENGLISH to BRAND) }
 
-    val boxed = design.bodyBox != 0
-    val blocks = parts.map { (role, text) -> role to layout(text, inner, design.inks.getValue(role), scale) }
+    val topReserve = pad + if (design.badge == BadgeSpot.TOP_RIGHT) (TOP_BADGE_HEIGHT + 40f) * scale else 0f
+    val bottomReserve = (EDGE + BAND_GAP * 2f) * scale + bottomBandHeight(design, scale)
+    val target = width * CARD_RATIO
 
-    val topInset = if (design.badge == BadgeSpot.TOP_RIGHT) badgeHeight(scale, twoLine = true) + 28f * scale else 0f
-    val brandHeight = brandingHeight(design, scale)
-
-    // Walk the blocks once to fix their y positions, then we know the canvas height and the split.
-    var y = pad + topInset
-    val tops = FloatArray(blocks.size)
-    var splitY = 0f
-    blocks.forEachIndexed { index, (role, block) ->
-        tops[index] = y + if (boxed) boxPad else 0f
-        y += block.height + if (boxed) boxPad * 2 else 0f
-        if (design.split && role in UPPER_ROLES) splitY = y + gap / 2f
-        if (index != blocks.lastIndex) y += gap
+    // Long passages shrink to hold the 4:5 frame — sparse spacing reads worse than smaller type.
+    var typeScale = 1f
+    var blocks = parts.map { (role, text) -> role to layout(text, inner, design.inks.getValue(role), scale, typeScale) }
+    while (topReserve + stackHeight(blocks, design, boxPad, scale) + bottomReserve > target && typeScale > 0.8f) {
+        typeScale -= 0.04f
+        blocks = parts.map { (role, text) -> role to layout(text, inner, design.inks.getValue(role), scale, typeScale) }
     }
-    val height = (y + 56f * scale + brandHeight + pad).toInt().coerceAtLeast(1)
-    if (design.split && splitY <= 0f) splitY = height / 2f
+
+    val contentHeight = stackHeight(blocks, design, boxPad, scale)
+    val needed = topReserve + contentHeight + bottomReserve
+    val height = needed.coerceIn(width * CARD_MIN_RATIO, maxOf(target, needed)).toInt().coerceAtLeast(1)
+
+    // Optical centre sits a shade above the geometric one, so the card never reads bottom-heavy.
+    val slack = (height - needed).coerceAtLeast(0f)
+    val tops = FloatArray(blocks.size)
+    val bottoms = FloatArray(blocks.size)
+    var y = topReserve + slack * 0.48f
+    blocks.forEachIndexed { index, (role, block) ->
+        val boxed = design.bodyBox != 0 && role in BODY_ROLES
+        tops[index] = y + if (boxed) boxPad else 0f
+        bottoms[index] = tops[index] + block.height
+        y = bottoms[index] + if (boxed) boxPad else 0f
+        if (index != blocks.lastIndex) y += gapBetween(role, blocks[index + 1].first, scale)
+    }
+
+    val splitY = if (!design.split) 0f else {
+        val last = blocks.indexOfLast { it.first in UPPER_ROLES }
+        when {
+            last < 0 -> height / 2f
+            last == blocks.lastIndex -> bottoms[last] + 48f * scale
+            else -> (bottoms[last] + tops[last + 1]) / 2f
+        }
+    }
 
     val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
     val canvas = Canvas(bitmap)
     design.background(canvas, width, height, splitY, scale)
 
-    blocks.forEachIndexed { index, (_, block) ->
-        if (boxed) {
+    val box = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = design.bodyBox }
+    blocks.forEachIndexed { index, (role, block) ->
+        if (design.bodyBox != 0 && role in BODY_ROLES) {
             canvas.drawRoundRect(
-                RectF(contentLeft - boxPad, tops[index] - boxPad, width - pad + boxPad, tops[index] + block.height + boxPad),
-                20f * scale,
-                20f * scale,
-                Paint().apply { color = design.bodyBox; isAntiAlias = true }
+                RectF(contentLeft - boxPad, tops[index] - boxPad, width - pad + boxPad, bottoms[index] + boxPad),
+                18f * scale,
+                18f * scale,
+                box
             )
         }
         canvas.save()
@@ -395,130 +453,196 @@ fun renderShareCard(
         canvas.restore()
     }
 
-    drawBranding(canvas, design, width, height, contentLeft, pad, scale)
+    drawBranding(canvas, design, width, height, railInset, scale)
     return bitmap
 }
 
-private fun brandingHeight(design: Design, scale: Float): Float {
+/** Total height of the laid-out blocks, including body-box padding and the gaps between them. */
+private fun stackHeight(
+    blocks: List<Pair<Role, StaticLayout>>,
+    design: Design,
+    boxPad: Float,
+    scale: Float
+): Float {
     var total = 0f
-    if (design.badge == BadgeSpot.BOTTOM_LEFT) total += badgeHeight(scale, twoLine = true)
-    if (design.joinUs) {
-        if (total > 0f) total += 20f * scale
-        total += 62f * scale + 14f * scale + 38f * scale
+    blocks.forEachIndexed { index, (role, block) ->
+        total += block.height
+        if (design.bodyBox != 0 && role in BODY_ROLES) total += boxPad * 2f
+        if (index != blocks.lastIndex) total += gapBetween(role, blocks[index + 1].first, scale)
     }
     return total
 }
 
-private fun badgeHeight(scale: Float, twoLine: Boolean): Float {
-    val line = 62f * scale
-    return if (twoLine) line + 46f * scale else line
+/** A fixed rhythm rather than one gap everywhere: the title hugs its body, the reference stands off. */
+private fun gapBetween(above: Role, below: Role, scale: Float): Float = scale * when {
+    above == Role.TITLE -> 28f
+    below == Role.SUBHEAD -> 48f
+    above == Role.ARABIC && below == Role.TRANSLIT -> 28f
+    else -> 36f
 }
 
-/** [left] is the content edge, so templates with a colour rail keep their branding clear of it. */
+/** Height the branding occupies above the bottom inset — mirrors the stack [drawBranding] draws. */
+private fun bottomBandHeight(design: Design, scale: Float): Float {
+    var total = 0f
+    if (design.handles) total += HANDLE_HEIGHT * scale
+    if (design.joinUs) {
+        if (total > 0f) total += BAND_GAP * scale
+        total += STRIP_HEIGHT * scale
+    }
+    if (design.badge == BadgeSpot.BOTTOM_LEFT) {
+        if (total > 0f) total += BAND_GAP * scale
+        total += (PILL_HEIGHT + PILL_TO_TAG + TAG_HEIGHT) * scale
+    }
+    return total
+}
+
+/**
+ * Draws the brand mark and the optional footer, stacked upwards from the bottom inset in the same
+ * order [bottomBandHeight] measures. Everything is placed against the canvas edges rather than the
+ * content column, which is where the mark sits on the reference artwork; [railInset] only nudges
+ * it clear of a template's colour rail.
+ */
 private fun drawBranding(
     canvas: Canvas,
     design: Design,
     width: Int,
     height: Int,
-    left: Float,
-    pad: Float,
+    railInset: Float,
     scale: Float
 ) {
-    val label = TextPaint().apply {
-        isAntiAlias = true
-        textSize = 30f * scale
-        typeface = Typeface.create(Typeface.SANS_SERIF, Typeface.BOLD)
+    val edge = EDGE * scale
+    val radius = BADGE_RADIUS * scale
+    val red = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = BRAND_RED }
+    var bottom = height - edge
+
+    if (design.handles) {
+        val handle = brandPaint(22f * scale, design.handleInk, W_NORMAL, tracking = 0.02f)
+        val rowTop = bottom - HANDLE_HEIGHT * scale
+        val split = 110f * scale
+        val rightWidth = handle.measureText(HANDLE_RIGHT)
+        val total = handle.measureText(HANDLE_LEFT) + split + rightWidth
+        val start = (width - total) / 2f
+        val baseline = baselineIn(handle, rowTop, HANDLE_HEIGHT * scale)
+        canvas.drawText(HANDLE_LEFT, start, baseline, handle)
+        canvas.drawText(HANDLE_RIGHT, start + total - rightWidth, baseline, handle)
+        bottom = rowTop - BAND_GAP * scale
     }
-    val pill = Paint().apply { color = BRAND_RED; isAntiAlias = true }
+
+    if (design.joinUs) {
+        val cta = brandPaint(25f * scale, WHITE, W_BOLD, tracking = 0.1f)
+        val stripHeight = STRIP_HEIGHT * scale
+        val stripTop = bottom - stripHeight
+        val stripWidth = cta.measureText(JOIN_US) + 64f * scale
+        val stripLeft = (width - stripWidth) / 2f
+        canvas.drawRoundRect(RectF(stripLeft, stripTop, stripLeft + stripWidth, bottom), radius, radius, red)
+        canvas.drawText(JOIN_US, stripLeft + 32f * scale, baselineIn(cta, stripTop, stripHeight), cta)
+        bottom = stripTop - BAND_GAP * scale
+    }
 
     when (design.badge) {
-        BadgeSpot.TOP_RIGHT -> {
-            val w = maxOf(label.measureText(BRAND), label.measureText(TAGLINE)) + 44f * scale
-            val left = width - pad - w
-            canvas.drawRect(left, pad - 18f * scale, width - pad, pad - 18f * scale + badgeHeight(scale, true), pill)
-            label.color = 0xFFFFFFFF.toInt()
-            canvas.drawText(BRAND, left + 22f * scale, pad + 20f * scale, label)
-            canvas.drawText(TAGLINE, left + 22f * scale, pad + 64f * scale, label)
-        }
         BadgeSpot.BOTTOM_LEFT -> {
-            val footer = if (design.joinUs) 62f * scale + 14f * scale + 38f * scale + 20f * scale else 0f
-            val top = height - pad - footer - badgeHeight(scale, true)
-            val w = label.measureText(BRAND) + 40f * scale
-            canvas.drawRect(left, top, left + w, top + 58f * scale, pill)
-            label.color = 0xFFFFFFFF.toInt()
-            canvas.drawText(BRAND, left + 20f * scale, top + 40f * scale, label)
-            label.color = design.taglineInk
-            canvas.drawText(TAGLINE, left, top + 58f * scale + 40f * scale, label)
+            val left = maxOf(edge, railInset + 28f * scale)
+            val tagline = brandPaint(20f * scale, design.taglineInk, W_NORMAL)
+            val taglineTop = bottom - TAG_HEIGHT * scale
+            canvas.drawText(TAGLINE, left, baselineIn(tagline, taglineTop, TAG_HEIGHT * scale), tagline)
+
+            val name = brandPaint(24f * scale, WHITE, W_BOLD, tracking = 0.02f)
+            val pillHeight = PILL_HEIGHT * scale
+            val pillTop = taglineTop - PILL_TO_TAG * scale - pillHeight
+            val pillWidth = name.measureText(BRAND) + 40f * scale
+            canvas.drawRoundRect(RectF(left, pillTop, left + pillWidth, pillTop + pillHeight), radius, radius, red)
+            canvas.drawText(BRAND, left + 20f * scale, baselineIn(name, pillTop, pillHeight), name)
         }
+        BadgeSpot.TOP_RIGHT -> {
+            val name = brandPaint(24f * scale, WHITE, W_BOLD, tracking = 0.06f)
+            val tagline = brandPaint(20f * scale, WHITE, W_NORMAL, tracking = 0.06f)
+            val badgeHeight = TOP_BADGE_HEIGHT * scale
+            val badgeWidth = maxOf(name.measureText(BRAND), tagline.measureText(TAGLINE)) + 52f * scale
+            val badgeLeft = width - edge - badgeWidth
+            canvas.drawRoundRect(
+                RectF(badgeLeft, edge, badgeLeft + badgeWidth, edge + badgeHeight),
+                radius,
+                radius,
+                red
+            )
+            val centreX = badgeLeft + badgeWidth / 2f
+            canvas.drawText(BRAND, centreX - name.measureText(BRAND) / 2f, baselineIn(name, edge + 14f * scale, 34f * scale), name)
+            canvas.drawText(
+                TAGLINE,
+                centreX - tagline.measureText(TAGLINE) / 2f,
+                baselineIn(tagline, edge + badgeHeight - 44f * scale, 30f * scale),
+                tagline
+            )
+        }
+        null -> Unit
     }
-
-    if (!design.joinUs) return
-
-    val strip = TextPaint().apply {
-        isAntiAlias = true
-        textSize = 28f * scale
-        color = 0xFFFFFFFF.toInt()
-        typeface = Typeface.create(Typeface.SANS_SERIF, Typeface.BOLD)
-    }
-    val stripWidth = strip.measureText(JOIN_US) + 56f * scale
-    val stripTop = height - pad - 38f * scale - 14f * scale - 54f * scale
-    val stripLeft = (width - stripWidth) / 2f
-    canvas.drawRect(stripLeft, stripTop, stripLeft + stripWidth, stripTop + 54f * scale, pill)
-    canvas.drawText(JOIN_US, stripLeft + 28f * scale, stripTop + 36f * scale, strip)
-
-    val handles = TextPaint().apply {
-        isAntiAlias = true
-        textSize = 30f * scale
-        color = design.joinUsInk
-        typeface = Typeface.SANS_SERIF
-    }
-    canvas.drawText(
-        HANDLES,
-        (width - handles.measureText(HANDLES)) / 2f,
-        height - pad - 4f * scale,
-        handles
-    )
 }
 
-private fun layout(text: String, width: Float, ink: Ink, scale: Float): StaticLayout {
-    val size = ink.size * scale
-    val paint = TextPaint().apply {
-        isAntiAlias = true
+private fun brandPaint(size: Float, colour: Int, weight: Int, tracking: Float = 0f) =
+    TextPaint(Paint.ANTI_ALIAS_FLAG or Paint.SUBPIXEL_TEXT_FLAG).apply {
+        textSize = size
+        color = colour
+        letterSpacing = tracking
+        typeface = typefaceFor(serif = false, weight = weight, italic = false)
+    }
+
+/** Baseline that puts [paint]'s text on the optical centre line of a box. */
+private fun baselineIn(paint: Paint, top: Float, boxHeight: Float): Float {
+    val metrics = paint.fontMetrics
+    return top + boxHeight / 2f - (metrics.ascent + metrics.descent) / 2f
+}
+
+/**
+ * Real weights where the platform has them — the templates lean on 300/400/500/600 and go bold
+ * only for the brand pill, so mapping everything onto [Typeface.BOLD] flattens the hierarchy.
+ */
+private fun typefaceFor(serif: Boolean, weight: Int, italic: Boolean): Typeface {
+    val base = if (serif) Typeface.SERIF else Typeface.SANS_SERIF
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) return Typeface.create(base, weight, italic)
+    val style = when {
+        italic && weight >= W_SEMIBOLD -> Typeface.BOLD_ITALIC
+        italic -> Typeface.ITALIC
+        weight >= W_SEMIBOLD -> Typeface.BOLD
+        else -> Typeface.NORMAL
+    }
+    return Typeface.create(base, style)
+}
+
+private fun layout(text: String, width: Float, ink: Ink, scale: Float, typeScale: Float): StaticLayout {
+    val size = ink.size * scale * typeScale
+    val body = if (ink.caps) text.uppercase() else text
+    val paint = TextPaint(Paint.ANTI_ALIAS_FLAG or Paint.SUBPIXEL_TEXT_FLAG).apply {
+        isLinearText = true
         textSize = size
         color = ink.color
         alpha = (ink.alpha * 255).toInt().coerceIn(0, 255)
-        typeface = Typeface.create(
-            if (ink.serif) Typeface.SERIF else Typeface.SANS_SERIF,
-            when {
-                ink.bold -> Typeface.BOLD
-                ink.italic -> Typeface.ITALIC
-                else -> Typeface.NORMAL
-            }
-        )
-        if (ink.shadow) setShadowLayer(8f * scale, 0f, 3f * scale, 0x33000000)
+        letterSpacing = ink.tracking
+        typeface = typefaceFor(ink.serif, ink.weight, ink.italic)
+        if (ink.shadow) setShadowLayer(10f * scale, 0f, 3f * scale, 0x26000000)
     }
     val alignment = when {
-        ink.rtl -> Layout.Alignment.ALIGN_OPPOSITE
         ink.center -> Layout.Alignment.ALIGN_CENTER
+        ink.rtl -> Layout.Alignment.ALIGN_OPPOSITE
         else -> Layout.Alignment.ALIGN_NORMAL
     }
-    return StaticLayout.Builder.obtain(text, 0, text.length, paint, width.toInt().coerceAtLeast(1))
+    return StaticLayout.Builder.obtain(body, 0, body.length, paint, width.toInt().coerceAtLeast(1))
         .setAlignment(alignment)
         .setTextDirection(if (ink.rtl) TextDirectionHeuristics.RTL else TextDirectionHeuristics.FIRSTSTRONG_LTR)
-        .setLineSpacing(size * (if (ink.rtl) 0.55f else 0.3f), 1f)
+        .setLineSpacing(size * ink.lead, 1f)
         .setIncludePad(false)
         .build()
 }
 
 private fun Canvas.fill(left: Float, top: Float, right: Float, bottom: Float, color: Int, alpha: Float = 1f) {
-    drawRect(left, top, right, bottom, Paint().apply {
+    drawRect(left, top, right, bottom, Paint(Paint.ANTI_ALIAS_FLAG).apply {
         this.color = color
         this.alpha = (alpha * 255).toInt().coerceIn(0, 255)
     })
 }
 
 private fun Canvas.gradient(width: Int, height: Int, top: Int, bottom: Int) {
-    drawRect(0f, 0f, width.toFloat(), height.toFloat(), Paint().apply {
+    drawRect(0f, 0f, width.toFloat(), height.toFloat(), Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        isDither = true
         shader = LinearGradient(0f, 0f, 0f, height.toFloat(), top, bottom, Shader.TileMode.CLAMP)
     })
 }
