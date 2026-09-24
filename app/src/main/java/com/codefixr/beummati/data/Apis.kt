@@ -89,6 +89,11 @@ private fun JsonElement?.objectOrNull(): JsonObject? = runCatching { this?.jsonO
 
 object QuranApi {
     private const val BASE = "https://api.alquran.cloud/v1"
+    private const val QURAN_COM = "https://api.quran.com/api/v4"
+    private const val TEXT_FIELDS = "text_uthmani,text_indopak"
+    private const val PAGE_SIZE = 50
+    /** quran.com caps `per_page`, so a long surah needs several pages. Guards a runaway loop. */
+    private const val MAX_PAGES = 20
 
     suspend fun surahs(): List<Surah> = try {
         val text = Http.getCached("$BASE/surah", "quran_surahs.json")
@@ -96,6 +101,66 @@ object QuranApi {
         Catalogs.json.decodeFromJsonElement<List<Surah>>(data).ifEmpty { fallbackSurahs() }
     } catch (e: Exception) {
         fallbackSurahs()
+    }
+
+    /**
+     * Uthmani + Indo-Pak Arabic with the two chosen translations, from quran.com like iOS does.
+     * Falls back to the alquran.cloud pairing (English only) when quran.com can't be reached and
+     * nothing is cached, so a reader opened offline still shows something.
+     */
+    suspend fun surah(number: Int, englishId: Int, urduId: Int): SurahDetail = try {
+        val meta = surahs().firstOrNull { it.number == number } ?: Surah(number, englishName = "Surah $number")
+        SurahDetail(meta, translatedAyahs(number, englishId, urduId))
+    } catch (e: Exception) {
+        surah(number)
+    }
+
+    private suspend fun translatedAyahs(number: Int, englishId: Int, urduId: Int): List<Ayah> {
+        val out = ArrayList<Ayah>()
+        var page = 1
+        while (page <= MAX_PAGES) {
+            val text = Http.getCached(
+                "$QURAN_COM/verses/by_chapter/$number?language=en&translations=$englishId,$urduId" +
+                    "&fields=$TEXT_FIELDS&per_page=$PAGE_SIZE&page=$page",
+                "quran_v4_${number}_${englishId}_${urduId}_p$page.json"
+            )
+            val next = withContext(Dispatchers.Default) {
+                val root = Catalogs.json.parseToJsonElement(text).jsonObject
+                val verses = root["verses"]?.jsonArray ?: JsonArray(emptyList())
+                if (verses.isEmpty()) return@withContext null
+                verses.mapNotNullTo(out) { parseVerse(it, number, englishId, urduId) }
+                root["pagination"].objectOrNull()?.get("next_page")?.stringOrEmpty()?.toIntOrNull()
+            }
+            page = next ?: break
+        }
+        if (out.isEmpty()) throw IOException("No ayahs for surah $number")
+        return out
+    }
+
+    private fun parseVerse(element: JsonElement, surah: Int, englishId: Int, urduId: Int): Ayah? {
+        val verse = element.objectOrNull() ?: return null
+        val key = verse["verse_key"]?.stringOrEmpty().orEmpty()
+        val numberInSurah = verse["verse_number"]?.stringOrEmpty()?.toIntOrNull()
+            ?: key.substringAfter(':').toIntOrNull()
+            ?: return null
+        var english = ""
+        var urdu = ""
+        for (t in verse["translations"]?.jsonArray.orEmpty()) {
+            val translation = t.objectOrNull() ?: continue
+            val body = cleanHtml(translation["text"]?.stringOrEmpty().orEmpty())
+            when (translation["resource_id"]?.stringOrEmpty()?.toIntOrNull()) {
+                englishId -> english = body
+                urduId -> urdu = body
+            }
+        }
+        return Ayah(
+            surah = key.substringBefore(':').toIntOrNull() ?: surah,
+            numberInSurah = numberInSurah,
+            arabic = verse["text_uthmani"]?.stringOrEmpty().orEmpty(),
+            english = english,
+            urdu = urdu,
+            arabicIndopak = verse["text_indopak"]?.stringOrEmpty().orEmpty()
+        )
     }
 
     /** Same pattern as iOS: Uthmani Arabic + Saheeh International in one request. */

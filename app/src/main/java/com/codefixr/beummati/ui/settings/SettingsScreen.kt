@@ -27,14 +27,16 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
-import androidx.compose.material3.Slider
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -74,10 +76,12 @@ import kotlin.math.roundToInt
 private const val SAMPLE_ARABIC = "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ"
 
 @Composable
-fun SettingsScreen(onBack: () -> Unit) {
+fun SettingsScreen(onBack: () -> Unit, onOpenReading: () -> Unit) {
     val context = LocalContext.current
     val appearance by SettingsStore.appearance.collectAsState()
     val arabicSize by SettingsStore.arabicFontSize.collectAsState()
+    val arabicFont by SettingsStore.arabicFont.collectAsState()
+    val readingLanguage by SettingsStore.readingLanguage.collectAsState()
     val showUrdu by SettingsStore.showUrdu.collectAsState()
     val showTransliteration by SettingsStore.showTransliteration.collectAsState()
     val playerSkin by SettingsStore.playerSkin.collectAsState()
@@ -166,19 +170,27 @@ fun SettingsScreen(onBack: () -> Unit) {
 
             item { SectionHeader("Reading") }
             item {
-                ContentCard {
+                ContentCard(onClick = onOpenReading) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text("Arabic size", fontWeight = FontWeight.Medium, modifier = Modifier.weight(1f))
-                        Text("${arabicSize.roundToInt()} pt", style = MaterialTheme.typography.labelLarge)
+                        Column(Modifier.weight(1f)) {
+                            Text("Reading", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+                            MutedText("Languages, translations, fonts, sizes and alignment")
+                        }
+                        Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null)
                     }
-                    Slider(
-                        value = arabicSize,
-                        onValueChange = { SettingsStore.setArabicFontSize(it) },
-                        valueRange = SettingsStore.MIN_ARABIC_SIZE..SettingsStore.MAX_ARABIC_SIZE,
-                        steps = 7
+                    MutedText(
+                        listOf(
+                            readingLanguage.label,
+                            "${arabicSize.roundToInt()} pt Arabic",
+                            arabicFont.label
+                        ).joinToString(" · "),
+                        Modifier.padding(top = 8.dp)
                     )
-                    RtlText(SAMPLE_ARABIC, fontSize = 24)
-                    Spacer(Modifier.padding(top = 8.dp))
+                    RtlText(SAMPLE_ARABIC, fontSize = 24, modifier = Modifier.padding(top = 8.dp))
+                }
+            }
+            item {
+                ContentCard {
                     ToggleRow(
                         title = "Show Urdu",
                         subtitle = "Urdu translations in hadith, stories and reminders",
@@ -191,9 +203,6 @@ fun SettingsScreen(onBack: () -> Unit) {
                         checked = showTransliteration,
                         onChange = { SettingsStore.setShowTransliteration(it) }
                     )
-                    TextButton(onClick = { SettingsStore.resetReading() }, modifier = Modifier.padding(top = 4.dp)) {
-                        Text("Reset reading settings")
-                    }
                 }
             }
 

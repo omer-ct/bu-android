@@ -186,9 +186,18 @@ data class Ayah(
     val surah: Int,
     val numberInSurah: Int,
     val arabic: String,
-    val english: String
+    val english: String,
+    val urdu: String = "",
+    val arabicIndopak: String = ""
 ) {
     val key: String get() = "$surah:$numberInSurah"
+
+    /** Nastaliq and Indo-Pak faces need the Indo-Pak orthography; everything else reads Uthmani. */
+    fun arabic(font: ScriptFont): String = if (font.prefersIndoPak) {
+        arabicIndopak.ifBlank { arabic }
+    } else {
+        arabic.ifBlank { arabicIndopak }
+    }
 }
 
 data class SurahDetail(

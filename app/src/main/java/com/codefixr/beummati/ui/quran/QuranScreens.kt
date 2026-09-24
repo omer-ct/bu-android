@@ -16,6 +16,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.PostAdd
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material.icons.outlined.Translate
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.HorizontalDivider
@@ -27,6 +28,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -40,9 +42,12 @@ import com.codefixr.beummati.data.Ayah
 import com.codefixr.beummati.data.Bookmark
 import com.codefixr.beummati.data.QuranApi
 import com.codefixr.beummati.data.SavedStore
+import com.codefixr.beummati.data.ScriptFont
+import com.codefixr.beummati.data.SettingsStore
 import com.codefixr.beummati.data.Surah
 import com.codefixr.beummati.data.SurahDetail
 import com.codefixr.beummati.data.TafsirApi
+import com.codefixr.beummati.data.TranslationChoices
 import com.codefixr.beummati.ui.BookmarkButton
 import com.codefixr.beummati.ui.ErrorBox
 import com.codefixr.beummati.ui.LoadState
@@ -54,9 +59,10 @@ import com.codefixr.beummati.ui.RtlText
 import com.codefixr.beummati.ui.ScreenScaffold
 import com.codefixr.beummati.ui.ShareCard
 import com.codefixr.beummati.ui.ShareMenuButton
+import com.codefixr.beummati.ui.TripleScriptText
 
 @Composable
-fun QuranListScreen(onOpenSurah: (Int) -> Unit) {
+fun QuranListScreen(onOpenSurah: (Int) -> Unit, onOpenSettings: () -> Unit) {
     var surahs by remember { mutableStateOf<List<Surah>>(emptyList()) }
     var query by remember { mutableStateOf("") }
     LaunchedEffect(Unit) { surahs = QuranApi.surahs() }
@@ -71,7 +77,14 @@ fun QuranListScreen(onOpenSurah: (Int) -> Unit) {
         }
     }
 
-    ScreenScaffold(title = "Qur’an") { padding ->
+    ScreenScaffold(
+        title = "Qur’an",
+        actions = {
+            IconButton(onClick = onOpenSettings) {
+                Icon(Icons.Outlined.Settings, contentDescription = "Settings")
+            }
+        }
+    ) { padding ->
         if (surahs.isEmpty()) {
             LoadingBox(Modifier.padding(padding))
             return@ScreenScaffold
@@ -126,7 +139,7 @@ private fun NumberBadge(n: Int) {
 }
 
 @Composable
-fun SurahScreen(number: Int, onBack: () -> Unit) {
+fun SurahScreen(number: Int, onBack: () -> Unit, onOpenSettings: () -> Unit) {
     var reload by remember { mutableIntStateOf(0) }
     var state by remember { mutableStateOf<LoadState<SurahDetail>>(LoadState.Loading) }
     var showTafsir by remember { mutableStateOf(false) }
@@ -135,9 +148,14 @@ fun SurahScreen(number: Int, onBack: () -> Unit) {
     // Words are fetched one ayah at a time, so expansion is opt-in per ayah.
     var expandedWords by remember(number) { mutableStateOf(emptySet<String>()) }
 
-    LaunchedEffect(number, reload) {
+    val englishId by SettingsStore.englishTranslationId.collectAsState()
+    val urduId by SettingsStore.urduTranslationId.collectAsState()
+    val arabicFont by SettingsStore.arabicFont.collectAsState()
+
+    // Picking a different translation in Reading settings refetches the surah.
+    LaunchedEffect(number, reload, englishId, urduId) {
         state = LoadState.Loading
-        state = runCatching { QuranApi.surah(number) }
+        state = runCatching { QuranApi.surah(number, englishId, urduId) }
             .fold({ LoadState.Loaded(it) }, { LoadState.Failed(it.message ?: "Network error") })
     }
     LaunchedEffect(showTafsir, number) {
@@ -150,7 +168,15 @@ fun SurahScreen(number: Int, onBack: () -> Unit) {
 
     val title = (state as? LoadState.Loaded)?.value?.surah?.englishName?.takeIf { it.isNotBlank() } ?: "Surah $number"
 
-    ScreenScaffold(title = title, onBack = onBack) { padding ->
+    ScreenScaffold(
+        title = title,
+        onBack = onBack,
+        actions = {
+            IconButton(onClick = onOpenSettings) {
+                Icon(Icons.Outlined.Settings, contentDescription = "Reading settings")
+            }
+        }
+    ) { padding ->
         when (val s = state) {
             LoadState.Loading -> LoadingBox(Modifier.padding(padding))
             is LoadState.Failed -> ErrorBox(s.message, onRetry = { reload++ }, modifier = Modifier.padding(padding))
@@ -185,6 +211,7 @@ fun SurahScreen(number: Int, onBack: () -> Unit) {
                     items(detail.ayahs, key = { it.key }) { ayah ->
                         AyahCard(
                             ayah = ayah,
+                            arabicFont = arabicFont,
                             surahName = detail.surah.englishName.ifBlank { "Surah $number" },
                             tafsir = if (showTafsir) tafsirMap[ayah.numberInSurah] else null,
                             showWords = ayah.key in expandedWords,
@@ -200,8 +227,9 @@ fun SurahScreen(number: Int, onBack: () -> Unit) {
                     }
                     item {
                         MutedText(
-                            "Arabic: Uthmani · English: Saheeh International · via alquran.cloud · " +
-                                "word by word via quran.com"
+                            "Arabic: ${if (arabicFont.prefersIndoPak) "Indo-Pak" else "Uthmani"} · " +
+                                "English: ${TranslationChoices.englishLabel(englishId)} · " +
+                                "Urdu: ${TranslationChoices.urduLabel(urduId)} · via quran.com"
                         )
                     }
                 }
@@ -225,6 +253,7 @@ fun SurahScreen(number: Int, onBack: () -> Unit) {
 @Composable
 private fun AyahCard(
     ayah: Ayah,
+    arabicFont: ScriptFont,
     surahName: String,
     tafsir: String?,
     showWords: Boolean,
@@ -250,8 +279,9 @@ private fun AyahCard(
                 ShareCard(
                     kind = "Qur’an",
                     reference = ayah.key,
-                    arabic = ayah.arabic,
-                    english = ayah.english
+                    arabic = ayah.arabic(arabicFont),
+                    english = ayah.english,
+                    urdu = ayah.urdu
                 )
             }
             IconButton(onClick = onNote) { Icon(Icons.Outlined.PostAdd, contentDescription = "Add note") }
@@ -268,8 +298,12 @@ private fun AyahCard(
                 }
             )
         }
-        RtlText(ayah.arabic, fontSize = 24, modifier = Modifier.padding(vertical = 6.dp))
-        Text(ayah.english, style = MaterialTheme.typography.bodyMedium)
+        TripleScriptText(
+            arabic = ayah.arabic(arabicFont),
+            english = ayah.english,
+            urdu = ayah.urdu,
+            modifier = Modifier.padding(vertical = 6.dp)
+        )
         if (showWords) {
             WordByWordPanel(ayah.key, Modifier.padding(top = 10.dp))
         }

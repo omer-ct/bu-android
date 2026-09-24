@@ -56,18 +56,21 @@ data class ShareCard(
             else -> kind
         }
 
-    /** Body blocks in reading order, skipping anything empty or switched off in Settings. */
-    fun blocks(includeUrdu: Boolean = SettingsStore.showUrdu.value): List<String> = buildList {
-        if (arabic.isNotBlank()) add(arabic.trim())
+    /**
+     * Body blocks in reading order, skipping anything empty or switched off by the share language
+     * toggles in Reading settings.
+     */
+    fun blocks(): List<String> = buildList {
+        if (SettingsStore.shareArabic.value && arabic.isNotBlank()) add(arabic.trim())
         if (transliteration.isNotBlank() && SettingsStore.showTransliteration.value) add(transliteration.trim())
-        if (english.isNotBlank()) add(english.trim())
-        if (includeUrdu && urdu.isNotBlank()) add(urdu.trim())
+        if (SettingsStore.shareEnglish.value && english.isNotBlank()) add(english.trim())
+        if (SettingsStore.shareUrdu.value && urdu.isNotBlank()) add(urdu.trim())
     }
 
-    fun render(includeUrdu: Boolean = SettingsStore.showUrdu.value): String = buildList {
+    fun render(): String = buildList {
         if (title.isNotBlank()) add(title.trim())
         subheading.takeIf { it.isNotBlank() }?.let { add(it) }
-        addAll(blocks(includeUrdu))
+        addAll(blocks())
         add(SIGNATURE)
     }.joinToString("\n\n")
 }
@@ -346,12 +349,12 @@ fun renderShareCard(
     val parts = buildList {
         if (card.title.isNotBlank()) add(Role.TITLE to card.title.trim())
         card.subheading.takeIf { it.isNotBlank() }?.let { add(Role.SUBHEAD to it) }
-        if (card.arabic.isNotBlank()) add(Role.ARABIC to card.arabic.trim())
+        if (SettingsStore.shareArabic.value && card.arabic.isNotBlank()) add(Role.ARABIC to card.arabic.trim())
         if (card.transliteration.isNotBlank() && SettingsStore.showTransliteration.value) {
             add(Role.TRANSLIT to card.transliteration.trim())
         }
-        if (card.english.isNotBlank()) add(Role.ENGLISH to card.english.trim())
-        if (SettingsStore.showUrdu.value && card.urdu.isNotBlank()) add(Role.URDU to card.urdu.trim())
+        if (SettingsStore.shareEnglish.value && card.english.isNotBlank()) add(Role.ENGLISH to card.english.trim())
+        if (SettingsStore.shareUrdu.value && card.urdu.isNotBlank()) add(Role.URDU to card.urdu.trim())
     }.ifEmpty { listOf(Role.ENGLISH to BRAND) }
 
     val boxed = design.bodyBox != 0

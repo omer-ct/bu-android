@@ -48,6 +48,7 @@ import com.codefixr.beummati.ui.salah.SalahTrackerScreen
 import com.codefixr.beummati.ui.saved.SavedScreen
 import com.codefixr.beummati.ui.scholars.ScholarsScreen
 import com.codefixr.beummati.ui.search.SearchScreen
+import com.codefixr.beummati.ui.settings.ReadingSettingsScreen
 import com.codefixr.beummati.ui.settings.SettingsScreen
 
 enum class Tab(val route: String, val label: String, val icon: ImageVector) {
@@ -65,6 +66,7 @@ object Routes {
     const val SALAH = "salah"
     const val SEARCH = "search"
     const val SETTINGS = "settings"
+    const val READING_SETTINGS = "settings/reading"
     fun surah(n: Int) = "quran/$n"
     fun hadithBook(slug: String) = "hadith/$slug"
     fun hadithChapter(slug: String, index: Int) = "hadith/$slug/$index"
@@ -140,10 +142,17 @@ fun BeUmmatiApp() {
             }
 
             composable(Tab.QURAN.route) {
-                QuranListScreen(onOpenSurah = { navigate(Routes.surah(it)) })
+                QuranListScreen(
+                    onOpenSurah = { navigate(Routes.surah(it)) },
+                    onOpenSettings = { navigate(Routes.SETTINGS) }
+                )
             }
             composable("quran/{n}", arguments = listOf(navArgument("n") { type = NavType.IntType })) {
-                SurahScreen(number = it.arguments?.getInt("n") ?: 1, onBack = back)
+                SurahScreen(
+                    number = it.arguments?.getInt("n") ?: 1,
+                    onBack = back,
+                    onOpenSettings = { navigate(Routes.READING_SETTINGS) }
+                )
             }
 
             composable(Tab.HADITH.route) {
@@ -208,7 +217,10 @@ fun BeUmmatiApp() {
                     }
                 )
             }
-            composable(Routes.SETTINGS) { SettingsScreen(onBack = back) }
+            composable(Routes.SETTINGS) {
+                SettingsScreen(onBack = back, onOpenReading = { navigate(Routes.READING_SETTINGS) })
+            }
+            composable(Routes.READING_SETTINGS) { ReadingSettingsScreen(onBack = back) }
 
             composable(Routes.PLAYER) { LecturePlayerScreen(onBack = back) }
         }
