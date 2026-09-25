@@ -16,9 +16,12 @@ import android.text.TextDirectionHeuristics
 import android.text.TextPaint
 import android.util.Log
 import androidx.core.content.FileProvider
+import com.codefixr.beummati.data.DailyQuranPack
 import com.codefixr.beummati.data.SettingsStore
+import com.codefixr.beummati.data.ShareColorMood
 import com.codefixr.beummati.data.ShareTemplate
 import java.io.File
+import java.io.FileOutputStream
 
 private const val TAG = "ShareCards"
 private const val SIGNATURE = "— via Be Ummati"
@@ -88,15 +91,41 @@ fun shareCard(context: Context, card: ShareCard) {
 fun shareCardImage(
     context: Context,
     card: ShareCard,
-    template: ShareTemplate = SettingsStore.shareTemplate.value
+    template: ShareTemplate = SettingsStore.shareTemplate.value,
+    mood: ShareColorMood = SettingsStore.shareColorMood.value
 ) {
-    val file = runCatching { writeCardImage(context, card, template) }
+    val files = runCatching { writeCardImages(context, card, template, mood) }
         .onFailure { Log.w(TAG, "Couldn’t render the share image", it) }
         .getOrNull()
-    if (file == null) {
+        .orEmpty()
+    if (files.isEmpty()) {
         shareCard(context, card)
         return
     }
+    if (files.size == 1) {
+        shareImageFile(context, files.first(), card)
+        return
+    }
+    // Split Daily Quran: share both parts as a multi-image send when the host supports it.
+    val uris = files.mapNotNull { file ->
+        runCatching {
+            FileProvider.getUriForFile(context, "${context.packageName}.shares", file)
+        }.onFailure { Log.w(TAG, "Couldn’t expose ${file.name}", it) }.getOrNull()
+    }
+    if (uris.isEmpty()) {
+        shareCard(context, card)
+        return
+    }
+    val send = Intent(Intent.ACTION_SEND_MULTIPLE).apply {
+        type = "image/jpeg"
+        putParcelableArrayListExtra(Intent.EXTRA_STREAM, ArrayList(uris))
+        putExtra(Intent.EXTRA_TEXT, card.render())
+        addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+    }
+    context.startActivity(Intent.createChooser(send, "Share"))
+}
+
+private fun shareImageFile(context: Context, file: File, card: ShareCard) {
     val uri = runCatching {
         FileProvider.getUriForFile(context, "${context.packageName}.shares", file)
     }.onFailure { Log.w(TAG, "Couldn’t expose the share image", it) }.getOrNull()
@@ -104,8 +133,13 @@ fun shareCardImage(
         shareCard(context, card)
         return
     }
+    val mime = if (file.extension.equals("jpg", true) || file.extension.equals("jpeg", true)) {
+        "image/jpeg"
+    } else {
+        "image/png"
+    }
     val send = Intent(Intent.ACTION_SEND).apply {
-        type = "image/png"
+        type = mime
         putExtra(Intent.EXTRA_STREAM, uri)
         putExtra(Intent.EXTRA_TEXT, card.render())
         addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
@@ -205,166 +239,9 @@ private class Design(
     val background: (canvas: Canvas, width: Int, height: Int, splitY: Float, scale: Float) -> Unit
 )
 
-private fun designFor(template: ShareTemplate): Design = when (template) {
-    ShareTemplate.PARCHMENT -> Design(
-        inks = mapOf(
-            Role.TITLE to Ink(40f, INK, weight = W_SEMIBOLD, lead = 0.08f),
-            Role.SUBHEAD to Ink(22f, BRASS, weight = W_MEDIUM, caps = true, tracking = 0.16f),
-            Role.ARABIC to Ink(54f, INK, rtl = true, lead = 0.30f),
-            Role.TRANSLIT to Ink(26f, INK, weight = W_LIGHT, italic = true, alpha = 0.66f),
-            Role.ENGLISH to Ink(33f, INK, lead = 0.18f, tracking = 0.01f),
-            Role.URDU to Ink(34f, INK, rtl = true, lead = 0.34f)
-        ),
-        taglineInk = BRASS,
-        railWidth = 10f
-    ) { canvas, width, height, _, scale ->
-        canvas.drawColor(PARCHMENT)
-        canvas.fill(0f, 0f, 10f * scale, height.toFloat(), BRASS)
-        canvas.fill(width - 10f * scale, 0f, width.toFloat(), height.toFloat(), BRASS, alpha = 0.25f)
-    }
-
-    ShareTemplate.NIGHT_CORAL -> Design(
-        inks = mapOf(
-            Role.TITLE to Ink(40f, WHITE, weight = W_SEMIBOLD, serif = false, lead = 0.08f),
-            Role.SUBHEAD to Ink(22f, CORAL, serif = false, caps = true, tracking = 0.18f),
-            Role.ARABIC to Ink(52f, WHITE, rtl = true, lead = 0.30f),
-            Role.TRANSLIT to Ink(26f, CORAL, weight = W_LIGHT, italic = true, serif = false),
-            Role.ENGLISH to Ink(33f, 0xFFF3F1EE.toInt(), serif = false, lead = 0.20f, tracking = 0.01f),
-            Role.URDU to Ink(34f, 0xFFF3F1EE.toInt(), rtl = true, lead = 0.34f)
-        ),
-        taglineInk = WHITE
-    ) { canvas, width, height, _, scale ->
-        canvas.gradient(width, height, 0xFF242424.toInt(), 0xFF111111.toInt())
-        canvas.fill(0f, 0f, width.toFloat(), 8f * scale, CORAL)
-    }
-
-    ShareTemplate.QUOTE_WARM -> Design(
-        inks = mapOf(
-            Role.TITLE to Ink(40f, WHITE, weight = W_SEMIBOLD, serif = false, lead = 0.08f),
-            Role.SUBHEAD to Ink(22f, 0xFFFFEBD0.toInt(), serif = false, caps = true, tracking = 0.16f),
-            Role.ARABIC to Ink(52f, WHITE, rtl = true, lead = 0.30f),
-            Role.TRANSLIT to Ink(26f, 0xFFFFEBD0.toInt(), weight = W_LIGHT, italic = true, serif = false),
-            Role.ENGLISH to Ink(33f, WHITE, serif = false, lead = 0.20f, tracking = 0.01f),
-            Role.URDU to Ink(34f, WHITE, rtl = true, lead = 0.34f)
-        ),
-        badge = BadgeSpot.TOP_RIGHT,
-        joinUs = true,
-        handles = true,
-        handleInk = WHITE
-    ) { canvas, width, height, _, _ ->
-        canvas.gradient(width, height, 0xFFF0871B.toInt(), 0xFFD1560A.toInt())
-    }
-
-    ShareTemplate.FOREST -> Design(
-        inks = mapOf(
-            Role.TITLE to Ink(40f, 0xFFF1EFE6.toInt(), weight = W_SEMIBOLD, serif = false, lead = 0.08f),
-            Role.SUBHEAD to Ink(22f, 0xFF63C7B2.toInt(), serif = false, caps = true, tracking = 0.16f),
-            Role.ARABIC to Ink(52f, 0xFFF1EFE6.toInt(), rtl = true, lead = 0.30f),
-            Role.TRANSLIT to Ink(26f, 0xFF63C7B2.toInt(), weight = W_LIGHT, italic = true, serif = false),
-            Role.ENGLISH to Ink(33f, 0xFFF1EFE6.toInt(), serif = false, lead = 0.20f, tracking = 0.01f),
-            Role.URDU to Ink(34f, 0xFFF1EFE6.toInt(), rtl = true, lead = 0.34f)
-        ),
-        badge = BadgeSpot.TOP_RIGHT,
-        joinUs = true,
-        handles = true,
-        handleInk = 0xFFA9CFC5.toInt(),
-        bodyBox = 0x12FFFFFF
-    ) { canvas, width, height, _, _ ->
-        canvas.gradient(width, height, 0xFF14403A.toInt(), FOREST_GREEN)
-    }
-
-    ShareTemplate.SPLIT_DUAL -> Design(
-        inks = mapOf(
-            Role.TITLE to Ink(40f, FOREST_GREEN, weight = W_SEMIBOLD, serif = false, lead = 0.08f),
-            Role.SUBHEAD to Ink(22f, 0xFFBFD8CF.toInt(), weight = W_MEDIUM, serif = false, caps = true, tracking = 0.16f),
-            Role.ARABIC to Ink(52f, FOREST_GREEN, rtl = true, lead = 0.30f),
-            Role.TRANSLIT to Ink(26f, 0xFF6F6B52.toInt(), weight = W_LIGHT, italic = true, serif = false),
-            Role.ENGLISH to Ink(33f, CREAM, serif = false, lead = 0.20f, tracking = 0.01f),
-            Role.URDU to Ink(34f, CREAM, rtl = true, lead = 0.34f)
-        ),
-        taglineInk = CREAM,
-        split = true
-    ) { canvas, width, height, splitY, _ ->
-        canvas.fill(0f, 0f, width.toFloat(), splitY, CREAM)
-        canvas.fill(0f, splitY, width.toFloat(), height.toFloat(), FOREST_GREEN)
-    }
-
-    ShareTemplate.DHIKR_SLATE -> Design(
-        inks = mapOf(
-            Role.TITLE to Ink(40f, CREAM, weight = W_SEMIBOLD, serif = false, center = true, lead = 0.08f),
-            Role.SUBHEAD to Ink(22f, 0xFF7A6A46.toInt(), weight = W_MEDIUM, serif = false, center = true, caps = true, tracking = 0.16f),
-            Role.ARABIC to Ink(54f, CREAM, rtl = true, center = true, lead = 0.30f),
-            Role.TRANSLIT to Ink(26f, 0xFFBEB6A3.toInt(), weight = W_LIGHT, italic = true, center = true),
-            Role.ENGLISH to Ink(33f, INK, center = true, lead = 0.20f, tracking = 0.01f),
-            Role.URDU to Ink(34f, INK, rtl = true, center = true, lead = 0.34f)
-        ),
-        taglineInk = INK,
-        split = true
-    ) { canvas, width, height, splitY, scale ->
-        canvas.fill(0f, 0f, width.toFloat(), height.toFloat(), CREAM)
-        canvas.fill(0f, 0f, width.toFloat(), splitY, SLATE)
-        // Faint diagonal weave so the band reads as fabric rather than flat fill.
-        val thread = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = WHITE
-            this.alpha = 10
-            strokeWidth = 2f * scale
-        }
-        var x = -height.toFloat()
-        while (x < width) {
-            canvas.drawLine(x, splitY, x + splitY, 0f, thread)
-            x += 22f * scale
-        }
-    }
-
-    ShareTemplate.VERSE_BANNER -> Design(
-        inks = mapOf(
-            Role.TITLE to Ink(40f, FOREST_GREEN, weight = W_SEMIBOLD, lead = 0.08f),
-            Role.SUBHEAD to Ink(22f, BRASS, weight = W_MEDIUM, caps = true, tracking = 0.16f),
-            Role.ARABIC to Ink(52f, INK, rtl = true, lead = 0.30f),
-            Role.TRANSLIT to Ink(26f, BRASS, weight = W_LIGHT, italic = true),
-            Role.ENGLISH to Ink(33f, INK, lead = 0.18f, tracking = 0.01f),
-            Role.URDU to Ink(34f, INK, rtl = true, lead = 0.34f)
-        ),
-        taglineInk = FOREST_GREEN,
-        railWidth = 150f
-    ) { canvas, width, height, _, scale ->
-        canvas.drawColor(PARCHMENT)
-        canvas.gradient(
-            width = (150f * scale).toInt(),
-            height = height,
-            top = 0xFF1F5A4A.toInt(),
-            bottom = FOREST_GREEN
-        )
-        canvas.fill(150f * scale, 0f, 156f * scale, height.toFloat(), BRASS, alpha = 0.55f)
-    }
-
-    ShareTemplate.PLUSH_LIGHT -> Design(
-        inks = mapOf(
-            Role.TITLE to Ink(40f, 0xFF2B2620.toInt(), weight = W_SEMIBOLD, center = true, lead = 0.08f, shadow = true),
-            Role.SUBHEAD to Ink(22f, 0xFF8C7C63.toInt(), weight = W_MEDIUM, center = true, caps = true, tracking = 0.16f),
-            Role.ARABIC to Ink(54f, 0xFF2B2620.toInt(), rtl = true, center = true, lead = 0.30f, shadow = true),
-            Role.TRANSLIT to Ink(26f, 0xFF8C7C63.toInt(), weight = W_LIGHT, italic = true, center = true),
-            Role.ENGLISH to Ink(33f, 0xFF2B2620.toInt(), italic = true, center = true, lead = 0.20f),
-            Role.URDU to Ink(34f, 0xFF2B2620.toInt(), rtl = true, center = true, lead = 0.34f)
-        ),
-        taglineInk = 0xFF8C7C63.toInt()
-    ) { canvas, width, height, _, scale ->
-        canvas.gradient(width, height, 0xFFFBF7F0.toInt(), CREAM)
-        // A hairline inset frame, like the stitched edge of the felt boards.
-        val frame = Paint().apply {
-            style = Paint.Style.STROKE
-            strokeWidth = 3f * scale
-            color = 0xFFD9CDB8.toInt()
-            isAntiAlias = true
-        }
-        val m = 34f * scale
-        canvas.drawRoundRect(
-            RectF(m, m, width - m, height - m),
-            26f * scale,
-            26f * scale,
-            frame
-        )
-    }
+private fun designFor(template: ShareTemplate): Design {
+    // Legacy Design studio retired — share renders via [DailyQuranLab].
+    error("Legacy design studio removed for $template")
 }
 
 /**
@@ -374,87 +251,12 @@ private fun designFor(template: ShareTemplate): Design = when (template) {
 fun renderShareCard(
     card: ShareCard,
     template: ShareTemplate = SettingsStore.shareTemplate.value,
-    width: Int = CARD_WIDTH
+    width: Int = CARD_WIDTH,
+    context: Context? = null,
+    mood: ShareColorMood = SettingsStore.shareColorMood.value
 ): Bitmap {
-    val scale = width / CARD_WIDTH.toFloat()
-    val design = designFor(template)
-    val pad = 88f * scale
-    val boxPad = 24f * scale
-    val railInset = design.railWidth * scale
-    val contentLeft = pad + railInset
-    val inner = (width - contentLeft - pad).coerceAtLeast(1f)
-
-    val parts = buildList {
-        if (card.title.isNotBlank()) add(Role.TITLE to card.title.trim())
-        if (SettingsStore.shareArabic.value && card.arabic.isNotBlank()) add(Role.ARABIC to card.arabic.trim())
-        if (card.transliteration.isNotBlank() && SettingsStore.showTransliteration.value) {
-            add(Role.TRANSLIT to card.transliteration.trim())
-        }
-        if (SettingsStore.shareEnglish.value && card.english.isNotBlank()) add(Role.ENGLISH to card.english.trim())
-        if (SettingsStore.shareUrdu.value && card.urdu.isNotBlank()) add(Role.URDU to card.urdu.trim())
-        card.subheading.takeIf { it.isNotBlank() }?.let { add(Role.SUBHEAD to it) }
-    }.ifEmpty { listOf(Role.ENGLISH to BRAND) }
-
-    val topReserve = pad + if (design.badge == BadgeSpot.TOP_RIGHT) (TOP_BADGE_HEIGHT + 40f) * scale else 0f
-    val bottomReserve = (EDGE + BAND_GAP * 2f) * scale + bottomBandHeight(design, scale)
-    val target = width * CARD_RATIO
-
-    // Long passages shrink to hold the 4:5 frame — sparse spacing reads worse than smaller type.
-    var typeScale = 1f
-    var blocks = parts.map { (role, text) -> role to layout(text, inner, design.inks.getValue(role), scale, typeScale) }
-    while (topReserve + stackHeight(blocks, design, boxPad, scale) + bottomReserve > target && typeScale > 0.8f) {
-        typeScale -= 0.04f
-        blocks = parts.map { (role, text) -> role to layout(text, inner, design.inks.getValue(role), scale, typeScale) }
-    }
-
-    val contentHeight = stackHeight(blocks, design, boxPad, scale)
-    val needed = topReserve + contentHeight + bottomReserve
-    val height = needed.coerceIn(width * CARD_MIN_RATIO, maxOf(target, needed)).toInt().coerceAtLeast(1)
-
-    // Optical centre sits a shade above the geometric one, so the card never reads bottom-heavy.
-    val slack = (height - needed).coerceAtLeast(0f)
-    val tops = FloatArray(blocks.size)
-    val bottoms = FloatArray(blocks.size)
-    var y = topReserve + slack * 0.48f
-    blocks.forEachIndexed { index, (role, block) ->
-        val boxed = design.bodyBox != 0 && role in BODY_ROLES
-        tops[index] = y + if (boxed) boxPad else 0f
-        bottoms[index] = tops[index] + block.height
-        y = bottoms[index] + if (boxed) boxPad else 0f
-        if (index != blocks.lastIndex) y += gapBetween(role, blocks[index + 1].first, scale)
-    }
-
-    val splitY = if (!design.split) 0f else {
-        val last = blocks.indexOfLast { it.first in UPPER_ROLES }
-        when {
-            last < 0 -> height / 2f
-            last == blocks.lastIndex -> bottoms[last] + 48f * scale
-            else -> (bottoms[last] + tops[last + 1]) / 2f
-        }
-    }
-
-    val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-    val canvas = Canvas(bitmap)
-    design.background(canvas, width, height, splitY, scale)
-
-    val box = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = design.bodyBox }
-    blocks.forEachIndexed { index, (role, block) ->
-        if (design.bodyBox != 0 && role in BODY_ROLES) {
-            canvas.drawRoundRect(
-                RectF(contentLeft - boxPad, tops[index] - boxPad, width - pad + boxPad, bottoms[index] + boxPad),
-                18f * scale,
-                18f * scale,
-                box
-            )
-        }
-        canvas.save()
-        canvas.translate(contentLeft, tops[index])
-        block.draw(canvas)
-        canvas.restore()
-    }
-
-    drawBranding(canvas, design, width, height, railInset, scale)
-    return bitmap
+    val ctx = context ?: error("Share render needs a Context for fonts")
+    return DailyQuranLab.renderForShare(ctx, card, template, width, mood)
 }
 
 /** Total height of the laid-out blocks, including body-box padding and the gaps between them. */
@@ -647,16 +449,16 @@ private fun Canvas.gradient(width: Int, height: Int, top: Int, bottom: Int) {
     })
 }
 
-private fun writeCardImage(context: Context, card: ShareCard, template: ShareTemplate): File {
-    val bitmap = renderShareCard(card, template)
+private fun writeCardImages(
+    context: Context,
+    card: ShareCard,
+    template: ShareTemplate,
+    mood: ShareColorMood = SettingsStore.shareColorMood.value
+): List<File> {
     val dir = File(context.cacheDir, "shares").apply { mkdirs() }
-    // Keep recent cards around: a receiving app may still be reading the one shared a moment ago.
     val stale = System.currentTimeMillis() - 60 * 60_000L
     dir.listFiles()?.filter { it.lastModified() < stale }?.forEach { it.delete() }
-    val file = File(dir, "be-ummati-${System.currentTimeMillis()}.png")
-    file.outputStream().use { bitmap.compress(Bitmap.CompressFormat.PNG, 100, it) }
-    bitmap.recycle()
-    return file
+    return DailyQuranLab.writeShareFiles(context, card, template, dir, mood)
 }
 
 // endregion

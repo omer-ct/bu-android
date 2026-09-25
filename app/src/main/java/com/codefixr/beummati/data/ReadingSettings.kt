@@ -19,6 +19,18 @@ enum class TextAlignMode(val label: String) {
     LEADING("Leading")
 }
 
+/** Gloss language for word-by-word (quran.com `language=` on the words endpoint). */
+enum class WordByWordLang(val label: String, val apiCodes: List<String>) {
+    ENGLISH("English", listOf("en")),
+    URDU("Urdu", listOf("ur")),
+    BOTH("English + Urdu", listOf("en", "ur"));
+
+    companion object {
+        fun named(raw: String?): WordByWordLang? =
+            raw?.let { name -> entries.firstOrNull { it.name == name } }
+    }
+}
+
 /**
  * Typefaces offered per script. [fontRes] points at a bundled file in `res/font`; the entries
  * without one fall back to a platform family so the pickers still work on a slim build.

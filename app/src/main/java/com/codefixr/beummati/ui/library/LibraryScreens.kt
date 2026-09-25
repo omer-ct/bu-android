@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.automirrored.outlined.MenuBook
@@ -53,18 +54,23 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.codefixr.beummati.data.Bookmark
 import com.codefixr.beummati.data.Catalogs
+import com.codefixr.beummati.data.ContentBrowseMode
 import com.codefixr.beummati.data.Dua
 import com.codefixr.beummati.data.LibraryChapter
 import com.codefixr.beummati.data.LibraryProgressStore
 import com.codefixr.beummati.data.LibrarySeries
 import com.codefixr.beummati.data.SahabaStory
 import com.codefixr.beummati.data.SavedStore
+import com.codefixr.beummati.data.SettingsStore
 import com.codefixr.beummati.player.LecturePlayerSession
 import com.codefixr.beummati.player.SrtCueParser
+import com.codefixr.beummati.ui.ArabicScriptText
 import com.codefixr.beummati.ui.AutoDirectionText
 import com.codefixr.beummati.ui.BookmarkButton
+import com.codefixr.beummati.ui.BrowseModeBar
 import com.codefixr.beummati.ui.ContentCard
 import com.codefixr.beummati.ui.EmptyState
+import com.codefixr.beummati.ui.EnglishScriptText
 import com.codefixr.beummati.ui.MutedText
 import com.codefixr.beummati.ui.NoteDialog
 import com.codefixr.beummati.ui.Routes
@@ -73,6 +79,8 @@ import com.codefixr.beummati.ui.ScreenScaffold
 import com.codefixr.beummati.ui.SectionHeader
 import com.codefixr.beummati.ui.ShareCard
 import com.codefixr.beummati.ui.ShareMenuButton
+import com.codefixr.beummati.ui.SwipeItemPager
+import com.codefixr.beummati.ui.UrduScriptText
 
 private const val KIND_SAHABA = "sahaba"
 private const val KIND_TAFSIR = "quranTafsir"
@@ -425,7 +433,8 @@ fun ChapterReaderScreen(seriesId: String, chapterId: String, onBack: () -> Unit,
                 }
             } else {
                 items(paragraphs.size) { i ->
-                    if (rtl) RtlText(paragraphs[i], fontSize = 19) else Text(paragraphs[i], style = MaterialTheme.typography.bodyLarge)
+                    if (rtl) RtlText(paragraphs[i], fontSize = 19, urduFace = true)
+                    else EnglishScriptText(paragraphs[i])
                 }
             }
             text?.reference?.takeIf { it.isNotBlank() }?.let { ref ->
@@ -471,22 +480,45 @@ fun SahabaScreen(onBack: () -> Unit) {
     var expanded by remember { mutableStateOf<String?>(null) }
     var showUrdu by remember { mutableStateOf(false) }
     val series = remember { Catalogs.library.series.firstOrNull { it.kind == KIND_SAHABA } }
+    val browseMode by SettingsStore.contentBrowseMode.collectAsState()
+    val pagerState = rememberPagerState(pageCount = { stories.size.coerceAtLeast(1) })
 
     ScreenScaffold(title = series?.title ?: "Sahaba Stories", onBack = onBack) { padding ->
-        LazyColumn(
-            modifier = Modifier.fillMaxSize().padding(padding),
-            contentPadding = PaddingValues(16.dp),
-            verticalArrangement = Arrangement.spacedBy(10.dp)
-        ) {
-            item {
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    FilterChip(selected = !showUrdu, onClick = { showUrdu = false }, label = { Text("English") })
-                    FilterChip(selected = showUrdu, onClick = { showUrdu = true }, label = { Text("Urdu") })
-                }
+        Column(Modifier.fillMaxSize().padding(padding)) {
+            BrowseModeBar(
+                mode = browseMode,
+                onMode = { SettingsStore.setContentBrowseMode(it) },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 6.dp)
+            )
+            Row(
+                Modifier.padding(horizontal = 16.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                FilterChip(selected = !showUrdu, onClick = { showUrdu = false }, label = { Text("English") })
+                FilterChip(selected = showUrdu, onClick = { showUrdu = true }, label = { Text("Urdu") })
             }
-            items(stories, key = { it.id }) { story ->
-                SahabaCard(story, expanded = expanded == story.id, urdu = showUrdu) {
-                    expanded = if (expanded == story.id) null else story.id
+            when (browseMode) {
+                ContentBrowseMode.SLIDE -> SwipeItemPager(
+                    items = stories,
+                    pagerState = pagerState,
+                    key = { it.id },
+                    label = { i, s -> "${i + 1} / ${stories.size} · ${s.name}" },
+                    modifier = Modifier.weight(1f)
+                ) { story, _ ->
+                    SahabaCard(story, expanded = true, urdu = showUrdu, onToggle = {})
+                }
+                ContentBrowseMode.LIST -> LazyColumn(
+                    modifier = Modifier.fillMaxSize().weight(1f),
+                    contentPadding = PaddingValues(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(10.dp)
+                ) {
+                    items(stories, key = { it.id }) { story ->
+                        SahabaCard(story, expanded = expanded == story.id, urdu = showUrdu) {
+                            expanded = if (expanded == story.id) null else story.id
+                        }
+                    }
                 }
             }
         }
@@ -537,8 +569,14 @@ fun DuasScreen(onBack: () -> Unit, navigate: (String) -> Unit) {
     val categories = remember(query) {
         val q = query.trim().lowercase()
         if (q.isEmpty()) hisn.categories else hisn.categories.filter {
-            it.titleEn.lowercase().contains(q) || it.titleAr.contains(query.trim()) ||
-                it.duas.any { d -> d.english.lowercase().contains(q) }
+            it.titleEn.lowercase().contains(q) ||
+                it.titleUr.contains(query.trim()) ||
+                it.titleAr.contains(query.trim()) ||
+                it.duas.any { d ->
+                    d.english.lowercase().contains(q) ||
+                        d.urdu.contains(query.trim()) ||
+                        d.transliteration.lowercase().contains(q)
+                }
         }
     }
 
@@ -585,7 +623,17 @@ fun DuasScreen(onBack: () -> Unit, navigate: (String) -> Unit) {
                         modifier = Modifier.width(36.dp)
                     )
                     Column(Modifier.weight(1f)) {
-                        Text(cat.titleEn, fontWeight = FontWeight.Medium)
+                        if (cat.titleUr.isNotBlank()) {
+                            RtlText(cat.titleUr, fontSize = 17, urduFace = true)
+                            Text(
+                                cat.titleEn,
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.72f),
+                                modifier = Modifier.padding(top = 2.dp)
+                            )
+                        } else {
+                            Text(cat.titleEn, fontWeight = FontWeight.Medium)
+                        }
                         MutedText("${cat.duas.size} duas", maxLines = 1)
                     }
                     if (cat.titleAr.isNotBlank()) {
@@ -602,18 +650,44 @@ fun DuasScreen(onBack: () -> Unit, navigate: (String) -> Unit) {
 @Composable
 fun DuaCategoryScreen(id: Int, onBack: () -> Unit) {
     val category = remember(id) { Catalogs.duaCategory(id) }
+    val browseMode by SettingsStore.contentBrowseMode.collectAsState()
+    val duas = category?.duas.orEmpty()
+    val pagerState = rememberPagerState(pageCount = { duas.size.coerceAtLeast(1) })
+
     ScreenScaffold(title = category?.titleEn ?: "Duas", onBack = onBack) { padding ->
         if (category == null) {
             EmptyState("Not found", "Category $id", Modifier.padding(padding))
             return@ScreenScaffold
         }
-        LazyColumn(
-            modifier = Modifier.fillMaxSize().padding(padding),
-            contentPadding = PaddingValues(16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            if (category.titleAr.isNotBlank()) item { RtlText(category.titleAr, fontSize = 20) }
-            items(category.duas, key = { it.id }) { dua -> DuaCard(dua, category.titleEn) }
+        Column(Modifier.fillMaxSize().padding(padding)) {
+            BrowseModeBar(
+                mode = browseMode,
+                onMode = { SettingsStore.setContentBrowseMode(it) },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 6.dp)
+            )
+            if (category.titleAr.isNotBlank() && browseMode == ContentBrowseMode.LIST) {
+                ArabicScriptText(category.titleAr, Modifier.padding(horizontal = 16.dp, vertical = 4.dp))
+            }
+            when (browseMode) {
+                ContentBrowseMode.SLIDE -> SwipeItemPager(
+                    items = duas,
+                    pagerState = pagerState,
+                    key = { it.id },
+                    label = { i, _ -> "${category.titleEn} · ${i + 1} / ${duas.size}" },
+                    modifier = Modifier.weight(1f)
+                ) { dua, _ ->
+                    DuaCard(dua, category.titleEn)
+                }
+                ContentBrowseMode.LIST -> LazyColumn(
+                    modifier = Modifier.fillMaxSize().weight(1f),
+                    contentPadding = PaddingValues(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    items(duas, key = { it.id }) { dua -> DuaCard(dua, category.titleEn) }
+                }
+            }
         }
     }
 }
@@ -633,7 +707,8 @@ private fun DuaCard(dua: Dua, categoryTitle: String) {
                     reference = dua.reference,
                     arabic = dua.arabic,
                     transliteration = dua.transliteration,
-                    english = dua.english
+                    english = dua.english,
+                    urdu = dua.urdu
                 )
             }
             BookmarkButton(
@@ -643,13 +718,13 @@ private fun DuaCard(dua: Dua, categoryTitle: String) {
                         id = "dua:${dua.id}",
                         kind = "Dua",
                         title = categoryTitle,
-                        body = dua.english,
+                        body = dua.english.ifBlank { dua.urdu },
                         route = Routes.duaCategory(dua.categoryId)
                     )
                 }
             )
         }
-        if (dua.arabic.isNotBlank()) RtlText(dua.arabic, fontSize = 22, modifier = Modifier.padding(vertical = 6.dp))
+        if (dua.arabic.isNotBlank()) ArabicScriptText(dua.arabic, Modifier.padding(vertical = 6.dp))
         if (dua.transliteration.isNotBlank()) {
             Text(
                 dua.transliteration,
@@ -658,7 +733,8 @@ private fun DuaCard(dua: Dua, categoryTitle: String) {
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f)
             )
         }
-        if (dua.english.isNotBlank()) Text(dua.english, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.padding(top = 6.dp))
+        if (dua.english.isNotBlank()) EnglishScriptText(dua.english, Modifier.padding(top = 6.dp))
+        if (dua.urdu.isNotBlank()) UrduScriptText(dua.urdu, Modifier.padding(top = 8.dp))
         if (dua.reference.isNotBlank()) MutedText(dua.reference, modifier = Modifier.padding(top = 6.dp))
     }
 }

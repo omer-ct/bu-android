@@ -55,8 +55,8 @@ fun SearchScreen(onBack: () -> Unit, onOpen: (Destination) -> Unit) {
             hits = emptyList()
             return@LaunchedEffect
         }
-        delay(180)
-        hits = withContext(Dispatchers.Default) { SearchIndex.search(query) }
+        delay(280)
+        hits = withContext(Dispatchers.IO) { SearchIndex.search(query) }
     }
 
     LaunchedEffect(Unit) { runCatching { focus.requestFocus() } }
@@ -70,7 +70,7 @@ fun SearchScreen(onBack: () -> Unit, onOpen: (Destination) -> Unit) {
             OutlinedTextField(
                 value = query,
                 onValueChange = { query = it },
-                placeholder = { Text("Series, hadith books, quotes, duas, sahaba") },
+                placeholder = { Text("Qur’an & Hadith text (EN / AR), Urdu kitābs, series…") },
                 leadingIcon = { Icon(Icons.Filled.Search, contentDescription = null) },
                 singleLine = true,
                 modifier = Modifier
@@ -103,17 +103,17 @@ fun SearchScreen(onBack: () -> Unit, onOpen: (Destination) -> Unit) {
 
             when {
                 query.trim().length < 2 -> EmptyState(
-                    "Search everything bundled",
-                    "Lecture series and chapters, hadith books, scholar quotes, Hisn al-Muslim duas and Sahaba stories."
+                    "Search Qur’an and Hadith",
+                    "Ayahs in EN / UR / AR, hadith matn in EN / AR, plus Urdu kitāb names, series, quotes and duas."
                 )
-                visible.isEmpty() -> EmptyState("No matches", "Try a shorter word, or a name like “Umar”.")
+                visible.isEmpty() -> EmptyState("No matches", "Try a shorter word, an ayah phrase, or a name like “Umar”.")
                 else -> LazyColumn(
                     contentPadding = PaddingValues(16.dp),
                     verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
                     grouped.forEach { (group, list) ->
                         item(key = "header-${group.name}") { SectionHeader(group.label) }
-                        items(list.size, key = { "${group.name}-$it" }) { index ->
+                        items(list.size, key = { "${group.name}-$it-${list[it].title}" }) { index ->
                             val hit = list[index]
                             HitCard(hit, onClick = { onOpen(hit.destination) })
                         }

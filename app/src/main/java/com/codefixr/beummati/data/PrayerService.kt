@@ -32,8 +32,33 @@ import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import kotlin.coroutines.resume
 
+/** AlAdhan `method=` calculation authorities, with the IDs the API documents. */
+enum class PrayerCalcMethod(val id: Int, val label: String) {
+    KARACHI(1, "Karachi — Univ. of Islamic Sciences"),
+    ISNA(2, "ISNA — North America"),
+    MWL(3, "Muslim World League"),
+    UMM_AL_QURA(4, "Umm al-Qura — Makkah"),
+    EGYPTIAN(5, "Egyptian General Authority"),
+    TEHRAN(7, "Institute of Geophysics, Tehran"),
+    GULF(8, "Gulf Region"),
+    KUWAIT(9, "Kuwait"),
+    QATAR(10, "Qatar"),
+    SINGAPORE(11, "Singapore — MUIS"),
+    TURKEY(13, "Turkey — Diyanet"),
+    DUBAI(16, "Dubai")
+}
+
+/** AlAdhan `school=` — which shadow length starts Asr. */
+enum class AsrSchool(val id: Int, val label: String) {
+    STANDARD(0, "Standard (Shafi)"),
+    HANAFI(1, "Hanafi")
+}
+
+/** A city the reader can pin instead of using GPS. */
+data class CityPreset(val name: String, val latitude: Double, val longitude: Double)
+
 /**
- * Prayer times from the AlAdhan API (method 4 — Umm al-Qura), cached for the day.
+ * Prayer times from the AlAdhan API, cached for the day.
  * Port of the iOS `PrayerService`: falls back to Dubai when location is unavailable.
  */
 object PrayerService {
@@ -44,8 +69,27 @@ object PrayerService {
     private const val PREFS = "beummati.prayer"
     private const val KEY_DAY = "day.v1"
     private const val KEY_COORDS = "coords.v1"
+    private const val KEY_METHOD = "method.v1"
+    private const val KEY_SCHOOL = "school.v1"
+    private const val KEY_CITY = "city.v1"
     private const val FRESH_LOCATION_MILLIS = 30 * 60_000L
     private const val LOCATE_TIMEOUT_MILLIS = 12_000L
+
+    /** Offered in Settings; anywhere else the reader falls back to GPS. */
+    val CITY_PRESETS = listOf(
+        CityPreset("Dubai", DUBAI_LAT, DUBAI_LON),
+        CityPreset("Makkah", 21.3891, 39.8579),
+        CityPreset("Madinah", 24.5247, 39.5692),
+        CityPreset("Riyadh", 24.7136, 46.6753),
+        CityPreset("Karachi", 24.8607, 67.0011),
+        CityPreset("Lahore", 31.5204, 74.3587),
+        CityPreset("Islamabad", 33.6844, 73.0479),
+        CityPreset("Istanbul", 41.0082, 28.9784),
+        CityPreset("Jakarta", -6.2088, 106.8456),
+        CityPreset("London", 51.5072, -0.1276),
+        CityPreset("New York", 40.7128, -74.0060),
+        CityPreset("Toronto", 43.6532, -79.3832)
+    )
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
     private val timeFormat = DateTimeFormatter.ofPattern("HH:mm")
@@ -62,6 +106,16 @@ object PrayerService {
     private val _coordinates = MutableStateFlow(Coordinates(DUBAI_LAT, DUBAI_LON))
     val coordinates: StateFlow<Coordinates> = _coordinates.asStateFlow()
 
+    private val _method = MutableStateFlow(PrayerCalcMethod.UMM_AL_QURA)
+    val method: StateFlow<PrayerCalcMethod> = _method.asStateFlow()
+
+    private val _asrSchool = MutableStateFlow(AsrSchool.STANDARD)
+    val asrSchool: StateFlow<AsrSchool> = _asrSchool.asStateFlow()
+
+    /** Name of the pinned city, or blank when the times follow GPS. */
+    private val _cityName = MutableStateFlow("")
+    val cityName: StateFlow<String> = _cityName.asStateFlow()
+
     fun init(context: Context) {
         if (::prefs.isInitialized) return
         prefs = context.applicationContext.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
@@ -70,6 +124,49 @@ object PrayerService {
             _status.value = if (cached.date == todayKey()) "Today’s times" else "Cached times"
         }
         decode<Coordinates>(KEY_COORDS)?.let { _coordinates.value = it }
+        _method.value = PrayerCalcMethod.entries
+            .firstOrNull { it.id == prefs.getInt(KEY_METHOD, PrayerCalcMethod.UMM_AL_QURA.id) }
+            ?: PrayerCalcMethod.UMM_AL_QURA
+        _asrSchool.value = AsrSchool.entries
+            .firstOrNull { it.id == prefs.getInt(KEY_SCHOOL, AsrSchool.STANDARD.id) }
+            ?: AsrSchool.STANDARD
+        _cityName.value = prefs.getString(KEY_CITY, null).orEmpty()
+    }
+
+    fun setMethod(context: Context, value: PrayerCalcMethod) {
+        init(context)
+        if (_method.value == value) return
+        _method.value = value
+        prefs.edit().putInt(KEY_METHOD, value.id).apply()
+        refresh(context, force = true)
+    }
+
+    fun setAsrSchool(context: Context, value: AsrSchool) {
+        init(context)
+        if (_asrSchool.value == value) return
+        _asrSchool.value = value
+        prefs.edit().putInt(KEY_SCHOOL, value.id).apply()
+        refresh(context, force = true)
+    }
+
+    /** Pins [name] as the location, so GPS (and the Dubai fallback) are ignored. */
+    fun setManualCity(context: Context, name: String, latitude: Double, longitude: Double) {
+        init(context)
+        val coords = Coordinates(latitude, longitude, isFallback = false)
+        _cityName.value = name
+        _coordinates.value = coords
+        prefs.edit().putString(KEY_CITY, name).apply()
+        persist(KEY_COORDS, coords)
+        refresh(context, force = true)
+    }
+
+    /** Back to GPS, with Dubai as the fallback when no position is available. */
+    fun clearManualCity(context: Context) {
+        init(context)
+        if (_cityName.value.isBlank()) return
+        _cityName.value = ""
+        prefs.edit().remove(KEY_CITY).apply()
+        refresh(context, force = true)
     }
 
     fun hasLocationPermission(context: Context): Boolean =
@@ -79,7 +176,11 @@ object PrayerService {
     /** Loads today's times. Does nothing when they are already cached, unless [force]. */
     fun refresh(context: Context, force: Boolean = false) {
         init(context)
-        if (refreshJob?.isActive == true) return
+        if (refreshJob?.isActive == true) {
+            // A settings change has to win over the request already in flight.
+            if (!force) return
+            refreshJob?.cancel()
+        }
         if (!force && _day.value?.date == todayKey()) return
         val app = context.applicationContext
         refreshJob = scope.launch {
@@ -93,6 +194,10 @@ object PrayerService {
     suspend fun locate(context: Context): Coordinates {
         init(context)
         val app = context.applicationContext
+        pinnedCity()?.let {
+            _coordinates.value = it
+            return it
+        }
         val location = if (hasLocationPermission(app)) currentLocation(app) else null
         val coords = if (location != null) {
             Coordinates(location.latitude, location.longitude, isFallback = false)
@@ -133,11 +238,24 @@ object PrayerService {
             }
     }
 
+    /** The pinned city as coordinates, or null when the times should follow GPS. */
+    private fun pinnedCity(): Coordinates? {
+        val name = _cityName.value.takeIf { it.isNotBlank() } ?: return null
+        val preset = CITY_PRESETS.firstOrNull { it.name == name }
+            ?: return _coordinates.value.copy(isFallback = false)
+        return Coordinates(preset.latitude, preset.longitude, isFallback = false)
+    }
+
     private suspend fun load(context: Context, coords: Coordinates) {
         val today = todayKey()
+        val method = _method.value
+        val school = _asrSchool.value
         val url = "https://api.aladhan.com/v1/timings" +
-            "?latitude=${coords.latitude}&longitude=${coords.longitude}&method=4"
-        val cacheKey = "prayer_${"%.2f".format(coords.latitude)}_${"%.2f".format(coords.longitude)}_$today.json"
+            "?latitude=${coords.latitude}&longitude=${coords.longitude}" +
+            "&method=${method.id}&school=${school.id}"
+        // Method / school / city are part of the key so switching any of them refetches.
+        val cacheKey = "prayer_${"%.2f".format(coords.latitude)}_${"%.2f".format(coords.longitude)}" +
+            "_m${method.id}_s${school.id}_$today.json"
         val raw = try {
             Http.getCached(url, cacheKey)
         } catch (e: Exception) {
@@ -152,7 +270,11 @@ object PrayerService {
         }
         _day.value = parsed
         persist(KEY_DAY, parsed)
-        _status.value = if (coords.isFallback) "Dubai · default location" else "Updated for your location"
+        _status.value = when {
+            _cityName.value.isNotBlank() -> "${_cityName.value} · saved location"
+            coords.isFallback -> "Dubai · default location"
+            else -> "Updated for your location"
+        }
         PrayerNotifications.reschedule(context, parsed)
     }
 

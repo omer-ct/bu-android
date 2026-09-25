@@ -5,6 +5,7 @@ import android.icu.util.Calendar
 import android.icu.util.IslamicCalendar
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -26,6 +27,7 @@ import androidx.compose.material.icons.filled.Whatshot
 import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.outlined.AutoStories
+import androidx.compose.material.icons.outlined.CalendarMonth
 import androidx.compose.material.icons.outlined.Explore
 import androidx.compose.material.icons.outlined.FormatQuote
 import androidx.compose.material.icons.outlined.NightsStay
@@ -35,6 +37,7 @@ import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material.icons.outlined.Spa
 import androidx.compose.material.icons.outlined.WbSunny
 import androidx.compose.material3.AssistChip
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -63,25 +66,30 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.codefixr.beummati.data.Catalogs
 import com.codefixr.beummati.data.Destination
+import com.codefixr.beummati.data.HifzStore
 import com.codefixr.beummati.data.LibraryProgressStore
+import com.codefixr.beummati.data.ReadingPlanStore
 import com.codefixr.beummati.data.PrayerDay
 import com.codefixr.beummati.data.PrayerService
 import com.codefixr.beummati.data.ReminderItem
 import com.codefixr.beummati.data.ReminderLane
 import com.codefixr.beummati.data.ReminderStore
 import com.codefixr.beummati.data.SalahTracker
+import com.codefixr.beummati.data.WiridStore
 import com.codefixr.beummati.data.SettingsStore
 import com.codefixr.beummati.player.LecturePlayerSession
 import com.codefixr.beummati.player.formatTime
+import com.codefixr.beummati.ui.ArabicScriptText
 import com.codefixr.beummati.ui.ContentCard
+import com.codefixr.beummati.ui.EnglishScriptText
 import com.codefixr.beummati.ui.MutedText
 import com.codefixr.beummati.ui.Routes
-import com.codefixr.beummati.ui.RtlText
 import com.codefixr.beummati.ui.ScreenScaffold
 import com.codefixr.beummati.ui.SectionHeader
 import com.codefixr.beummati.ui.ShareCard
 import com.codefixr.beummati.ui.ShareMenuButton
 import com.codefixr.beummati.ui.Tab
+import com.codefixr.beummati.ui.UrduScriptText
 import com.codefixr.beummati.ui.routeFor
 import kotlinx.coroutines.delay
 import java.time.LocalDate
@@ -115,6 +123,13 @@ fun HomeScreen(navigate: (String) -> Unit, onSwitchTab: (Tab) -> Unit) {
     val hijri = remember { hijriToday() }
     val shortcuts = remember { Catalogs.hisnAlMuslim.shortcuts }
     val salahStreak = remember(salahLogs) { SalahTracker.gentleStreak() }
+    val salahFulfilled = salahLogs[SalahTracker.dayKey()]?.fulfilledCount ?: 0
+    val hifzStats by HifzStore.stats.collectAsState()
+    val wiridItems by WiridStore.checklist.collectAsState()
+    val wiridDone by WiridStore.todayCompleted.collectAsState()
+    val wiridStreak = remember(wiridDone) { WiridStore.gentleStreak() }
+    val activePlan by ReadingPlanStore.active.collectAsState()
+    val planTask = remember(activePlan) { ReadingPlanStore.todayTask() }
 
     val locationPermission = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
@@ -165,6 +180,7 @@ fun HomeScreen(navigate: (String) -> Unit, onSwitchTab: (Tab) -> Unit) {
                     status = prayerStatus,
                     isFallbackLocation = coords.isFallback,
                     onQibla = { navigate(Routes.QIBLA) },
+                    onCalendar = { navigate(Routes.CALENDAR) },
                     onRefresh = { PrayerService.refresh(context, force = true) },
                     onAllowLocation = {
                         locationPermission.launch(
@@ -176,10 +192,94 @@ fun HomeScreen(navigate: (String) -> Unit, onSwitchTab: (Tab) -> Unit) {
 
             item {
                 SalahStrip(
-                    fulfilled = salahLogs[SalahTracker.dayKey()]?.fulfilledCount ?: 0,
+                    fulfilled = salahFulfilled,
                     streak = salahStreak,
                     onOpen = { navigate(Routes.SALAH) }
                 )
+            }
+
+            item {
+                ContentCard(onClick = { navigate(Routes.DHIKR) }) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(
+                            Icons.Outlined.Spa,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.primary
+                        )
+                        Spacer(Modifier.width(10.dp))
+                        Column(Modifier.weight(1f)) {
+                            MutedText("PRACTICE")
+                            Text("Dhikr counter", fontWeight = FontWeight.SemiBold)
+                            MutedText("سبحان الله · الحمد لله · الله أكبر", maxLines = 1)
+                        }
+                    }
+                }
+            }
+
+            item {
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.fillMaxWidth()) {
+                    ContentCard(onClick = { navigate(Routes.HIFZ) }, modifier = Modifier.weight(1f)) {
+                        MutedText("HIFZ")
+                        Text("${hifzStats.memorizedCount} memorized", fontWeight = FontWeight.SemiBold, maxLines = 1)
+                        MutedText(
+                            if (hifzStats.dueTodayCount > 0) "${hifzStats.dueTodayCount} due today" else "Review & progress",
+                            maxLines = 1
+                        )
+                    }
+                    ContentCard(onClick = { navigate(Routes.PLANS) }, modifier = Modifier.weight(1f)) {
+                        MutedText("PLANS")
+                        Text(
+                            planTask?.title ?: "Reading plans",
+                            fontWeight = FontWeight.SemiBold,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                        MutedText(
+                            planTask?.subtitle ?: "Qur’an, hadith, Ramadan",
+                            maxLines = 1
+                        )
+                    }
+                }
+            }
+
+            if (wiridItems.isNotEmpty()) {
+                item {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        SectionHeader("Daily wirid", Modifier.weight(1f))
+                        if (wiridStreak > 0) {
+                            MutedText("$wiridStreak-day streak", maxLines = 1)
+                        }
+                    }
+                }
+                item {
+                    ContentCard {
+                        val preview = wiridItems.take(6)
+                        preview.forEach { item ->
+                            Row(
+                                Modifier.fillMaxWidth().clickable {
+                                    navigate(Routes.duaCategory(item.categoryId))
+                                },
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Checkbox(
+                                    checked = item.id in wiridDone,
+                                    onCheckedChange = { WiridStore.toggle(item.id) }
+                                )
+                                Text(
+                                    item.title,
+                                    modifier = Modifier.weight(1f),
+                                    maxLines = 2,
+                                    overflow = TextOverflow.Ellipsis
+                                )
+                            }
+                        }
+                        if (wiridItems.size > preview.size) {
+                            TextButton(onClick = { navigate(Routes.DUAS) }) {
+                                Text("All adhkar (${wiridDone.size}/${wiridItems.size} today)")
+                            }
+                        }
+                    }
+                }
             }
 
             item {
@@ -333,6 +433,7 @@ private fun PrayerCard(
     status: String,
     isFallbackLocation: Boolean,
     onQibla: () -> Unit,
+    onCalendar: () -> Unit,
     onRefresh: () -> Unit,
     onAllowLocation: () -> Unit
 ) {
@@ -420,9 +521,14 @@ private fun PrayerCard(
                 Spacer(Modifier.width(6.dp))
                 Text("Qibla")
             }
+            FilledTonalButton(onClick = onCalendar, modifier = Modifier.weight(1f)) {
+                Icon(Icons.Outlined.CalendarMonth, contentDescription = null, modifier = Modifier.size(18.dp))
+                Spacer(Modifier.width(6.dp))
+                Text("Calendar")
+            }
             if (isFallbackLocation) {
                 FilledTonalButton(onClick = onAllowLocation, modifier = Modifier.weight(1f)) {
-                    Text("Use my location", maxLines = 1, overflow = TextOverflow.Ellipsis)
+                    Text("Location", maxLines = 1, overflow = TextOverflow.Ellipsis)
                 }
             }
         }
@@ -433,16 +539,26 @@ private fun PrayerCard(
 private fun SalahStrip(fulfilled: Int, streak: Int, onOpen: () -> Unit) {
     ContentCard(onClick = onOpen) {
         Row(verticalAlignment = Alignment.CenterVertically) {
+            if (streak > 0) {
+                Icon(Icons.Filled.Whatshot, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
+                Spacer(Modifier.width(8.dp))
+            }
             Column(Modifier.weight(1f)) {
-                MutedText("SALAH")
+                MutedText("SALAH TODAY")
                 Text(
-                    if (streak == 0) "Log today’s prayers" else "$streak-day gentle streak",
-                    fontWeight = FontWeight.SemiBold
+                    "$fulfilled of 5 fulfilled",
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold
+                )
+                Text(
+                    if (streak == 0) "Tap to log · streak starts at 1 prayer" else "$streak-day gentle streak",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.65f)
                 )
             }
             Text(
                 "$fulfilled/5",
-                style = MaterialTheme.typography.titleMedium,
+                style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.primary
             )
@@ -498,11 +614,11 @@ private fun ReminderLaneCard(lane: ReminderLane, onOpen: (Destination) -> Unit) 
                 if (item.title.isNotBlank()) {
                     Text(item.title, fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(top = 4.dp))
                 }
-                if (item.arabic.isNotBlank()) RtlText(item.arabic, fontSize = 22, modifier = Modifier.padding(vertical = 6.dp))
+                if (item.arabic.isNotBlank()) ArabicScriptText(item.arabic, Modifier.padding(vertical = 6.dp))
                 if (item.english.isNotBlank()) {
-                    Text(item.english, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.padding(top = 4.dp))
+                    EnglishScriptText(item.english, Modifier.padding(top = 4.dp))
                 }
-                if (showUrdu && item.urdu.isNotBlank()) RtlText(item.urdu, fontSize = 18, modifier = Modifier.padding(top = 8.dp))
+                if (showUrdu && item.urdu.isNotBlank()) UrduScriptText(item.urdu, Modifier.padding(top = 8.dp))
 
                 Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(top = 6.dp)) {
                     FilledTonalButton(onClick = { onOpen(item.destination) }) { Text("Open") }

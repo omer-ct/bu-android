@@ -37,7 +37,23 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="beummati" />
+            </intent-filter>
         </activity>
+
+        <!-- Batch-render Daily Quran cards (adb / internal tooling). Not in the launcher. -->
+        <activity
+            android:name=".GenerateDailyQuranActivity"
+            android:exported="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name=".GenerateDailyQuranLabActivity"
+            android:exported="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <service
             android:name=".player.PlaybackService"
@@ -53,6 +69,10 @@
             android:exported="false" />
 
         <receiver
+            android:name=".data.HifzAlarmReceiver"
+            android:exported="false" />
+
+        <receiver
             android:name=".data.PrayerBootReceiver"
             android:exported="true">
             <intent-filter>
@@ -61,6 +81,42 @@
                 <action android:name="android.intent.action.TIMEZONE_CHANGED" />
                 <action android:name="android.intent.action.TIME_SET" />
             </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".widget.NextPrayerWidgetReceiver"
+            android:exported="true"
+            android:label="@string/widget_next_prayer_label">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/next_prayer_widget_info" />
+        </receiver>
+
+        <receiver
+            android:name=".widget.AyahOfDayWidgetReceiver"
+            android:exported="true"
+            android:label="@string/widget_ayah_of_day_label">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/ayah_of_day_widget_info" />
+        </receiver>
+
+        <receiver
+            android:name=".widget.LastReadingWidgetReceiver"
+            android:exported="true"
+            android:label="@string/widget_last_reading_label">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/last_reading_widget_info" />
         </receiver>
 
         <!-- Hands rendered share cards to other apps from cacheDir/shares. -->

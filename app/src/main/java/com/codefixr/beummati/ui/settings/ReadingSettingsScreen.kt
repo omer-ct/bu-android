@@ -42,11 +42,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.codefixr.beummati.data.AppReadingLanguage
+import com.codefixr.beummati.data.ContentBrowseMode
 import com.codefixr.beummati.data.ScriptColors
 import com.codefixr.beummati.data.ScriptFont
 import com.codefixr.beummati.data.SettingsStore
 import com.codefixr.beummati.data.TextAlignMode
 import com.codefixr.beummati.data.TranslationChoices
+import com.codefixr.beummati.data.WordByWordLang
 import com.codefixr.beummati.ui.ContentCard
 import com.codefixr.beummati.ui.MutedText
 import com.codefixr.beummati.ui.ScreenScaffold
@@ -75,6 +77,7 @@ fun ReadingSettingsScreen(onBack: () -> Unit) {
     val shareUrdu by SettingsStore.shareUrdu.collectAsState()
     val textAlign by SettingsStore.textAlign.collectAsState()
     val showLangLabels by SettingsStore.showLangLabels.collectAsState()
+    val wordByWordLang by SettingsStore.wordByWordLang.collectAsState()
     val arabicFont by SettingsStore.arabicFont.collectAsState()
     val englishFont by SettingsStore.englishFont.collectAsState()
     val urduFont by SettingsStore.urduFont.collectAsState()
@@ -86,6 +89,7 @@ fun ReadingSettingsScreen(onBack: () -> Unit) {
     val arabicColor by SettingsStore.arabicColor.collectAsState()
     val englishColor by SettingsStore.englishColor.collectAsState()
     val urduColor by SettingsStore.urduColor.collectAsState()
+    val browseMode by SettingsStore.contentBrowseMode.collectAsState()
 
     ScreenScaffold(title = "Reading", onBack = onBack) { padding ->
         LazyColumn(
@@ -134,6 +138,24 @@ fun ReadingSettingsScreen(onBack: () -> Unit) {
                 }
             }
 
+            item { SectionHeader("Word by word") }
+            item {
+                ContentCard {
+                    WordByWordLang.entries.forEach { mode ->
+                        ChoiceRow(
+                            label = mode.label,
+                            selected = mode == wordByWordLang,
+                            onClick = { SettingsStore.setWordByWordLang(mode) }
+                        )
+                    }
+                    MutedText(
+                        "Gloss language when you open word-by-word on an ayah. You can also switch " +
+                            "there with the English / Urdu chips.",
+                        Modifier.padding(top = 4.dp)
+                    )
+                }
+            }
+
             item { SectionHeader("When sharing") }
             item {
                 ContentCard {
@@ -142,6 +164,23 @@ fun ReadingSettingsScreen(onBack: () -> Unit) {
                     SwitchRow("Include Urdu", shareUrdu) { SettingsStore.setShareUrdu(it) }
                     MutedText(
                         "The reference is always included. Pick one, two, or all languages.",
+                        Modifier.padding(top = 4.dp)
+                    )
+                }
+            }
+
+            item { SectionHeader("Browse") }
+            item {
+                ContentCard {
+                    ContentBrowseMode.entries.forEach { mode ->
+                        ChoiceRow(
+                            label = mode.label,
+                            selected = mode == browseMode,
+                            onClick = { SettingsStore.setContentBrowseMode(mode) }
+                        )
+                    }
+                    MutedText(
+                        "List scrolls continuously. Slide shows one ayah / hadith / dua at a time — swipe or use arrows.",
                         Modifier.padding(top = 4.dp)
                     )
                 }

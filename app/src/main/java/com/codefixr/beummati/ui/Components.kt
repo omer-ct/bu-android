@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Bookmark
@@ -23,8 +24,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -65,6 +64,9 @@ sealed interface LoadState<out T> {
 /**
  * Screen chrome shared by every tab. Window insets are zeroed because the root scaffold
  * already reserves space for the mini player + navigation bar.
+ *
+ * @param hideTopBar when true (immersive reading), the TopAppBar is omitted so content
+ * can use the full height. Pair with [ImmersiveReading] + root bottom-bar hide.
  */
 @Composable
 fun ScreenScaffold(
@@ -72,25 +74,36 @@ fun ScreenScaffold(
     onBack: (() -> Unit)? = null,
     actions: @Composable RowScope.() -> Unit = {},
     floatingActionButton: @Composable () -> Unit = {},
+    hideTopBar: Boolean = false,
     content: @Composable (PaddingValues) -> Unit
 ) {
     Scaffold(
         contentWindowInsets = WindowInsets(0, 0, 0, 0),
         topBar = {
-            TopAppBar(
-                title = { Text(title, maxLines = 1, fontWeight = FontWeight.SemiBold) },
-                navigationIcon = {
-                    if (onBack != null) {
-                        IconButton(onClick = onBack) {
-                            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+            if (!hideTopBar) {
+                TopAppBar(
+                    title = { Text(title, maxLines = 1, fontWeight = FontWeight.SemiBold) },
+                    navigationIcon = {
+                        if (onBack != null) {
+                            IconButton(onClick = onBack) {
+                                Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                            }
                         }
-                    }
-                },
-                actions = actions
-            )
+                    },
+                    actions = actions
+                )
+            }
         },
         floatingActionButton = floatingActionButton,
-        content = content
+        content = { padding ->
+            if (hideTopBar) {
+                Box(Modifier.statusBarsPadding()) {
+                    content(padding)
+                }
+            } else {
+                content(padding)
+            }
+        }
     )
 }
 
@@ -187,14 +200,25 @@ fun arabicScale(): Float {
     return size / SettingsStore.DEFAULT_ARABIC_SIZE
 }
 
-/** Arabic / Urdu body text, right-to-left with a larger size. */
+/** Arabic / Urdu body text — uses Reading settings Arabic face + size scaling. */
 @Composable
-fun RtlText(text: String, modifier: Modifier = Modifier, fontSize: Int = 22, color: Color = MaterialTheme.colorScheme.onSurface) {
+fun RtlText(
+    text: String,
+    modifier: Modifier = Modifier,
+    fontSize: Int = 22,
+    color: Color = MaterialTheme.colorScheme.onSurface,
+    /** When true, prefer the Urdu face from Reading settings (Nastaliq etc.). */
+    urduFace: Boolean = false
+) {
+    val arabicFont by SettingsStore.arabicFont.collectAsState()
+    val urduFont by SettingsStore.urduFont.collectAsState()
+    val font = if (urduFace) urduFont else arabicFont
     val scaled = (fontSize * arabicScale()).coerceIn(12f, 56f)
     Text(
         text,
         modifier = modifier.fillMaxWidth(),
         style = TextStyle(
+            fontFamily = fontFamilyFor(font),
             fontSize = scaled.sp,
             lineHeight = (scaled * 1.7f).sp,
             textDirection = TextDirection.Rtl,
@@ -204,13 +228,24 @@ fun RtlText(text: String, modifier: Modifier = Modifier, fontSize: Int = 22, col
     )
 }
 
-/** Picks [RtlText] or plain body text depending on the script. */
+/** Picks script-aware body text depending on direction. */
 @Composable
 fun AutoDirectionText(text: String, modifier: Modifier = Modifier, fontSize: Int = 16) {
     if (SrtCueParser.isPrimarilyRtl(text)) {
         RtlText(text, modifier, fontSize = fontSize + 3)
     } else {
-        Text(text, modifier = modifier, fontSize = fontSize.sp, lineHeight = (fontSize * 1.5f).sp)
+        val font by SettingsStore.englishFont.collectAsState()
+        val color by SettingsStore.englishColor.collectAsState()
+        Text(
+            text,
+            modifier = modifier,
+            style = TextStyle(
+                fontFamily = fontFamilyFor(font),
+                fontSize = fontSize.sp,
+                lineHeight = (fontSize * 1.5f).sp,
+                color = scriptColor(color)
+            )
+        )
     }
 }
 
@@ -269,44 +304,15 @@ fun shareText(context: Context, text: String) {
 }
 
 /**
- * Share action offering the plain-text card, a rendered image in the saved design, or the design
- * picker. [card] is built lazily so callers capture whatever is on screen at the moment of the tap.
+ * Share action — opens the studio (languages, edit text, designs) for Quran / Hadith / Duas / etc.
  */
 @Composable
 fun ShareMenuButton(card: () -> ShareCard) {
-    val context = LocalContext.current
-    val template by SettingsStore.shareTemplate.collectAsState()
-    var open by remember { mutableStateOf(false) }
-    var picking by remember { mutableStateOf<ShareCard?>(null) }
-    Box {
-        IconButton(onClick = { open = true }) {
-            Icon(Icons.Outlined.Share, contentDescription = "Share")
-        }
-        DropdownMenu(expanded = open, onDismissRequest = { open = false }) {
-            DropdownMenuItem(
-                text = { Text("Share text") },
-                onClick = {
-                    open = false
-                    shareCard(context, card())
-                }
-            )
-            DropdownMenuItem(
-                text = { Text("Share as ${template.label}") },
-                onClick = {
-                    open = false
-                    shareCardImage(context, card(), template)
-                }
-            )
-            DropdownMenuItem(
-                text = { Text("Choose a design…") },
-                onClick = {
-                    open = false
-                    picking = card()
-                }
-            )
-        }
+    var studio by remember { mutableStateOf<ShareCard?>(null) }
+    IconButton(onClick = { studio = card() }) {
+        Icon(Icons.Outlined.Share, contentDescription = "Share")
     }
-    picking?.let { pending ->
-        ShareTemplateSheet(card = pending, onDismiss = { picking = null })
+    studio?.let { pending ->
+        ShareStudioSheet(card = pending, onDismiss = { studio = null })
     }
 }

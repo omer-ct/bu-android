@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Whatshot
 import androidx.compose.material.icons.filled.Replay
 import androidx.compose.material.icons.outlined.Circle
 import androidx.compose.material.icons.outlined.Close
@@ -67,12 +68,37 @@ fun SalahTrackerScreen(onBack: () -> Unit) {
         ) {
             item {
                 ContentCard {
-                    Text(
-                        if (streak == 0) "Log today’s prayers" else "$streak-day gentle streak",
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.SemiBold
-                    )
-                    MutedText("A day counts once you log at least one prayer.")
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        if (streak > 0) {
+                            Icon(
+                                Icons.Filled.Whatshot,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.primary,
+                                modifier = Modifier.size(28.dp)
+                            )
+                            Spacer(Modifier.width(10.dp))
+                        }
+                        Column(Modifier.weight(1f)) {
+                            Text(
+                                "${log.fulfilledCount} of 5 fulfilled${if (selected == today) " today" else ""}",
+                                style = MaterialTheme.typography.headlineSmall,
+                                fontWeight = FontWeight.Bold
+                            )
+                            Text(
+                                if (streak == 0) "Gentle streak — log at least one prayer" else "$streak-day gentle streak",
+                                style = MaterialTheme.typography.bodyMedium,
+                                fontWeight = FontWeight.Medium,
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                        }
+                        Text(
+                            "${log.fulfilledCount}/5",
+                            style = MaterialTheme.typography.headlineMedium,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                    }
+                    MutedText("A day counts once you log at least one prayer.", modifier = Modifier.padding(top = 8.dp))
                 }
             }
 

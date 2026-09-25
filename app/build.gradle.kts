@@ -13,8 +13,8 @@ android {
         applicationId = "com.codefixr.beummati"
         minSdk = 26
         targetSdk = 35
-        versionCode = 8
-        versionName = "1.4.2"
+        versionCode = 33
+        versionName = "1.8.0"
     }
 
     buildTypes {
@@ -69,6 +69,9 @@ dependencies {
     implementation("androidx.media3:media3-datasource:$media3")
     implementation("androidx.media3:media3-session:$media3")
     implementation("com.google.guava:guava:33.3.1-android")
+
+    implementation("androidx.glance:glance-appwidget:1.1.1")
+    implementation("androidx.glance:glance-material3:1.1.1")
 
     debugImplementation("androidx.compose.ui:ui-tooling")
 }

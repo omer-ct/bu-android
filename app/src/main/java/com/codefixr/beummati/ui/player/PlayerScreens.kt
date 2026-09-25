@@ -617,41 +617,88 @@ private fun SubtitleControls(
         if (hasCues) {
             Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(top = 6.dp)) {
                 SkinMuted("Sync", skin, modifier = Modifier.padding(end = 8.dp))
-                OutlinedButton(
-                    onClick = { LecturePlayerSession.nudgeSync(-1.0) },
-                    colors = nudge,
-                    border = nudgeBorder,
-                    contentPadding = PaddingValues(horizontal = 8.dp)
-                ) { Text("−1s") }
-                Spacer(Modifier.width(4.dp))
-                OutlinedButton(
-                    onClick = { LecturePlayerSession.nudgeSync(-0.25) },
-                    colors = nudge,
-                    border = nudgeBorder,
-                    contentPadding = PaddingValues(horizontal = 8.dp)
-                ) { Text("−¼") }
                 Text(
-                    "%+.2fs".format(offset),
+                    if (kotlin.math.abs(offset) < 0.05) "Matched"
+                    else if (kotlin.math.abs(offset) >= 60) "%+.0fs".format(offset)
+                    else "%+.1fs".format(offset),
                     style = MaterialTheme.typography.labelLarge,
                     textAlign = TextAlign.Center,
                     color = skin.ink,
-                    modifier = Modifier.width(64.dp).clickable { LecturePlayerSession.resetSync() }
+                    modifier = Modifier
+                        .width(72.dp)
+                        .clickable { LecturePlayerSession.resetSync() }
                 )
-                OutlinedButton(
-                    onClick = { LecturePlayerSession.nudgeSync(0.25) },
-                    colors = nudge,
-                    border = nudgeBorder,
-                    contentPadding = PaddingValues(horizontal = 8.dp)
-                ) { Text("+¼") }
-                Spacer(Modifier.width(4.dp))
-                OutlinedButton(
-                    onClick = { LecturePlayerSession.nudgeSync(1.0) },
-                    colors = nudge,
-                    border = nudgeBorder,
-                    contentPadding = PaddingValues(horizontal = 8.dp)
-                ) { Text("+1s") }
             }
-            SkinMuted("Positive shows lines later. Saved per series · tap value to reset.", skin)
+            LazyRow(
+                horizontalArrangement = Arrangement.spacedBy(4.dp),
+                modifier = Modifier.padding(top = 6.dp)
+            ) {
+                item {
+                    OutlinedButton(
+                        onClick = { LecturePlayerSession.nudgeSync(-10.0) },
+                        colors = nudge,
+                        border = nudgeBorder,
+                        contentPadding = PaddingValues(horizontal = 8.dp)
+                    ) { Text("−10s") }
+                }
+                item {
+                    OutlinedButton(
+                        onClick = { LecturePlayerSession.nudgeSync(-5.0) },
+                        colors = nudge,
+                        border = nudgeBorder,
+                        contentPadding = PaddingValues(horizontal = 8.dp)
+                    ) { Text("−5s") }
+                }
+                item {
+                    OutlinedButton(
+                        onClick = { LecturePlayerSession.nudgeSync(-1.0) },
+                        colors = nudge,
+                        border = nudgeBorder,
+                        contentPadding = PaddingValues(horizontal = 8.dp)
+                    ) { Text("−1s") }
+                }
+                item {
+                    OutlinedButton(
+                        onClick = { LecturePlayerSession.nudgeSync(-0.25) },
+                        colors = nudge,
+                        border = nudgeBorder,
+                        contentPadding = PaddingValues(horizontal = 8.dp)
+                    ) { Text("−¼") }
+                }
+                item {
+                    OutlinedButton(
+                        onClick = { LecturePlayerSession.nudgeSync(0.25) },
+                        colors = nudge,
+                        border = nudgeBorder,
+                        contentPadding = PaddingValues(horizontal = 8.dp)
+                    ) { Text("+¼") }
+                }
+                item {
+                    OutlinedButton(
+                        onClick = { LecturePlayerSession.nudgeSync(1.0) },
+                        colors = nudge,
+                        border = nudgeBorder,
+                        contentPadding = PaddingValues(horizontal = 8.dp)
+                    ) { Text("+1s") }
+                }
+                item {
+                    OutlinedButton(
+                        onClick = { LecturePlayerSession.nudgeSync(5.0) },
+                        colors = nudge,
+                        border = nudgeBorder,
+                        contentPadding = PaddingValues(horizontal = 8.dp)
+                    ) { Text("+5s") }
+                }
+                item {
+                    OutlinedButton(
+                        onClick = { LecturePlayerSession.nudgeSync(10.0) },
+                        colors = nudge,
+                        border = nudgeBorder,
+                        contentPadding = PaddingValues(horizontal = 8.dp)
+                    ) { Text("+10s") }
+                }
+            }
+            SkinMuted("±10 min range · positive = later. Saved per series · tap value to reset.", skin)
         }
     }
 }

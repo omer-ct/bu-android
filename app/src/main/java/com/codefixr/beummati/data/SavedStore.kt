@@ -30,6 +30,14 @@ object SavedStore {
         _notes.value = decode<List<Note>>(KEY_NOTES).orEmpty()
     }
 
+    /** Wholesale replacement, used by [BackupStore] when restoring a backup file. */
+    fun replaceAll(bookmarks: List<Bookmark>, notes: List<Note>) {
+        _bookmarks.value = bookmarks
+        _notes.value = notes
+        persistBookmarks()
+        persistNotes()
+    }
+
     // region Bookmarks
 
     fun isBookmarked(id: String): Boolean = _bookmarks.value.any { it.id == id }

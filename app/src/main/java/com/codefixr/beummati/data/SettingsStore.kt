@@ -22,6 +22,18 @@ enum class AppThemeKind(val label: String, val blurb: String) {
     SOFT_DAY("Soft Day", "Light airy · sage")
 }
 
+/** Qur’an reader layout — port of iOS `QuranReadMode`. */
+enum class QuranReadMode(val label: String) {
+    MUSHAF("Mushaf"),
+    TRANSLATION("Translation")
+}
+
+/** List (scroll) vs Slide (one item per page, swipe). Used across Qur’an, Hadith, dhikr, etc. */
+enum class ContentBrowseMode(val label: String) {
+    LIST("List"),
+    SLIDE("Slide")
+}
+
 /** Colour treatment for the lecture player, mirroring the iOS `LecturePlayerView` skins. */
 enum class PlayerSkin(val label: String, val blurb: String) {
     DARK("Dark", "Deep charcoal with the brass accent"),
@@ -30,19 +42,8 @@ enum class PlayerSkin(val label: String, val blurb: String) {
 }
 
 /**
- * Share card designs. Each renders the same [com.codefixr.beummati.ui.ShareCard] fields; the
- * reference artwork they are drawn from lives in `assets/share_refs`.
+ * Share card designs live in [ShareTemplate].
  */
-enum class ShareTemplate(val label: String, val blurb: String) {
-    PARCHMENT("Parchment", "Cream paper with a brass rule"),
-    NIGHT_CORAL("Night coral", "Charcoal with coral highlights"),
-    QUOTE_WARM("Warm quote", "Orange card with a join-us strip"),
-    FOREST("Forest", "Deep teal with translucent text boxes"),
-    SPLIT_DUAL("Split", "Cream over green, colours flipped"),
-    DHIKR_SLATE("Dhikr slate", "Solid band for Arabic and transliteration"),
-    VERSE_BANNER("Verse banner", "Colour block beside the ayah"),
-    PLUSH_LIGHT("Plush light", "Soft cream with gentle shadows")
-}
 
 /** Appearance + reading preferences. Port of the iOS `ThemeStore` / `ReadingSettings`. */
 object SettingsStore {
@@ -70,11 +71,14 @@ object SettingsStore {
     private const val PREFS = "beummati.settings"
     private const val KEY_APPEARANCE = "appearance"
     private const val KEY_THEME_KIND = "themeKind"
+    private const val KEY_QURAN_READ_MODE = "quranReadMode"
+    private const val KEY_CONTENT_BROWSE_MODE = "contentBrowseMode"
     private const val KEY_ARABIC_SIZE = "arabicSize"
     private const val KEY_SHOW_URDU = "showUrdu"
     private const val KEY_SHOW_TRANSLITERATION = "showTransliteration"
     private const val KEY_PLAYER_SKIN = "playerSkin"
     private const val KEY_SHARE_TEMPLATE = "shareTemplate"
+    private const val KEY_SHARE_COLOR_MOOD = "shareColorMood"
     private const val KEY_DEFAULT_RATE = "defaultRate"
     private const val KEY_READING_LANGUAGE = "readingLanguage"
     private const val KEY_SHOW_ARABIC = "showArabic"
@@ -86,6 +90,7 @@ object SettingsStore {
     private const val KEY_SHARE_URDU = "shareUrdu"
     private const val KEY_TEXT_ALIGN = "textAlign"
     private const val KEY_SHOW_LANG_LABELS = "showLangLabels"
+    private const val KEY_WORD_BY_WORD_LANG = "wordByWordLang"
     private const val KEY_ARABIC_FONT = "arabicFont"
     private const val KEY_ENGLISH_FONT = "englishFont"
     private const val KEY_URDU_FONT = "urduFont"
@@ -104,6 +109,12 @@ object SettingsStore {
 
     private val _themeKind = MutableStateFlow(AppThemeKind.MANUSCRIPT)
     val themeKind: StateFlow<AppThemeKind> = _themeKind.asStateFlow()
+
+    private val _quranReadMode = MutableStateFlow(QuranReadMode.MUSHAF)
+    val quranReadMode: StateFlow<QuranReadMode> = _quranReadMode.asStateFlow()
+
+    private val _contentBrowseMode = MutableStateFlow(ContentBrowseMode.LIST)
+    val contentBrowseMode: StateFlow<ContentBrowseMode> = _contentBrowseMode.asStateFlow()
 
     private val _arabicFontSize = MutableStateFlow(DEFAULT_ARABIC_SIZE)
     val arabicFontSize: StateFlow<Float> = _arabicFontSize.asStateFlow()
@@ -156,6 +167,9 @@ object SettingsStore {
     private val _showLangLabels = MutableStateFlow(true)
     val showLangLabels: StateFlow<Boolean> = _showLangLabels.asStateFlow()
 
+    private val _wordByWordLang = MutableStateFlow(WordByWordLang.BOTH)
+    val wordByWordLang: StateFlow<WordByWordLang> = _wordByWordLang.asStateFlow()
+
     private val _arabicFont = MutableStateFlow(ScriptFont.AMIRI)
     val arabicFont: StateFlow<ScriptFont> = _arabicFont.asStateFlow()
 
@@ -177,8 +191,11 @@ object SettingsStore {
     private val _playerSkin = MutableStateFlow(PlayerSkin.DARK)
     val playerSkin: StateFlow<PlayerSkin> = _playerSkin.asStateFlow()
 
-    private val _shareTemplate = MutableStateFlow(ShareTemplate.PARCHMENT)
+    private val _shareTemplate = MutableStateFlow(ShareTemplate.MIHRAB)
     val shareTemplate: StateFlow<ShareTemplate> = _shareTemplate.asStateFlow()
+
+    private val _shareColorMood = MutableStateFlow(ShareColorMood.DEFAULT)
+    val shareColorMood: StateFlow<ShareColorMood> = _shareColorMood.asStateFlow()
 
     private val _defaultRate = MutableStateFlow(1.0f)
     val defaultRate: StateFlow<Float> = _defaultRate.asStateFlow()
@@ -192,6 +209,12 @@ object SettingsStore {
         _themeKind.value = prefs.getString(KEY_THEME_KIND, null)
             ?.let { raw -> AppThemeKind.entries.firstOrNull { it.name == raw } }
             ?: AppThemeKind.MANUSCRIPT
+        _quranReadMode.value = prefs.getString(KEY_QURAN_READ_MODE, null)
+            ?.let { raw -> QuranReadMode.entries.firstOrNull { it.name == raw } }
+            ?: QuranReadMode.MUSHAF
+        _contentBrowseMode.value = prefs.getString(KEY_CONTENT_BROWSE_MODE, null)
+            ?.let { raw -> ContentBrowseMode.entries.firstOrNull { it.name == raw } }
+            ?: ContentBrowseMode.LIST
         _arabicFontSize.value = prefs.getFloat(KEY_ARABIC_SIZE, DEFAULT_ARABIC_SIZE)
             .coerceIn(MIN_ARABIC_SIZE, MAX_ARABIC_SIZE)
         _englishFontSize.value = prefs.getFloat(KEY_ENGLISH_SIZE, DEFAULT_ENGLISH_SIZE)
@@ -218,6 +241,8 @@ object SettingsStore {
             ?.let { raw -> TextAlignMode.entries.firstOrNull { it.name == raw } }
             ?: TextAlignMode.LEADING
         _showLangLabels.value = prefs.getBoolean(KEY_SHOW_LANG_LABELS, true)
+        _wordByWordLang.value = WordByWordLang.named(prefs.getString(KEY_WORD_BY_WORD_LANG, null))
+            ?: WordByWordLang.BOTH
         _arabicFont.value = ScriptFont.named(prefs.getString(KEY_ARABIC_FONT, null)) ?: ScriptFont.AMIRI
         _englishFont.value = ScriptFont.named(prefs.getString(KEY_ENGLISH_FONT, null)) ?: ScriptFont.SYSTEM
         _urduFont.value = ScriptFont.named(prefs.getString(KEY_URDU_FONT, null)) ?: ScriptFont.NOTO_NASTALIQ
@@ -229,7 +254,10 @@ object SettingsStore {
             ?: PlayerSkin.DARK
         _shareTemplate.value = prefs.getString(KEY_SHARE_TEMPLATE, null)
             ?.let { raw -> ShareTemplate.entries.firstOrNull { it.name == raw } }
-            ?: ShareTemplate.PARCHMENT
+            ?: ShareTemplate.MIHRAB
+        _shareColorMood.value = prefs.getString(KEY_SHARE_COLOR_MOOD, null)
+            ?.let { raw -> ShareColorMood.entries.firstOrNull { it.name == raw } }
+            ?: ShareColorMood.DEFAULT
         _defaultRate.value = prefs.getFloat(KEY_DEFAULT_RATE, 1.0f)
     }
 
@@ -241,6 +269,16 @@ object SettingsStore {
     fun setThemeKind(value: AppThemeKind) {
         _themeKind.value = value
         prefs.edit().putString(KEY_THEME_KIND, value.name).apply()
+    }
+
+    fun setQuranReadMode(value: QuranReadMode) {
+        _quranReadMode.value = value
+        prefs.edit().putString(KEY_QURAN_READ_MODE, value.name).apply()
+    }
+
+    fun setContentBrowseMode(value: ContentBrowseMode) {
+        _contentBrowseMode.value = value
+        prefs.edit().putString(KEY_CONTENT_BROWSE_MODE, value.name).apply()
     }
 
     fun setArabicFontSize(value: Float) {
@@ -342,6 +380,11 @@ object SettingsStore {
         prefs.edit().putBoolean(KEY_SHOW_LANG_LABELS, value).apply()
     }
 
+    fun setWordByWordLang(value: WordByWordLang) {
+        _wordByWordLang.value = value
+        prefs.edit().putString(KEY_WORD_BY_WORD_LANG, value.name).apply()
+    }
+
     fun setArabicFont(value: ScriptFont) {
         _arabicFont.value = value
         prefs.edit().putString(KEY_ARABIC_FONT, value.name).apply()
@@ -382,6 +425,11 @@ object SettingsStore {
         prefs.edit().putString(KEY_SHARE_TEMPLATE, value.name).apply()
     }
 
+    fun setShareColorMood(value: ShareColorMood) {
+        _shareColorMood.value = value
+        prefs.edit().putString(KEY_SHARE_COLOR_MOOD, value.name).apply()
+    }
+
     fun setDefaultRate(value: Float) {
         _defaultRate.value = value
         prefs.edit().putFloat(KEY_DEFAULT_RATE, value).apply()
@@ -400,6 +448,7 @@ object SettingsStore {
         setShareArabic(true)
         setShareEnglish(true)
         setShareUrdu(true)
+        setWordByWordLang(WordByWordLang.BOTH)
         setTextAlign(TextAlignMode.LEADING)
         setShowLangLabels(true)
         setArabicFont(ScriptFont.AMIRI)

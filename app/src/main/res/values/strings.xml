@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Be Ummati</string>
+    <string name="widget_next_prayer_label">Next prayer</string>
+    <string name="widget_next_prayer_description">Shows the next salah time from your cached prayer day.</string>
+    <string name="widget_ayah_of_day_label">Ayah of the day</string>
+    <string name="widget_ayah_of_day_description">A daily ayah reference; Arabic when cached offline.</string>
+    <string name="widget_last_reading_label">Last reading</string>
+    <string name="widget_last_reading_description">Continue Quran from your last surah and ayah.</string>
 </resources>

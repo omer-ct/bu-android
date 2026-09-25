@@ -537,7 +537,8 @@ object LecturePlayerSession {
     fun resetSync() = setSyncOffset(0.0)
 
     fun setSyncOffset(value: Double) {
-        val stepped = ((value * 20).roundToInt() / 20.0).coerceIn(-20.0, 20.0)
+        // Allow large corrections (some Al Qalam SRTs drift by minutes). 0.05s steps.
+        val stepped = ((value * 20).roundToInt() / 20.0).coerceIn(-600.0, 600.0)
         _state.update { it.copy(syncOffset = stepped) }
         applyOffsets()
         _state.value.nowPlaying?.seriesId?.let { persistSyncOffset(stepped, it) }

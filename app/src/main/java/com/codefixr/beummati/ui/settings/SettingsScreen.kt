@@ -29,10 +29,14 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
@@ -45,6 +49,7 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -58,13 +63,20 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.codefixr.beummati.data.AppAppearance
 import com.codefixr.beummati.data.AppThemeKind
+import com.codefixr.beummati.data.AsrSchool
+import com.codefixr.beummati.data.BackupStore
 import com.codefixr.beummati.data.Catalogs
+import com.codefixr.beummati.data.HifzNotifications
+import com.codefixr.beummati.data.HifzStore
 import com.codefixr.beummati.data.PlayerSkin
+import com.codefixr.beummati.data.PrayerCalcMethod
 import com.codefixr.beummati.data.PrayerNotifications
+import com.codefixr.beummati.data.PrayerService
 import com.codefixr.beummati.data.SalahName
 import com.codefixr.beummati.data.SettingsStore
 import com.codefixr.beummati.data.ShareTemplate
 import com.codefixr.beummati.player.LecturePlayerSession
+import com.codefixr.beummati.ui.ArabicScriptText
 import com.codefixr.beummati.ui.ContentCard
 import com.codefixr.beummati.ui.MutedText
 import com.codefixr.beummati.ui.RtlText
@@ -78,7 +90,14 @@ import kotlin.math.roundToInt
 private const val SAMPLE_ARABIC = "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ"
 
 @Composable
-fun SettingsScreen(onBack: () -> Unit, onOpenReading: () -> Unit) {
+fun SettingsScreen(
+    onBack: () -> Unit,
+    onOpenReading: () -> Unit,
+    onOpenOffline: () -> Unit = {},
+    onOpenPrivacy: () -> Unit = {},
+    onOpenCalendar: () -> Unit = {},
+    onOpenDhikr: () -> Unit = {}
+) {
     val context = LocalContext.current
     val appearance by SettingsStore.appearance.collectAsState()
     val themeKind by SettingsStore.themeKind.collectAsState()
@@ -188,6 +207,41 @@ fun SettingsScreen(onBack: () -> Unit, onOpenReading: () -> Unit) {
             item { SectionHeader("Prayer notifications") }
             item { PrayerNotificationCard(context) }
 
+            item { SectionHeader("Prayer times") }
+            item { PrayerTimesCard(context) }
+
+            item { SectionHeader("Reminders & prayer") }
+            item {
+                ContentCard(onClick = onOpenCalendar) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Column(Modifier.weight(1f)) {
+                            Text("Islamic calendar", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+                            MutedText("Hijri dates for this Gregorian month")
+                        }
+                        Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null)
+                    }
+                }
+            }
+
+            item { SectionHeader("Practice") }
+            item {
+                ContentCard(onClick = onOpenDhikr) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Column(Modifier.weight(1f)) {
+                            Text("Dhikr counter", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+                            MutedText("سبحان الله · الحمد لله · الله أكبر · لا إله إلا الله")
+                        }
+                        Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null)
+                    }
+                }
+            }
+
+            item { SectionHeader("Hifz reminders") }
+            item { HifzReminderCard(context) }
+
+            item { SectionHeader("Backup") }
+            item { BackupCard(context) }
+
             item { SectionHeader("Reading") }
             item {
                 ContentCard(onClick = onOpenReading) {
@@ -206,7 +260,18 @@ fun SettingsScreen(onBack: () -> Unit, onOpenReading: () -> Unit) {
                         ).joinToString(" · "),
                         Modifier.padding(top = 8.dp)
                     )
-                    RtlText(SAMPLE_ARABIC, fontSize = 24, modifier = Modifier.padding(top = 8.dp))
+                    ArabicScriptText(SAMPLE_ARABIC, Modifier.padding(top = 8.dp))
+                }
+            }
+            item {
+                ContentCard(onClick = onOpenOffline) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Column(Modifier.weight(1f)) {
+                            Text("Offline data", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+                            MutedText("Download Qur’an, tafsīr & hadith for use without internet")
+                        }
+                        Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null)
+                    }
                 }
             }
             item {
@@ -255,6 +320,17 @@ fun SettingsScreen(onBack: () -> Unit, onOpenReading: () -> Unit) {
                     Text("Be Ummati", fontWeight = FontWeight.Medium)
                     MutedText("Version $version")
                     MutedText("Soldier of Allah · @beummati", Modifier.padding(top = 4.dp))
+                }
+            }
+            item {
+                ContentCard(onClick = onOpenPrivacy) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Column(Modifier.weight(1f)) {
+                            Text("Privacy", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+                            MutedText("How Be Ummati handles your data")
+                        }
+                        Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null)
+                    }
                 }
             }
         }
@@ -401,6 +477,166 @@ private fun PrayerNotificationCard(context: Context) {
                     permissionTick++
                 }) {
                     Text("Allow exact alarms")
+                }
+            }
+        }
+    }
+}
+
+/** Hifz progress, bookmarks and notes as one JSON file the reader can keep or move phones with. */
+@Composable
+private fun BackupCard(context: Context) {
+    var message by remember { mutableStateOf("") }
+    val pickBackup = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+        val summary = uri
+            ?.let { BackupStore.readText(context, it) }
+            ?.let { BackupStore.import(context, it) }
+        message = when {
+            uri == null -> ""
+            summary == null -> "That file isn’t a Be Ummati backup."
+            summary.hifzRestored ->
+                "Restored ${summary.bookmarks} bookmarks, ${summary.notes} notes, and Hifz progress."
+            else -> "Restored ${summary.bookmarks} bookmarks and ${summary.notes} notes."
+        }
+    }
+
+    ContentCard {
+        Text("Backup & restore", fontWeight = FontWeight.Medium)
+        MutedText("One JSON file with your hifz progress, bookmarks and notes. Restoring replaces what is on this phone.")
+        Row(Modifier.padding(top = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            TextButton(onClick = {
+                val file = BackupStore.exportAndShare(context)
+                message = if (file == null) "Couldn’t write the backup." else "Exported ${file.name}"
+            }) {
+                Text("Export")
+            }
+            TextButton(onClick = { pickBackup.launch("*/*") }) { Text("Restore") }
+        }
+        if (message.isNotBlank()) MutedText(message)
+    }
+}
+
+/**
+ * Calculation authority, Asr school and an optional pinned city. Each change refetches
+ * today's times from AlAdhan, so the card also shows [PrayerService.status].
+ */
+@Composable
+private fun PrayerTimesCard(context: Context) {
+    val method by PrayerService.method.collectAsState()
+    val school by PrayerService.asrSchool.collectAsState()
+    val city by PrayerService.cityName.collectAsState()
+    val status by PrayerService.status.collectAsState()
+    var methodOpen by remember { mutableStateOf(false) }
+
+    ContentCard {
+        MutedText(status)
+
+        ExposedDropdownMenuBox(
+            expanded = methodOpen,
+            onExpandedChange = { methodOpen = it },
+            modifier = Modifier.padding(top = 10.dp)
+        ) {
+            OutlinedTextField(
+                value = method.label,
+                onValueChange = {},
+                readOnly = true,
+                label = { Text("Calculation method") },
+                trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(methodOpen) },
+                modifier = Modifier
+                    .menuAnchor()
+                    .fillMaxWidth()
+            )
+            ExposedDropdownMenu(expanded = methodOpen, onDismissRequest = { methodOpen = false }) {
+                PrayerCalcMethod.entries.forEach { option ->
+                    DropdownMenuItem(
+                        text = { Text(option.label) },
+                        onClick = {
+                            PrayerService.setMethod(context, option)
+                            methodOpen = false
+                        }
+                    )
+                }
+            }
+        }
+
+        Text("Asr", fontWeight = FontWeight.Medium, modifier = Modifier.padding(top = 12.dp))
+        SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth().padding(top = 6.dp)) {
+            AsrSchool.entries.forEachIndexed { index, option ->
+                SegmentedButton(
+                    selected = school == option,
+                    onClick = { PrayerService.setAsrSchool(context, option) },
+                    shape = SegmentedButtonDefaults.itemShape(index, AsrSchool.entries.size),
+                    label = { Text(option.label) }
+                )
+            }
+        }
+        MutedText("Hanafi puts Asr later, at twice the shadow length.", Modifier.padding(top = 6.dp))
+
+        Text("Location", fontWeight = FontWeight.Medium, modifier = Modifier.padding(top = 12.dp))
+        LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.padding(top = 6.dp)) {
+            item {
+                FilterChip(
+                    selected = city.isBlank(),
+                    onClick = { PrayerService.clearManualCity(context) },
+                    label = { Text("Use GPS") }
+                )
+            }
+            items(PrayerService.CITY_PRESETS, key = { it.name }) { preset ->
+                FilterChip(
+                    selected = city == preset.name,
+                    onClick = {
+                        PrayerService.setManualCity(context, preset.name, preset.latitude, preset.longitude)
+                    },
+                    label = { Text(preset.name) }
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun HifzReminderCard(context: Context) {
+    val enabled by HifzNotifications.enabled.collectAsState()
+    val hour by HifzNotifications.hour.collectAsState()
+    val minute by HifzNotifications.minute.collectAsState()
+    val due by HifzStore.stats.collectAsState()
+    var permissionTick by remember { mutableIntStateOf(0) }
+    val requestNotifications = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { granted ->
+        permissionTick++
+        HifzNotifications.setEnabled(context, granted)
+    }
+    ContentCard {
+        ToggleRow(
+            title = "Daily Hifz reminder",
+            subtitle = if (due.dueTodayCount > 0) {
+                "${due.dueTodayCount} due today · ${"%02d:%02d".format(hour, minute)}"
+            } else {
+                "Ping when ayahs are due · ${"%02d:%02d".format(hour, minute)}"
+            },
+            checked = enabled,
+            onChange = { wanted ->
+                if (wanted && !HifzNotifications.hasNotificationPermission(context)) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        requestNotifications.launch(Manifest.permission.POST_NOTIFICATIONS)
+                    } else {
+                        openAppNotificationSettings(context)
+                    }
+                } else {
+                    HifzNotifications.setEnabled(context, wanted)
+                }
+            }
+        )
+        if (enabled) {
+            Text("Reminder time", fontWeight = FontWeight.Medium, modifier = Modifier.padding(top = 8.dp))
+            LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.padding(top = 6.dp)) {
+                items(listOf(6 to 0, 8 to 0, 9 to 0, 12 to 0, 18 to 0, 21 to 0)) { (h, m) ->
+                    FilterChip(
+                        selected = hour == h && minute == m,
+                        onClick = { HifzNotifications.setTime(context, h, m) },
+                        label = { Text("%02d:%02d".format(h, m)) }
+                    )
                 }
             }
         }

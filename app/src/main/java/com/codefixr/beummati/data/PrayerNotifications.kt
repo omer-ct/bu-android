@@ -329,5 +329,7 @@ class PrayerBootReceiver : BroadcastReceiver() {
         Catalogs.init(context)
         PrayerService.init(context)
         PrayerNotifications.reschedule(context)
+        HifzNotifications.init(context)
+        HifzNotifications.reschedule(context)
     }
 }
