@@ -369,7 +369,7 @@ fun ShareStudioSheet(card: ShareCard, onDismiss: () -> Unit) {
                 }
             }
             Text(
-                if (palette.usesFlatBackground) "Custom background · logo & text colours apply"
+                if (palette.hasBackgroundTint) "Background tint · design template kept"
                 else "Design art · override text / logo colours below",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,

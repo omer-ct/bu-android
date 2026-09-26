@@ -6,6 +6,7 @@ import android.graphics.Canvas
 import android.graphics.LinearGradient
 import android.graphics.Paint
 import android.graphics.Path
+import android.graphics.PorterDuff
 import android.graphics.RadialGradient
 import android.graphics.RectF
 import android.graphics.Shader
@@ -134,26 +135,28 @@ object DailyQuranLab {
         activePalette = palette
         val bmp = Bitmap.createBitmap(WIDTH, HEIGHT, Bitmap.Config.ARGB_8888)
         Canvas(bmp).also { canvas ->
-            if (palette.usesFlatBackground) {
-                paintFlatCustom(canvas, content)
-            } else {
-                when (style) {
-                    Style.MIHRAB -> paintMihrab(canvas, content)
-                    Style.FOLIO -> paintFolio(canvas, content)
-                    Style.FAJR -> paintFajr(canvas, content)
-                    Style.KUFIC_CIRCUIT -> paintKufic(canvas, content)
-                    Style.INK_BLOOM -> paintInkBloom(canvas, content)
-                    Style.ZELLIJ_STACK -> paintZellij(canvas, content)
-                    Style.JADE_VELVET -> paintJade(canvas, content)
-                    Style.CYANOTYPE -> paintCyanotype(canvas, content)
-                    Style.BASALT -> paintBasalt(canvas, content)
-                    Style.NACRE -> paintNacre(canvas, content)
-                    Style.TERRAZZO_BONE -> paintTerrazzo(canvas, content)
-                    Style.OXBLOOD_TAZHIB -> paintOxblood(canvas, content)
-                    Style.CONTOUR_TIDE -> paintContour(canvas, content)
-                    Style.RISO_DUO -> paintRiso(canvas, content)
-                    Style.NIGHT_GIRIH -> paintGirih(canvas, content)
-                }
+            // Always keep the template design; colour presets / BG only recolour it.
+            when (style) {
+                Style.MIHRAB -> paintMihrab(canvas, content)
+                Style.FOLIO -> paintFolio(canvas, content)
+                Style.FAJR -> paintFajr(canvas, content)
+                Style.KUFIC_CIRCUIT -> paintKufic(canvas, content)
+                Style.INK_BLOOM -> paintInkBloom(canvas, content)
+                Style.ZELLIJ_STACK -> paintZellij(canvas, content)
+                Style.JADE_VELVET -> paintJade(canvas, content)
+                Style.CYANOTYPE -> paintCyanotype(canvas, content)
+                Style.BASALT -> paintBasalt(canvas, content)
+                Style.NACRE -> paintNacre(canvas, content)
+                Style.TERRAZZO_BONE -> paintTerrazzo(canvas, content)
+                Style.OXBLOOD_TAZHIB -> paintOxblood(canvas, content)
+                Style.CONTOUR_TIDE -> paintContour(canvas, content)
+                Style.RISO_DUO -> paintRiso(canvas, content)
+                Style.NIGHT_GIRIH -> paintGirih(canvas, content)
+            }
+            // Tint the finished design toward the chosen background without
+            // flattening ornaments / layout (keeps luminance of the template).
+            palette.background?.let { bg ->
+                canvas.drawColor(withAlpha(bg, 0x78), PorterDuff.Mode.OVERLAY)
             }
         }
         return bmp
@@ -234,30 +237,6 @@ object DailyQuranLab {
         0 -> floatArrayOf(78f, 46f, 34f)
         1 -> floatArrayOf(60f, 38f, 30f)
         else -> floatArrayOf(46f, 30f, 26f)
-    }
-
-    // ── Flat custom (when background colour is set) ───────────────────────────
-
-    private fun paintFlatCustom(canvas: Canvas, c: Content) {
-        val p = activePalette
-        val bg = p.background ?: 0xFF0B1220.toInt()
-        val arC = p.arabic ?: 0xFFF2EDE1.toInt()
-        val urC = p.urdu ?: arC
-        val enC = p.english ?: 0xFFC79A4B.toInt()
-        val refC = p.reference ?: withAlpha(arC, 140)
-        val brandC = p.brand ?: enC
-        canvas.drawColor(bg)
-        if (c.reference.isNotBlank()) {
-            canvas.drawText(
-                c.reference.uppercase(),
-                WIDTH / 2f,
-                96f,
-                tp(18f, refC, bold = true, tracking = 0.14f).center()
-            )
-        }
-        val s = sizes(tier(c.arabic))
-        drawCenteredStack(canvas, c, 200f, 1180f, 820, s[0], s[1], s[2], arC, urC, enC, true, brandC)
-        brandCenter(canvas, brandC, 200)
     }
 
     private fun withAlpha(color: Int, alpha: Int): Int {

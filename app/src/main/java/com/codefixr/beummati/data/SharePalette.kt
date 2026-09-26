@@ -13,7 +13,11 @@ data class SharePalette(
     val brand: Int? = null,
     val brandText: String = DEFAULT_BRAND
 ) {
-    val usesFlatBackground: Boolean get() = background != null
+    /** True when a background tint is applied on top of the template (design stays). */
+    val hasBackgroundTint: Boolean get() = background != null
+
+    @Deprecated("Use hasBackgroundTint — backgrounds no longer flatten the template.")
+    val usesFlatBackground: Boolean get() = hasBackgroundTint
 
     fun withBrandText(text: String) = copy(brandText = text.trim().ifBlank { DEFAULT_BRAND })
 
