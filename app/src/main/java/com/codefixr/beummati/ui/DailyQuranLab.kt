@@ -49,7 +49,12 @@ object DailyQuranLab {
         OXBLOOD_TAZHIB("Oxblood tazhib"),
         CONTOUR_TIDE("Contour tide"),
         RISO_DUO("Riso duo"),
-        NIGHT_GIRIH("Night girih");
+        NIGHT_GIRIH("Night girih"),
+        KEYSTONE("Keystone"),
+        DATUM("Datum"),
+        MASTHEAD("Masthead"),
+        CASCADE("Cascade"),
+        SIGNAL("Signal");
 
         companion object {
             fun from(template: ShareTemplate): Style =
@@ -152,6 +157,11 @@ object DailyQuranLab {
                 Style.CONTOUR_TIDE -> paintContour(canvas, content)
                 Style.RISO_DUO -> paintRiso(canvas, content)
                 Style.NIGHT_GIRIH -> paintGirih(canvas, content)
+                Style.KEYSTONE -> paintKeystone(canvas, content)
+                Style.DATUM -> paintDatum(canvas, content)
+                Style.MASTHEAD -> paintMasthead(canvas, content)
+                Style.CASCADE -> paintCascade(canvas, content)
+                Style.SIGNAL -> paintSignal(canvas, content)
             }
             // Tint the finished design toward the chosen background without
             // flattening ornaments / layout (keeps luminance of the template).
@@ -619,6 +629,154 @@ object DailyQuranLab {
             canvas.drawRect(WIDTH / 2f - 160f, HEIGHT - 110f, WIDTH / 2f - 100f, HEIGHT - 108f, Paint().apply { color = gold; alpha = 100 })
             canvas.drawRect(WIDTH / 2f + 100f, HEIGHT - 110f, WIDTH / 2f + 160f, HEIGHT - 108f, Paint().apply { color = gold; alpha = 100 })
         }
+    }
+
+    // ── Infographic premium set ──────────────────────────────────────────────
+
+    private fun paintKeystone(canvas: Canvas, c: Content) {
+        val ink = 0xFF12151A.toInt()
+        val bone = 0xFFE8E4DB.toInt()
+        val brass = 0xFFC9A24A.toInt()
+        val panel = 0xFF1A1F27.toInt()
+        canvas.drawColor(ink)
+        // Top header strip
+        canvas.drawRect(0f, 0f, WIDTH.toFloat(), 160f, Paint().apply { color = 0xFF0A0C10.toInt() })
+        canvas.drawRect(0f, 160f, WIDTH.toFloat(), 164f, Paint().apply { color = brass })
+        canvas.drawText(brandLabel(), 72f, 78f, tp(16f, brandColor(brass), bold = true, tracking = 0.28f))
+        if (c.reference.isNotBlank()) {
+            val label = c.reference.uppercase()
+            val chip = tp(18f, ink, bold = true, tracking = 0.08f)
+            val w = chip.measureText(label) + 48f
+            canvas.drawRoundRect(RectF(WIDTH - 72f - w, 48f, WIDTH - 72f, 108f), 8f, 8f, Paint(Paint.ANTI_ALIAS_FLAG).apply { color = brass })
+            canvas.drawText(label, WIDTH - 72f - w / 2f, 90f, chip.center())
+        }
+        // Accent rail + content panel
+        canvas.drawRect(64f, 220f, 76f, 1180f, Paint().apply { color = brass })
+        canvas.drawRoundRect(RectF(96f, 220f, WIDTH - 64f, 1180f), 18f, 18f, Paint(Paint.ANTI_ALIAS_FLAG).apply { color = panel })
+        val s = sizes(tier(c.arabic))
+        drawCenteredStack(canvas, c, 280f, 1100f, 820, s[0], s[1], s[2], bone, withAlpha(bone, 210), brass, true, brass)
+        canvas.drawText("KEYSTONE", WIDTH / 2f, HEIGHT - 56f, tp(14f, brandColor(brass), bold = true, tracking = 0.32f).center().also { it.alpha = 120 })
+    }
+
+    private fun paintDatum(canvas: Canvas, c: Content) {
+        val deep = 0xFF0E1A1F.toInt()
+        val mint = 0xFF5EE0B5.toInt()
+        val bone = 0xFFF2EDE1.toInt()
+        val mute = 0xFF9BB0A8.toInt()
+        canvas.drawColor(deep)
+        // Left rail
+        canvas.drawRect(0f, 0f, 120f, HEIGHT.toFloat(), Paint().apply { color = 0xFF13262C.toInt() })
+        canvas.drawRect(120f, 0f, 126f, HEIGHT.toFloat(), Paint().apply { color = mint })
+        canvas.save()
+        canvas.translate(48f, HEIGHT - 100f)
+        canvas.rotate(-90f)
+        canvas.drawText(brandLabel(), 0f, 0f, tp(18f, brandColor(mint), bold = true, tracking = 0.22f))
+        canvas.restore()
+        if (c.reference.isNotBlank()) {
+            canvas.drawText(c.reference.uppercase(), 180f, 110f, tp(20f, mint, bold = true, tracking = 0.14f))
+            canvas.drawRect(180f, 128f, 320f, 131f, Paint().apply { color = mint; alpha = 160 })
+        }
+        val s = sizes(tier(c.arabic))
+        var y = 200f
+        val showAr = c.fit != Fit.TRANSLATION_ONLY && c.arabic.isNotBlank()
+        val showUr = c.fit != Fit.ARABIC_ONLY && c.urdu.isNotBlank()
+        val showEn = c.fit != Fit.ARABIC_ONLY && c.english.isNotBlank()
+        fun row(num: String, body: StaticLayout, color: Int) {
+            canvas.drawText(num, 180f, y + 36f, tp(22f, color, bold = true, tracking = 0.1f))
+            canvas.drawCircle(168f, y + 28f, 5f, Paint(Paint.ANTI_ALIAS_FLAG).apply { this.color = color })
+            canvas.save(); canvas.translate(250f, y); body.draw(canvas); canvas.restore()
+            y += body.height + 48f
+        }
+        if (showAr) {
+            val ar = lay(c.arabic, 700, tp(s[0], activePalette.arabic ?: bone, uthmani, rtl = true), rtl = true, align = Layout.Alignment.ALIGN_OPPOSITE, sp = 12f)
+            row("01", ar, mint)
+        }
+        if (showEn) {
+            val en = lay(c.english, 700, tp(s[2], activePalette.english ?: bone, serif), sp = 8f)
+            row("02", en, mute)
+        }
+        if (showUr) {
+            val ur = lay(c.urdu, 700, tp(s[1], activePalette.urdu ?: mute, nastaliq, rtl = true, alpha = 0.92f), rtl = true, align = Layout.Alignment.ALIGN_OPPOSITE, sp = 10f)
+            row("03", ur, mute)
+        }
+    }
+
+    private fun paintMasthead(canvas: Canvas, c: Content) {
+        val paper = 0xFFF7F4EE.toInt()
+        val ink = 0xFF1A1A1A.toInt()
+        val rule = 0xFF8B1E1E.toInt()
+        canvas.drawColor(paper)
+        canvas.drawText(brandLabel(), WIDTH / 2f, 88f, tp(18f, brandColor(ink), bold = true, tracking = 0.36f).center())
+        canvas.drawRect(120f, 110f, WIDTH - 120f, 113f, Paint().apply { color = ink })
+        canvas.drawRect(120f, 118f, WIDTH - 120f, 120f, Paint().apply { color = rule })
+        if (c.reference.isNotBlank()) {
+            canvas.drawText(c.reference.uppercase(), WIDTH / 2f, 200f, tp(34f, ink, bold = true, tracking = 0.08f).center())
+            canvas.drawRect(WIDTH / 2f - 40f, 220f, WIDTH / 2f + 40f, 224f, Paint().apply { color = rule })
+        }
+        val s = sizes(tier(c.arabic))
+        drawCenteredStack(canvas, c, 260f, 1120f, 820, s[0], s[1], s[2], ink, withAlpha(ink, 200), ink, true, rule)
+        canvas.drawRect(120f, HEIGHT - 110f, WIDTH - 120f, HEIGHT - 108f, Paint().apply { color = ink; alpha = 160 })
+        canvas.drawText("EDITORIAL SERIES", WIDTH / 2f, HEIGHT - 70f, tp(14f, brandColor(rule), bold = true, tracking = 0.28f).center())
+    }
+
+    private fun paintCascade(canvas: Canvas, c: Content) {
+        val deep = 0xFF0B3D2E.toInt()
+        val mid = 0xFF14543E.toInt()
+        val cream = 0xFFE7D7A8.toInt()
+        val ink = 0xFF06231C.toInt()
+        canvas.drawColor(deep)
+        // Stepped bands
+        canvas.drawRoundRect(RectF(48f, 80f, WIDTH - 48f, 220f), 16f, 16f, Paint(Paint.ANTI_ALIAS_FLAG).apply { color = mid })
+        canvas.drawRoundRect(RectF(72f, 250f, WIDTH - 72f, 720f), 16f, 16f, Paint(Paint.ANTI_ALIAS_FLAG).apply { color = 0xFF0F4A38.toInt() })
+        canvas.drawRoundRect(RectF(96f, 750f, WIDTH - 96f, 1040f), 16f, 16f, Paint(Paint.ANTI_ALIAS_FLAG).apply { color = cream })
+        canvas.drawRoundRect(RectF(120f, 1070f, WIDTH - 120f, 1260f), 16f, 16f, Paint(Paint.ANTI_ALIAS_FLAG).apply { color = 0xFF0A3328.toInt() })
+        if (c.reference.isNotBlank()) {
+            canvas.drawText(c.reference.uppercase(), WIDTH / 2f, 160f, tp(22f, cream, bold = true, tracking = 0.16f).center())
+        }
+        val s = sizes(tier(c.arabic))
+        val showAr = c.fit != Fit.TRANSLATION_ONLY && c.arabic.isNotBlank()
+        val showEn = c.fit != Fit.ARABIC_ONLY && c.english.isNotBlank()
+        val showUr = c.fit != Fit.ARABIC_ONLY && c.urdu.isNotBlank()
+        if (showAr) {
+            val ar = lay(c.arabic, 820, tp(s[0], activePalette.arabic ?: cream, uthmani, rtl = true), rtl = true, sp = 12f)
+            canvas.save(); canvas.translate((WIDTH - ar.width) / 2f, 320f); ar.draw(canvas); canvas.restore()
+        }
+        if (showEn) {
+            val en = lay(c.english, 780, tp(s[2], activePalette.english ?: ink, serif), sp = 8f)
+            canvas.save(); canvas.translate((WIDTH - en.width) / 2f, 800f); en.draw(canvas); canvas.restore()
+        }
+        if (showUr) {
+            val ur = lay(c.urdu, 740, tp(s[1], activePalette.urdu ?: cream, nastaliq, rtl = true, alpha = 0.9f), rtl = true, sp = 10f)
+            canvas.save(); canvas.translate((WIDTH - ur.width) / 2f, 1110f); ur.draw(canvas); canvas.restore()
+        }
+        canvas.drawText(brandLabel(lower = true), WIDTH / 2f, HEIGHT - 36f, tp(14f, brandColor(cream), tracking = 0.2f).center().also { it.alpha = 130 })
+    }
+
+    private fun paintSignal(canvas: Canvas, c: Content) {
+        val navy = 0xFF0A1628.toInt()
+        val sand = 0xFFE8DCC8.toInt()
+        val gold = 0xFFD4A017.toInt()
+        canvas.drawColor(navy)
+        // Bold left signal bar
+        canvas.drawRect(0f, 0f, 28f, HEIGHT.toFloat(), Paint().apply { color = gold })
+        // Reference badge
+        if (c.reference.isNotBlank()) {
+            canvas.drawCircle(160f, 160f, 78f, Paint(Paint.ANTI_ALIAS_FLAG).apply { color = gold })
+            val lines = c.reference.uppercase().split(" ", limit = 3)
+            val chip = tp(14f, navy, bold = true, tracking = 0.04f).center()
+            var ty = 148f
+            lines.take(2).forEach { line ->
+                canvas.drawText(line, 160f, ty, chip)
+                ty += 22f
+            }
+        }
+        canvas.drawText(brandLabel(), WIDTH - 72f, 100f, tp(16f, brandColor(sand), bold = true, tracking = 0.24f).right())
+        // Content plate
+        canvas.drawRoundRect(RectF(72f, 280f, WIDTH - 56f, 1180f), 20f, 20f, Paint(Paint.ANTI_ALIAS_FLAG).apply { color = 0xFF122033.toInt() })
+        canvas.drawRect(72f, 280f, 84f, 1180f, Paint().apply { color = gold })
+        val s = sizes(tier(c.arabic))
+        drawCenteredStack(canvas, c, 340f, 1100f, 820, s[0], s[1], s[2], sand, withAlpha(sand, 210), gold, true, gold)
+        canvas.drawText("SIGNAL", 88f, HEIGHT - 56f, tp(14f, brandColor(gold), bold = true, tracking = 0.3f).also { it.alpha = 140 })
     }
 
     // ── Shared drawing helpers ───────────────────────────────────────────────

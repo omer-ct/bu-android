@@ -19,5 +19,10 @@ enum class ShareTemplate(val label: String, val blurb: String) {
     OXBLOOD_TAZHIB("Oxblood", "Manuscript gold corners"),
     CONTOUR_TIDE("Contour", "Topographic petrol lines"),
     RISO_DUO("Riso duo", "Cobalt + tangerine print"),
-    NIGHT_GIRIH("Night girih", "Midnight geometry constellation")
+    NIGHT_GIRIH("Night girih", "Midnight geometry constellation"),
+    KEYSTONE("Keystone", "Header strip · accent rail · info panel"),
+    DATUM("Datum", "Side rail · numbered translation stack"),
+    MASTHEAD("Masthead", "Editorial rules · display reference"),
+    CASCADE("Cascade", "Stepped colour bands · layered read"),
+    SIGNAL("Signal", "Badge · bold bar · poster hierarchy")
 }

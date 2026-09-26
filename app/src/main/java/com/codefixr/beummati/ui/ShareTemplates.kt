@@ -572,6 +572,11 @@ private val ShareTemplate.swatchFirst: Int
         ShareTemplate.CONTOUR_TIDE -> 0xFF0A2A43.toInt()
         ShareTemplate.RISO_DUO -> 0xFFFF5A36.toInt()
         ShareTemplate.NIGHT_GIRIH -> 0xFF060A18.toInt()
+        ShareTemplate.KEYSTONE -> 0xFF12151A.toInt()
+        ShareTemplate.DATUM -> 0xFF0E1A1F.toInt()
+        ShareTemplate.MASTHEAD -> 0xFFF7F4EE.toInt()
+        ShareTemplate.CASCADE -> 0xFF0B3D2E.toInt()
+        ShareTemplate.SIGNAL -> 0xFF0A1628.toInt()
     }
 
 @Composable
