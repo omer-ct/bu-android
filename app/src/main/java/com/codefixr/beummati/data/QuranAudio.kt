@@ -191,6 +191,34 @@ object QuranAudioCache {
         File(root, "ar_${reciter.id}").deleteRecursively()
     }
 
+    /** Delete only the listed surahs' MP3s for [reciter] (shared starter/mushaf folder). */
+    fun clearSurahs(reciter: QuranReciter, surahs: Collection<Int>) {
+        for (surah in surahs) {
+            val count = SURAH_AYAH_COUNTS.getOrElse(surah - 1) { 0 }
+            for (ayah in 1..count) {
+                runCatching { arabicFile(reciter, surah, ayah).delete() }
+            }
+        }
+    }
+
+    /** Keep [keep] surahs; delete every other MP3 under the reciter folder. */
+    fun clearExceptSurahs(reciter: QuranReciter, keep: Collection<Int>) {
+        val dir = File(root, "ar_${reciter.id}")
+        if (!dir.isDirectory) return
+        val keepSet = keep.toSet()
+        dir.listFiles()?.forEach { file ->
+            val name = file.nameWithoutExtension
+            if (name.length < 3) {
+                runCatching { file.delete() }
+                return@forEach
+            }
+            val surah = name.take(3).toIntOrNull()
+            if (surah == null || surah !in keepSet) {
+                runCatching { file.delete() }
+            }
+        }
+    }
+
     fun clearVoice(voice: QuranTranslationVoice) {
         File(root, "tr_${voice.id}").deleteRecursively()
         if (voice == QuranTranslationVoice.ENGLISH_TTS) {

@@ -16,7 +16,7 @@ import android.text.TextDirectionHeuristics
 import android.text.TextPaint
 import androidx.core.content.res.ResourcesCompat
 import com.codefixr.beummati.R
-import com.codefixr.beummati.data.ShareColorMood
+import com.codefixr.beummati.data.SharePalette
 import com.codefixr.beummati.data.ShareTemplate
 import com.codefixr.beummati.data.SettingsStore
 import kotlin.math.cos
@@ -70,6 +70,8 @@ object DailyQuranLab {
     private var nastaliq: Typeface? = null
     private var serif: Typeface? = null
     private var facesLoaded = false
+    /** Active during a single [render] call — drives text/logo overrides + flat bg. */
+    private var activePalette: SharePalette = SharePalette.DESIGN
 
     fun warmFonts(context: Context) {
         if (facesLoaded) return
@@ -122,26 +124,36 @@ object DailyQuranLab {
         )
     }
 
-    fun render(context: Context, style: Style, content: Content): Bitmap {
+    fun render(
+        context: Context,
+        style: Style,
+        content: Content,
+        palette: SharePalette = SharePalette.DESIGN
+    ): Bitmap {
         warmFonts(context)
+        activePalette = palette
         val bmp = Bitmap.createBitmap(WIDTH, HEIGHT, Bitmap.Config.ARGB_8888)
         Canvas(bmp).also { canvas ->
-            when (style) {
-                Style.MIHRAB -> paintMihrab(canvas, content)
-                Style.FOLIO -> paintFolio(canvas, content)
-                Style.FAJR -> paintFajr(canvas, content)
-                Style.KUFIC_CIRCUIT -> paintKufic(canvas, content)
-                Style.INK_BLOOM -> paintInkBloom(canvas, content)
-                Style.ZELLIJ_STACK -> paintZellij(canvas, content)
-                Style.JADE_VELVET -> paintJade(canvas, content)
-                Style.CYANOTYPE -> paintCyanotype(canvas, content)
-                Style.BASALT -> paintBasalt(canvas, content)
-                Style.NACRE -> paintNacre(canvas, content)
-                Style.TERRAZZO_BONE -> paintTerrazzo(canvas, content)
-                Style.OXBLOOD_TAZHIB -> paintOxblood(canvas, content)
-                Style.CONTOUR_TIDE -> paintContour(canvas, content)
-                Style.RISO_DUO -> paintRiso(canvas, content)
-                Style.NIGHT_GIRIH -> paintGirih(canvas, content)
+            if (palette.usesFlatBackground) {
+                paintFlatCustom(canvas, content)
+            } else {
+                when (style) {
+                    Style.MIHRAB -> paintMihrab(canvas, content)
+                    Style.FOLIO -> paintFolio(canvas, content)
+                    Style.FAJR -> paintFajr(canvas, content)
+                    Style.KUFIC_CIRCUIT -> paintKufic(canvas, content)
+                    Style.INK_BLOOM -> paintInkBloom(canvas, content)
+                    Style.ZELLIJ_STACK -> paintZellij(canvas, content)
+                    Style.JADE_VELVET -> paintJade(canvas, content)
+                    Style.CYANOTYPE -> paintCyanotype(canvas, content)
+                    Style.BASALT -> paintBasalt(canvas, content)
+                    Style.NACRE -> paintNacre(canvas, content)
+                    Style.TERRAZZO_BONE -> paintTerrazzo(canvas, content)
+                    Style.OXBLOOD_TAZHIB -> paintOxblood(canvas, content)
+                    Style.CONTOUR_TIDE -> paintContour(canvas, content)
+                    Style.RISO_DUO -> paintRiso(canvas, content)
+                    Style.NIGHT_GIRIH -> paintGirih(canvas, content)
+                }
             }
         }
         return bmp
@@ -152,7 +164,7 @@ object DailyQuranLab {
         card: ShareCard,
         template: ShareTemplate,
         width: Int = WIDTH,
-        mood: ShareColorMood = SettingsStore.shareColorMood.value
+        palette: SharePalette = SettingsStore.sharePalette.value
     ): Bitmap {
         warmFonts(context)
         val style = Style.from(template)
@@ -162,8 +174,7 @@ object DailyQuranLab {
         val content = fromShareCard(card, resolved).let {
             if (resolved == Fit.TRANSLATION_ONLY) it.copy(arabic = "") else it
         }
-        val painted = render(context, style, content)
-        val full = grade(painted, mood)
+        val full = render(context, style, content, palette)
         if (width == WIDTH) return full
         val h = (width * HEIGHT / WIDTH.toFloat()).toInt()
         val scaled = Bitmap.createScaledBitmap(full, width, h, true)
@@ -176,7 +187,7 @@ object DailyQuranLab {
         card: ShareCard,
         template: ShareTemplate,
         dir: java.io.File,
-        mood: ShareColorMood = SettingsStore.shareColorMood.value
+        palette: SharePalette = SettingsStore.sharePalette.value
     ): List<java.io.File> {
         warmFonts(context)
         val style = Style.from(template)
@@ -184,43 +195,32 @@ object DailyQuranLab {
         val files = mutableListOf<java.io.File>()
         if (fit == Fit.TRANSLATION_ONLY && card.arabic.isNotBlank()) {
             val ref = fromShareCard(card).reference
-            val bmpA = grade(
-                render(
-                    context, style,
-                    Content(arabic = card.arabic, reference = "$ref · 1/2", fit = Fit.ARABIC_ONLY)
-                ),
-                mood
+            val bmpA = render(
+                context, style,
+                Content(arabic = card.arabic, reference = "$ref · 1/2", fit = Fit.ARABIC_ONLY),
+                palette
             )
             val fA = java.io.File(dir, "be-ummati-a-${System.currentTimeMillis()}.jpg")
             java.io.FileOutputStream(fA).use { bmpA.compress(Bitmap.CompressFormat.JPEG, 92, it) }
             bmpA.recycle()
             files += fA
-            val bmpB = grade(
-                render(
-                    context, style,
-                    fromShareCard(card, Fit.TRANSLATION_ONLY).copy(arabic = "", reference = "$ref · 2/2")
-                ),
-                mood
+            val bmpB = render(
+                context, style,
+                fromShareCard(card, Fit.TRANSLATION_ONLY).copy(arabic = "", reference = "$ref · 2/2"),
+                palette
             )
             val fB = java.io.File(dir, "be-ummati-b-${System.currentTimeMillis()}.jpg")
             java.io.FileOutputStream(fB).use { bmpB.compress(Bitmap.CompressFormat.JPEG, 92, it) }
             bmpB.recycle()
             files += fB
         } else {
-            val bmp = grade(render(context, style, fromShareCard(card, Fit.FULL)), mood)
+            val bmp = render(context, style, fromShareCard(card, Fit.FULL), palette)
             val f = java.io.File(dir, "be-ummati-${System.currentTimeMillis()}.jpg")
             java.io.FileOutputStream(f).use { bmp.compress(Bitmap.CompressFormat.JPEG, 92, it) }
             bmp.recycle()
             files += f
         }
         return files
-    }
-
-    private fun grade(src: Bitmap, mood: ShareColorMood): Bitmap {
-        if (mood == ShareColorMood.DEFAULT) return src
-        val graded = mood.apply(src)
-        if (graded !== src) src.recycle()
-        return graded
     }
 
     // Avoid circular import with SettingsStore toggles at call time
@@ -234,6 +234,34 @@ object DailyQuranLab {
         0 -> floatArrayOf(78f, 46f, 34f)
         1 -> floatArrayOf(60f, 38f, 30f)
         else -> floatArrayOf(46f, 30f, 26f)
+    }
+
+    // ── Flat custom (when background colour is set) ───────────────────────────
+
+    private fun paintFlatCustom(canvas: Canvas, c: Content) {
+        val p = activePalette
+        val bg = p.background ?: 0xFF0B1220.toInt()
+        val arC = p.arabic ?: 0xFFF2EDE1.toInt()
+        val urC = p.urdu ?: arC
+        val enC = p.english ?: 0xFFC79A4B.toInt()
+        val refC = p.reference ?: withAlpha(arC, 140)
+        val brandC = p.brand ?: enC
+        canvas.drawColor(bg)
+        if (c.reference.isNotBlank()) {
+            canvas.drawText(
+                c.reference.uppercase(),
+                WIDTH / 2f,
+                96f,
+                tp(18f, refC, bold = true, tracking = 0.14f).center()
+            )
+        }
+        val s = sizes(tier(c.arabic))
+        drawCenteredStack(canvas, c, 200f, 1180f, 820, s[0], s[1], s[2], arC, urC, enC, true, brandC)
+        brandCenter(canvas, brandC, 200)
+    }
+
+    private fun withAlpha(color: Int, alpha: Int): Int {
+        return (color and 0x00FFFFFF) or ((alpha.coerceIn(0, 255) shl 24))
     }
 
     // ── Original three ───────────────────────────────────────────────────────
@@ -309,7 +337,7 @@ object DailyQuranLab {
             val en = lay(c.english, 780, tp(s[2] * shrink, bone), sp = 8f)
             canvas.save(); canvas.translate(72f, slabY + 48f); en.draw(canvas); canvas.restore()
         }
-        canvas.drawText("BE UMMATI", WIDTH - 72f, HEIGHT - 48f, tp(16f, bone, bold = true, tracking = 0.24f).right().also { it.alpha = 140 })
+        canvas.drawText(brandLabel(), WIDTH - 72f, HEIGHT - 48f, tp(16f, brandColor(bone), bold = true, tracking = 0.24f).right().also { it.alpha = 140 })
     }
 
     private fun paintFajr(canvas: Canvas, c: Content) {
@@ -380,7 +408,7 @@ object DailyQuranLab {
         drawLeftSpineStack(canvas, c, 168f, 180f, 1180f, 820, s[0], s[1], s[2], text, text, muted)
         if (c.reference.isNotBlank()) canvas.drawText(c.reference.uppercase(), 168f, HEIGHT - 80f, tp(22f, brass, bold = true, tracking = 0.12f))
         canvas.save(); canvas.translate(48f, HEIGHT - 120f); canvas.rotate(-90f)
-        canvas.drawText("BE UMMATI", 0f, 0f, tp(18f, brass, bold = true, tracking = 0.2f).also { it.alpha = 140 })
+        canvas.drawText(brandLabel(), 0f, 0f, tp(18f, brandColor(brass), bold = true, tracking = 0.2f).also { it.alpha = 140 })
         canvas.restore()
     }
 
@@ -421,7 +449,7 @@ object DailyQuranLab {
         canvas.drawRect(0f, 0f, WIDTH.toFloat(), HEIGHT.toFloat(), Paint().apply {
             shader = RadialGradient(540f, 430f, 900f, intArrayOf(0xFF14543E.toInt(), 0xFF0C3A2C.toInt(), deep), floatArrayOf(0f, 0.45f, 1f), Shader.TileMode.CLAMP)
         })
-        canvas.drawText("BE UMMATI", WIDTH / 2f, 80f, tp(18f, gold, bold = true, tracking = 0.3f).center().also { it.alpha = 140 })
+        canvas.drawText(brandLabel(), WIDTH / 2f, 80f, tp(18f, brandColor(gold), bold = true, tracking = 0.3f).center().also { it.alpha = 140 })
         val s = sizes(tier(c.arabic)).let { floatArrayOf(it[0] + 8f, it[1], it[2]) }
         drawCenteredStack(canvas, c, 260f, 1180f, 820, s[0], s[1], s[2], champagne, mist, champagne, true, gold)
         if (c.reference.isNotBlank()) canvas.drawText(c.reference.uppercase(), WIDTH / 2f, HEIGHT - 90f, tp(22f, gold, bold = true, tracking = 0.16f).center())
@@ -442,7 +470,7 @@ object DailyQuranLab {
             canvas.save(); canvas.translate(120f, 1000f); en.draw(canvas); canvas.restore()
         }
         if (c.reference.isNotBlank()) canvas.drawText(c.reference.uppercase(), WIDTH - 80f, HEIGHT - 70f, tp(20f, amber, bold = true, tracking = 0.12f).right())
-        canvas.drawText("be ummati", 100f, HEIGHT - 70f, tp(16f, chalk, tracking = 0.1f).also { it.alpha = 160 })
+        canvas.drawText(brandLabel(lower = true), 100f, HEIGHT - 70f, tp(16f, brandColor(chalk), tracking = 0.1f).also { it.alpha = 160 })
     }
 
     private fun paintBasalt(canvas: Canvas, c: Content) {
@@ -460,7 +488,7 @@ object DailyQuranLab {
             canvas.save(); canvas.translate(80f, 980f); en.draw(canvas); canvas.restore()
         }
         if (c.reference.isNotBlank()) canvas.drawText(c.reference.uppercase(), 80f, HEIGHT - 70f, tp(22f, lichen, bold = true, tracking = 0.14f))
-        canvas.drawText("BE UMMATI", WIDTH - 80f, 90f, tp(18f, lichen, bold = true, tracking = 0.2f).right().also { it.alpha = 150 })
+        canvas.drawText(brandLabel(), WIDTH - 80f, 90f, tp(18f, brandColor(lichen), bold = true, tracking = 0.2f).right().also { it.alpha = 150 })
     }
 
     private fun paintNacre(canvas: Canvas, c: Content) {
@@ -474,7 +502,7 @@ object DailyQuranLab {
                 style = Paint.Style.STROKE; strokeWidth = 1f; color = thread; alpha = 20
             })
         }
-        canvas.drawText("be ummati", WIDTH / 2f, 90f, tp(16f, thread, tracking = 0.35f).center())
+        canvas.drawText(brandLabel(lower = true), WIDTH / 2f, 90f, tp(16f, brandColor(thread), tracking = 0.35f).center())
         val s = sizes(tier(c.arabic))
         drawCenteredStack(canvas, c, 280f, 1120f, 760, s[0], s[1], s[2], ink, ink, ink, true, thread)
         if (c.reference.isNotBlank()) canvas.drawText(c.reference.uppercase(), WIDTH / 2f, HEIGHT - 100f, tp(20f, thread, bold = true, tracking = 0.14f).center())
@@ -520,7 +548,7 @@ object DailyQuranLab {
         listOf(160f to 160f, WIDTH - 160f to 160f, 160f to HEIGHT - 160f, WIDTH - 160f to HEIGHT - 160f).forEach { (x, y) ->
             drawStar(canvas, x, y, 36f, goldDim)
         }
-        canvas.drawText("BE UMMATI", WIDTH / 2f, 100f, tp(16f, goldDim, bold = true, tracking = 0.3f).center())
+        canvas.drawText(brandLabel(), WIDTH / 2f, 100f, tp(16f, brandColor(goldDim), bold = true, tracking = 0.3f).center())
         val s = sizes(tier(c.arabic))
         drawCenteredStack(canvas, c, 280f, 1120f, 780, s[0], s[1], s[2], ivory, ivory, gold, true, gold)
         if (c.reference.isNotBlank()) canvas.drawText(c.reference.uppercase(), WIDTH / 2f, HEIGHT - 120f, tp(20f, goldDim, bold = true, tracking = 0.14f).center())
@@ -543,7 +571,7 @@ object DailyQuranLab {
             canvas.save(); canvas.translate(110f, 920f); en.draw(canvas); canvas.restore()
         }
         if (c.reference.isNotBlank()) canvas.drawText(c.reference.uppercase(), WIDTH - 80f, HEIGHT - 70f, tp(20f, accent, bold = true, tracking = 0.12f).right())
-        canvas.drawText("be ummati", 90f, HEIGHT - 70f, tp(16f, mint, tracking = 0.1f).also { it.alpha = 150 })
+        canvas.drawText(brandLabel(lower = true), 90f, HEIGHT - 70f, tp(16f, brandColor(mint), tracking = 0.1f).also { it.alpha = 150 })
     }
 
     private fun paintRiso(canvas: Canvas, c: Content) {
@@ -572,7 +600,7 @@ object DailyQuranLab {
         }
         if (c.reference.isNotBlank()) canvas.drawText(c.reference.uppercase(), 90f, HEIGHT - 70f, tp(22f, blue, bold = true, tracking = 0.1f))
         canvas.save(); canvas.translate(WIDTH - 40f, HEIGHT - 160f); canvas.rotate(-90f)
-        canvas.drawText("BE UMMATI", 0f, 0f, tp(18f, orange, bold = true, tracking = 0.2f))
+        canvas.drawText(brandLabel(), 0f, 0f, tp(18f, brandColor(orange), bold = true, tracking = 0.2f))
         canvas.restore()
     }
 
@@ -590,7 +618,7 @@ object DailyQuranLab {
         // Clear center for text
         canvas.drawRoundRect(RectF(140f, 280f, WIDTH - 140f, 980f), 20f, 20f, Paint().apply { color = midnight })
         drawStar(canvas, WIDTH / 2f, 110f, 22f, gold)
-        canvas.drawText("be ummati", WIDTH / 2f, 160f, tp(15f, line, tracking = 0.2f).center().also { it.alpha = 130 })
+        canvas.drawText(brandLabel(lower = true), WIDTH / 2f, 160f, tp(15f, brandColor(line), tracking = 0.2f).center().also { it.alpha = 130 })
         val s = sizes(tier(c.arabic))
         drawCenteredStack(canvas, c, 300f, 1000f, 780, s[0], s[1], s[2], text, line, text, false, gold)
         if (c.reference.isNotBlank()) {
@@ -607,15 +635,19 @@ object DailyQuranLab {
         arSize: Float, urSize: Float, enSize: Float,
         arColor: Int, urColor: Int, enColor: Int, showSep: Boolean, sepColor: Int
     ) {
+        val arC = activePalette.arabic ?: arColor
+        val urC = activePalette.urdu ?: urColor
+        val enC = activePalette.english ?: enColor
+        val sepC = activePalette.brand ?: sepColor
         val showAr = c.fit != Fit.TRANSLATION_ONLY && c.arabic.isNotBlank()
         val showUr = c.fit != Fit.ARABIC_ONLY && c.urdu.isNotBlank()
         val showEn = c.fit != Fit.ARABIC_ONLY && c.english.isNotBlank()
         var shrink = 1f
         fun builds(): List<Any> = buildList {
-            if (showAr) add(lay(c.arabic, col, tp(arSize * shrink, arColor, uthmani, rtl = true), rtl = true, sp = 14f))
+            if (showAr) add(lay(c.arabic, col, tp(arSize * shrink, arC, uthmani, rtl = true), rtl = true, sp = 14f))
             if (showSep && showAr && (showUr || showEn)) add("SEP")
-            if (showUr) add(lay(c.urdu, col, tp(urSize * shrink, urColor, nastaliq, rtl = true, alpha = 0.9f), rtl = true, sp = 12f))
-            if (showEn) add(lay(c.english, (col * 0.92f).toInt(), tp(enSize * shrink, enColor, serif), sp = 8f))
+            if (showUr) add(lay(c.urdu, col, tp(urSize * shrink, urC, nastaliq, rtl = true, alpha = 0.9f), rtl = true, sp = 12f))
+            if (showEn) add(lay(c.english, (col * 0.92f).toInt(), tp(enSize * shrink, enC, serif), sp = 8f))
         }
         var items = builds()
         fun h(): Float = items.sumOf { if (it is StaticLayout) it.height + 28.0 else 44.0 }.toFloat()
@@ -629,7 +661,7 @@ object DailyQuranLab {
                 }
                 else -> {
                     val mid = WIDTH / 2f
-                    val p = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = sepColor; alpha = 120 }
+                    val p = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = sepC; alpha = 120 }
                     canvas.drawRect(mid - 80f, y + 10f, mid - 14f, y + 12f, p)
                     canvas.drawRect(mid + 14f, y + 10f, mid + 80f, y + 12f, p)
                     canvas.drawCircle(mid, y + 11f, 5f, p)
@@ -644,11 +676,13 @@ object DailyQuranLab {
         arSize: Float, urSize: Float, enSize: Float,
         arColor: Int, urColor: Int, enColor: Int
     ) {
+        val arC = activePalette.arabic ?: arColor
+        val urC = activePalette.urdu ?: urColor
         val showAr = c.fit != Fit.TRANSLATION_ONLY && c.arabic.isNotBlank()
         val showUr = c.fit != Fit.ARABIC_ONLY && c.urdu.isNotBlank()
         var shrink = 1f
-        fun ar() = if (showAr) lay(c.arabic, 820, tp(arSize * shrink, arColor, uthmani, rtl = true), rtl = true, align = Layout.Alignment.ALIGN_OPPOSITE, sp = 14f) else null
-        fun ur() = if (showUr) lay(c.urdu, 760, tp(urSize * shrink, urColor, nastaliq, rtl = true, alpha = 0.85f), rtl = true, align = Layout.Alignment.ALIGN_OPPOSITE, sp = 12f) else null
+        fun ar() = if (showAr) lay(c.arabic, 820, tp(arSize * shrink, arC, uthmani, rtl = true), rtl = true, align = Layout.Alignment.ALIGN_OPPOSITE, sp = 14f) else null
+        fun ur() = if (showUr) lay(c.urdu, 760, tp(urSize * shrink, urC, nastaliq, rtl = true, alpha = 0.85f), rtl = true, align = Layout.Alignment.ALIGN_OPPOSITE, sp = 12f) else null
         var a = ar(); var u = ur()
         while ((a?.height ?: 0) + (u?.height ?: 0) + 60 > maxY - topY && shrink > 0.7f) { shrink -= 0.04f; a = ar(); u = ur() }
         var y = topY
@@ -661,14 +695,17 @@ object DailyQuranLab {
         arSize: Float, urSize: Float, enSize: Float, arColor: Int, urColor: Int, enColor: Int
     ) {
         // Arabic RTL right-aligned to right margin; English left from spine
+        val arC = activePalette.arabic ?: arColor
+        val urC = activePalette.urdu ?: urColor
+        val enC = activePalette.english ?: enColor
         val showAr = c.fit != Fit.TRANSLATION_ONLY && c.arabic.isNotBlank()
         val showUr = c.fit != Fit.ARABIC_ONLY && c.urdu.isNotBlank()
         val showEn = c.fit != Fit.ARABIC_ONLY && c.english.isNotBlank()
         var shrink = 1f
         fun builds(): List<StaticLayout> = buildList {
-            if (showAr) add(lay(c.arabic, col, tp(arSize * shrink, arColor, uthmani, rtl = true), rtl = true, align = Layout.Alignment.ALIGN_OPPOSITE, sp = 14f))
-            if (showUr) add(lay(c.urdu, col - 40, tp(urSize * shrink, urColor, nastaliq, rtl = true, alpha = 0.9f), rtl = true, align = Layout.Alignment.ALIGN_OPPOSITE, sp = 12f))
-            if (showEn) add(lay(c.english, col - 60, tp(enSize * shrink, enColor, serif), sp = 8f))
+            if (showAr) add(lay(c.arabic, col, tp(arSize * shrink, arC, uthmani, rtl = true), rtl = true, align = Layout.Alignment.ALIGN_OPPOSITE, sp = 14f))
+            if (showUr) add(lay(c.urdu, col - 40, tp(urSize * shrink, urC, nastaliq, rtl = true, alpha = 0.9f), rtl = true, align = Layout.Alignment.ALIGN_OPPOSITE, sp = 12f))
+            if (showEn) add(lay(c.english, col - 60, tp(enSize * shrink, enC, serif), sp = 8f))
         }
         var items = builds()
         fun h() = items.sumOf { it.height + 32.0 }.toFloat()
@@ -681,8 +718,20 @@ object DailyQuranLab {
         }
     }
 
+    private fun brandLabel(lower: Boolean = false): String {
+        val t = activePalette.brandText.trim().ifBlank { SharePalette.DEFAULT_BRAND }
+        return if (lower) t.lowercase() else t.uppercase()
+    }
+
+    private fun brandColor(fallback: Int): Int = activePalette.brand ?: fallback
+
     private fun brandCenter(canvas: Canvas, color: Int, alpha: Int) {
-        canvas.drawText("BE UMMATI", WIDTH / 2f, HEIGHT - 42f, tp(16f, color, bold = true, tracking = 0.24f).center().also { it.alpha = alpha })
+        canvas.drawText(
+            brandLabel(),
+            WIDTH / 2f,
+            HEIGHT - 42f,
+            tp(16f, brandColor(color), bold = true, tracking = 0.24f).center().also { it.alpha = alpha }
+        )
     }
 
     private fun drawStar(canvas: Canvas, cx: Float, cy: Float, r: Float, color: Int) {

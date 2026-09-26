@@ -78,7 +78,14 @@ object SettingsStore {
     private const val KEY_SHOW_TRANSLITERATION = "showTransliteration"
     private const val KEY_PLAYER_SKIN = "playerSkin"
     private const val KEY_SHARE_TEMPLATE = "shareTemplate"
-    private const val KEY_SHARE_COLOR_MOOD = "shareColorMood"
+    private const val KEY_SHARE_PALETTE_PRESET = "sharePalettePreset"
+    private const val KEY_SHARE_BRAND_TEXT = "shareBrandText"
+    private const val KEY_SHARE_PAL_BG = "sharePalBg"
+    private const val KEY_SHARE_PAL_AR = "sharePalAr"
+    private const val KEY_SHARE_PAL_EN = "sharePalEn"
+    private const val KEY_SHARE_PAL_UR = "sharePalUr"
+    private const val KEY_SHARE_PAL_BRAND = "sharePalBrand"
+    private const val KEY_SHARE_PAL_REF = "sharePalRef"
     private const val KEY_DEFAULT_RATE = "defaultRate"
     private const val KEY_READING_LANGUAGE = "readingLanguage"
     private const val KEY_SHOW_ARABIC = "showArabic"
@@ -194,8 +201,8 @@ object SettingsStore {
     private val _shareTemplate = MutableStateFlow(ShareTemplate.MIHRAB)
     val shareTemplate: StateFlow<ShareTemplate> = _shareTemplate.asStateFlow()
 
-    private val _shareColorMood = MutableStateFlow(ShareColorMood.DEFAULT)
-    val shareColorMood: StateFlow<ShareColorMood> = _shareColorMood.asStateFlow()
+    private val _sharePalette = MutableStateFlow(SharePalette.DESIGN)
+    val sharePalette: StateFlow<SharePalette> = _sharePalette.asStateFlow()
 
     private val _defaultRate = MutableStateFlow(1.0f)
     val defaultRate: StateFlow<Float> = _defaultRate.asStateFlow()
@@ -255,9 +262,7 @@ object SettingsStore {
         _shareTemplate.value = prefs.getString(KEY_SHARE_TEMPLATE, null)
             ?.let { raw -> ShareTemplate.entries.firstOrNull { it.name == raw } }
             ?: ShareTemplate.MIHRAB
-        _shareColorMood.value = prefs.getString(KEY_SHARE_COLOR_MOOD, null)
-            ?.let { raw -> ShareColorMood.entries.firstOrNull { it.name == raw } }
-            ?: ShareColorMood.DEFAULT
+        _sharePalette.value = loadSharePalette()
         _defaultRate.value = prefs.getFloat(KEY_DEFAULT_RATE, 1.0f)
     }
 
@@ -425,9 +430,53 @@ object SettingsStore {
         prefs.edit().putString(KEY_SHARE_TEMPLATE, value.name).apply()
     }
 
-    fun setShareColorMood(value: ShareColorMood) {
-        _shareColorMood.value = value
-        prefs.edit().putString(KEY_SHARE_COLOR_MOOD, value.name).apply()
+    fun setSharePalette(value: SharePalette) {
+        _sharePalette.value = value
+        val ed = prefs.edit()
+            .putString(KEY_SHARE_BRAND_TEXT, value.brandText)
+        fun putOpt(key: String, color: Int?) {
+            if (color == null) ed.remove(key) else ed.putInt(key, color)
+        }
+        putOpt(KEY_SHARE_PAL_BG, value.background)
+        putOpt(KEY_SHARE_PAL_AR, value.arabic)
+        putOpt(KEY_SHARE_PAL_EN, value.english)
+        putOpt(KEY_SHARE_PAL_UR, value.urdu)
+        putOpt(KEY_SHARE_PAL_BRAND, value.brand)
+        putOpt(KEY_SHARE_PAL_REF, value.reference)
+        val preset = SharePalette.PRESETS.firstOrNull { (_, p) ->
+            p.background == value.background &&
+                p.arabic == value.arabic &&
+                p.english == value.english &&
+                p.urdu == value.urdu &&
+                p.brand == value.brand &&
+                p.reference == value.reference
+        }?.first ?: "Custom"
+        ed.putString(KEY_SHARE_PALETTE_PRESET, preset)
+        ed.apply()
+    }
+
+    private fun loadSharePalette(): SharePalette {
+        val brandText = prefs.getString(KEY_SHARE_BRAND_TEXT, null)
+            ?.takeIf { it.isNotBlank() }
+            ?: SharePalette.DEFAULT_BRAND
+        fun opt(key: String): Int? = if (prefs.contains(key)) prefs.getInt(key, 0) else null
+        val custom = SharePalette(
+            background = opt(KEY_SHARE_PAL_BG),
+            arabic = opt(KEY_SHARE_PAL_AR),
+            english = opt(KEY_SHARE_PAL_EN),
+            urdu = opt(KEY_SHARE_PAL_UR),
+            reference = opt(KEY_SHARE_PAL_REF),
+            brand = opt(KEY_SHARE_PAL_BRAND),
+            brandText = brandText
+        )
+        if (custom.background != null || custom.arabic != null || custom.english != null ||
+            custom.urdu != null || custom.brand != null || custom.reference != null
+        ) {
+            return custom
+        }
+        val preset = prefs.getString(KEY_SHARE_PALETTE_PRESET, null)
+        val base = SharePalette.PRESETS.firstOrNull { it.first == preset }?.second ?: SharePalette.DESIGN
+        return base.withBrandText(brandText)
     }
 
     fun setDefaultRate(value: Float) {

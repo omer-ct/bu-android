@@ -18,7 +18,7 @@ import android.util.Log
 import androidx.core.content.FileProvider
 import com.codefixr.beummati.data.DailyQuranPack
 import com.codefixr.beummati.data.SettingsStore
-import com.codefixr.beummati.data.ShareColorMood
+import com.codefixr.beummati.data.SharePalette
 import com.codefixr.beummati.data.ShareTemplate
 import java.io.File
 import java.io.FileOutputStream
@@ -92,9 +92,9 @@ fun shareCardImage(
     context: Context,
     card: ShareCard,
     template: ShareTemplate = SettingsStore.shareTemplate.value,
-    mood: ShareColorMood = SettingsStore.shareColorMood.value
+    palette: SharePalette = SettingsStore.sharePalette.value
 ) {
-    val files = runCatching { writeCardImages(context, card, template, mood) }
+    val files = runCatching { writeCardImages(context, card, template, palette) }
         .onFailure { Log.w(TAG, "Couldn’t render the share image", it) }
         .getOrNull()
         .orEmpty()
@@ -253,10 +253,10 @@ fun renderShareCard(
     template: ShareTemplate = SettingsStore.shareTemplate.value,
     width: Int = CARD_WIDTH,
     context: Context? = null,
-    mood: ShareColorMood = SettingsStore.shareColorMood.value
+    palette: SharePalette = SettingsStore.sharePalette.value
 ): Bitmap {
     val ctx = context ?: error("Share render needs a Context for fonts")
-    return DailyQuranLab.renderForShare(ctx, card, template, width, mood)
+    return DailyQuranLab.renderForShare(ctx, card, template, width, palette)
 }
 
 /** Total height of the laid-out blocks, including body-box padding and the gaps between them. */
@@ -453,12 +453,10 @@ private fun writeCardImages(
     context: Context,
     card: ShareCard,
     template: ShareTemplate,
-    mood: ShareColorMood = SettingsStore.shareColorMood.value
+    palette: SharePalette = SettingsStore.sharePalette.value
 ): List<File> {
-    val dir = File(context.cacheDir, "shares").apply { mkdirs() }
-    val stale = System.currentTimeMillis() - 60 * 60_000L
-    dir.listFiles()?.filter { it.lastModified() < stale }?.forEach { it.delete() }
-    return DailyQuranLab.writeShareFiles(context, card, template, dir, mood)
+    val dir = File(context.cacheDir, "shares").also { it.mkdirs() }
+    return DailyQuranLab.writeShareFiles(context, card, template, dir, palette)
 }
 
 // endregion

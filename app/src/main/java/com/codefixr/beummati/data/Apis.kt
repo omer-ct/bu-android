@@ -219,12 +219,50 @@ object QuranApi {
 
     /**
      * All ayahs in a juz (parah), Arabic only — Uthmani + Indo-Pak from quran.com.
-     * Falls back to alquran.cloud Uthmani when quran.com is unreachable.
+     * Falls back to alquran.cloud, then assembles from offline surah cache when present.
      */
-    suspend fun juzAyahs(juz: Int): List<Ayah> = try {
-        juzAyahsFromQuranCom(juz).ifEmpty { juzAyahsFromCloud(juz) }
-    } catch (_: Exception) {
-        juzAyahsFromCloud(juz)
+    suspend fun juzAyahs(juz: Int): List<Ayah> {
+        val network = runCatching {
+            juzAyahsFromQuranCom(juz).ifEmpty { juzAyahsFromCloud(juz) }
+        }.getOrElse {
+            runCatching { juzAyahsFromCloud(juz) }.getOrDefault(emptyList())
+        }
+        if (network.isNotEmpty()) return network
+        val fromPack = juzAyahsFromSurahCache(juz)
+        if (fromPack.isNotEmpty()) return fromPack
+        throw IOException("Juz $juz unavailable offline — download the Qur’an pack or open its surahs once.")
+    }
+
+    /**
+     * Rebuild a juz from cached surah payloads (Qur’an offline pack / previously opened surahs).
+     * Returns empty if any required surah slice is missing.
+     */
+    private fun juzAyahsFromSurahCache(juz: Int): List<Ayah> {
+        val info = JuzCatalog.get(juz) ?: return emptyList()
+        val start = parseVerseKey(info.startKey) ?: return emptyList()
+        val end = parseVerseKey(info.endKey) ?: return emptyList()
+        val en = SettingsStore.englishTranslationId.value
+        val ur = SettingsStore.urduTranslationId.value
+        val out = ArrayList<Ayah>()
+        for (surah in start.first..end.first) {
+            val ayahs = cachedSurahAyahs(surah, en, ur)
+            if (ayahs.isEmpty()) return emptyList()
+            for (ayah in ayahs) {
+                val n = ayah.numberInSurah
+                if (surah == start.first && n < start.second) continue
+                if (surah == end.first && n > end.second) continue
+                out += ayah
+            }
+        }
+        return out
+    }
+
+    private fun parseVerseKey(key: String): Pair<Int, Int>? {
+        val parts = key.split(':')
+        if (parts.size != 2) return null
+        val s = parts[0].toIntOrNull() ?: return null
+        val a = parts[1].toIntOrNull() ?: return null
+        return s to a
     }
 
     private suspend fun juzAyahsFromQuranCom(juz: Int): List<Ayah> {

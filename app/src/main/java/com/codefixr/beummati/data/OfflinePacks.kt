@@ -71,6 +71,9 @@ object OfflinePacks {
     private const val KEY_SETUP_DONE = "setupDone"
     private const val KEY_PACK_PREFIX = "pack."
 
+    /** Surahs covered by [OfflinePackId.QURAN_AUDIO] — shared folder with full mushaf. */
+    private val STARTER_AUDIO_SURAHS = setOf(1, 36, 55, 67, 112, 113, 114)
+
     private lateinit var prefs: SharedPreferences
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     private val mutex = Mutex()
@@ -298,9 +301,18 @@ object OfflinePacks {
 
     private fun clearPackFiles(id: OfflinePackId) {
         when (id) {
-            OfflinePackId.QURAN_AUDIO,
+            OfflinePackId.QURAN_AUDIO -> {
+                // Shared Alafasy folder with full mushaf — don't wipe if mushaf is still Ready.
+                if (isReady(OfflinePackId.QURAN_AUDIO_MUSHAF)) return
+                QuranAudioCache.clearSurahs(QuranReciter.ALAFASY, STARTER_AUDIO_SURAHS)
+                return
+            }
             OfflinePackId.QURAN_AUDIO_MUSHAF -> {
-                QuranAudioCache.clearReciter(QuranReciter.ALAFASY)
+                if (isReady(OfflinePackId.QURAN_AUDIO)) {
+                    QuranAudioCache.clearExceptSurahs(QuranReciter.ALAFASY, STARTER_AUDIO_SURAHS)
+                } else {
+                    QuranAudioCache.clearReciter(QuranReciter.ALAFASY)
+                }
                 return
             }
             OfflinePackId.QURAN,
