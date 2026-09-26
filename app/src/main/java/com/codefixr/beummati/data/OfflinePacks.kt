@@ -106,15 +106,22 @@ object OfflinePacks {
         _packs.update { list ->
             list.map { row ->
                 val ready = isReady(row.id)
+                val downloading = row.status == OfflinePackStatus.DOWNLOADING && _busy.value
                 row.copy(
                     status = when {
-                        row.status == OfflinePackStatus.DOWNLOADING -> OfflinePackStatus.DOWNLOADING
+                        downloading -> OfflinePackStatus.DOWNLOADING
                         ready -> OfflinePackStatus.READY
+                        row.status == OfflinePackStatus.FAILED -> OfflinePackStatus.FAILED
                         else -> OfflinePackStatus.NOT_DOWNLOADED
                     },
-                    progress = if (row.status == OfflinePackStatus.DOWNLOADING) row.progress else 0f,
-                    detail = if (ready && row.status != OfflinePackStatus.DOWNLOADING) "On this device" else row.detail,
-                    error = if (row.status == OfflinePackStatus.DOWNLOADING) row.error else null
+                    progress = if (downloading) row.progress else 0f,
+                    detail = when {
+                        ready && !downloading -> "On this device"
+                        row.status == OfflinePackStatus.FAILED -> row.detail
+                        downloading -> row.detail
+                        else -> ""
+                    },
+                    error = if (row.status == OfflinePackStatus.FAILED) row.error else null
                 )
             }
         }
@@ -167,6 +174,18 @@ object OfflinePacks {
         activeJob?.cancel()
         activeJob = null
         _busy.value = false
+        _packs.update { list ->
+            list.map { row ->
+                if (row.status == OfflinePackStatus.DOWNLOADING) {
+                    row.copy(
+                        status = OfflinePackStatus.NOT_DOWNLOADED,
+                        progress = 0f,
+                        detail = "Cancelled",
+                        error = null
+                    )
+                } else row
+            }
+        }
         refreshStatuses()
     }
 

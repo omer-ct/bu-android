@@ -458,6 +458,7 @@ object LecturePlayerSession {
         val np = _state.value.nowPlaying ?: return
         markCompleted(np.seriesId, np.chapterId)
         if (_state.value.sleep == SleepOption.END_OF_LECTURE) {
+            pause()
             _state.update { it.copy(sleep = SleepOption.OFF, sleepEndsAtMillis = null) }
             return
         }

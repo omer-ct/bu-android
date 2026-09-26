@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -43,9 +44,11 @@ class MainActivity : ComponentActivity() {
             val playerState by LecturePlayerSession.state.collectAsState()
             val pendingRoute by pendingRouteState
             // Keep screen awake while a lecture is playing (sleep → end of lecture included).
-            DisposableEffect(playerState.isPlaying) {
-                window.decorView.keepScreenOn = playerState.isPlaying
+            DisposableEffect(Unit) {
                 onDispose { window.decorView.keepScreenOn = false }
+            }
+            SideEffect {
+                window.decorView.keepScreenOn = playerState.isPlaying
             }
             BeUmmatiTheme(appearance = appearance, themeKind = themeKind) {
                 Surface(

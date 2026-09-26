@@ -51,7 +51,8 @@ object DailyQuranLab {
         NIGHT_GIRIH("Night girih");
 
         companion object {
-            fun from(template: ShareTemplate): Style = entries.first { it.name == template.name }
+            fun from(template: ShareTemplate): Style =
+                entries.firstOrNull { it.name == template.name } ?: MIHRAB
         }
     }
 
@@ -112,9 +113,10 @@ object DailyQuranLab {
             else -> ""
         }
         return Content(
-            arabic = if (SettingsStoreShare.shareArabic) card.arabic else "",
-            urdu = if (SettingsStoreShare.shareUrdu) card.urdu else "",
-            english = if (SettingsStoreShare.shareEnglish) card.english else "",
+            // Trust non-blank card fields from the studio draft (prefs already applied into draft).
+            arabic = card.arabic,
+            urdu = card.urdu,
+            english = card.english,
             reference = ref,
             fit = fit
         )
