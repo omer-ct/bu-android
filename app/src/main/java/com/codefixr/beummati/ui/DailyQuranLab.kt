@@ -394,11 +394,25 @@ object DailyQuranLab {
     private fun paintInkBloom(canvas: Canvas, c: Content) {
         val paper = 0xFFF4F1EA.toInt(); val ink = 0xFF14161A.toInt(); val indigo = 0xFF2B3A67.toInt(); val seal = 0xFFB23A2E.toInt()
         canvas.drawColor(paper)
-        canvas.drawCircle(820f, 980f, 520f, Paint(Paint.ANTI_ALIAS_FLAG).apply { color = indigo; alpha = 230 })
-        canvas.drawCircle(700f, 1100f, 340f, Paint(Paint.ANTI_ALIAS_FLAG).apply { color = indigo; alpha = 100 })
-        canvas.drawCircle(900f, 850f, 280f, Paint(Paint.ANTI_ALIAS_FLAG).apply { color = 0xFF7E8CB5.toInt(); alpha = 40 })
+        // Soft indigo blooms — light enough that dark ink stays readable over them.
+        canvas.drawCircle(820f, 980f, 520f, Paint(Paint.ANTI_ALIAS_FLAG).apply { color = indigo; alpha = 46 })
+        canvas.drawCircle(700f, 1100f, 340f, Paint(Paint.ANTI_ALIAS_FLAG).apply { color = indigo; alpha = 26 })
+        canvas.drawCircle(900f, 850f, 280f, Paint(Paint.ANTI_ALIAS_FLAG).apply { color = 0xFF7E8CB5.toInt(); alpha = 30 })
         val s = sizes(tier(c.arabic))
-        drawRtlTopStack(canvas, c, 200f, 1100f, s[0], s[1], s[2], ink, ink, paper)
+        // All body text dark on paper (english was light-on-indigo and unreadable on the bloom).
+        drawRtlTopStack(canvas, c, 200f, 1100f, s[0], s[1], s[2], ink, ink, ink)
+        if (c.fit != Fit.ARABIC_ONLY && c.english.isNotBlank()) {
+            val en = lay(c.english, 700, tp(s[2], activePalette.english ?: ink, serif, alpha = 0.92f), sp = 8f)
+            canvas.save(); canvas.translate(100f, (HEIGHT - 200f - en.height).coerceAtLeast(980f)); en.draw(canvas); canvas.restore()
+        }
+        if (c.reference.isNotBlank()) {
+            canvas.drawText(
+                c.reference.uppercase(),
+                WIDTH - 80f,
+                HEIGHT - 80f,
+                tp(18f, activePalette.reference ?: withAlpha(ink, 140), bold = true, tracking = 0.12f).right()
+            )
+        }
         canvas.drawRoundRect(RectF(72f, HEIGHT - 140f, 148f, HEIGHT - 64f), 10f, 10f, Paint(Paint.ANTI_ALIAS_FLAG).apply { color = seal })
         canvas.drawText("BU", 110f, HEIGHT - 88f, tp(22f, paper, bold = true).center())
     }
