@@ -186,6 +186,15 @@
       "attribution": "Compiled from Sahih al-Bukhari, Sahih Muslim, Siyar A'lam al-Nubala"
     },
     {
+      "id": "prophets-stories",
+      "title": "Stories of the Prophets",
+      "subtitle": "Short Qur’anic retellings · classical references",
+      "icon": "sparkles",
+      "kind": "prophets",
+      "primaryLanguage": "urdu",
+      "attribution": "Original educational summaries citing Qur’an and Sahih collections"
+    },
+    {
       "id": "anwar-abu-bakr",
       "title": "Abu Bakr as-Siddiq (Al Qalam)",
       "subtitle": "Abu Bakr as-Siddiq (Al Qalam) · 15 lectures",

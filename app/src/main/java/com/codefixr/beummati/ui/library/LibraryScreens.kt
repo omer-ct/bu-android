@@ -83,6 +83,7 @@ import com.codefixr.beummati.ui.SwipeItemPager
 import com.codefixr.beummati.ui.UrduScriptText
 
 private const val KIND_SAHABA = "sahaba"
+private const val KIND_PROPHETS = "prophets"
 private const val KIND_TAFSIR = "quranTafsir"
 
 // region Library home
@@ -94,6 +95,7 @@ fun LibraryScreen(navigate: (String) -> Unit, onOpenQuran: () -> Unit) {
 
     fun open(series: LibrarySeries) = when (series.kind) {
         KIND_SAHABA -> navigate(Routes.SAHABA)
+        KIND_PROPHETS -> navigate(Routes.PROPHETS)
         KIND_TAFSIR -> onOpenQuran()
         else -> navigate(Routes.series(series.id))
     }
@@ -111,6 +113,7 @@ fun LibraryScreen(navigate: (String) -> Unit, onOpenQuran: () -> Unit) {
             items(reading, key = { it.id }) { s ->
                 val icon = when (s.kind) {
                     KIND_SAHABA -> Icons.Outlined.Groups
+                    KIND_PROPHETS -> Icons.Outlined.AutoStories
                     KIND_TAFSIR -> Icons.AutoMirrored.Outlined.MenuBook
                     else -> Icons.Outlined.AutoStories
                 }
@@ -476,14 +479,44 @@ fun ChapterReaderScreen(seriesId: String, chapterId: String, onBack: () -> Unit,
 
 @Composable
 fun SahabaScreen(onBack: () -> Unit) {
-    val stories = remember { Catalogs.sahabaStories }
+    StorySeriesScreen(
+        onBack = onBack,
+        stories = Catalogs.sahabaStories,
+        kindKey = KIND_SAHABA,
+        fallbackTitle = "Sahaba Stories",
+        bookmarkKind = "Sahaba",
+        route = Routes.SAHABA
+    )
+}
+
+@Composable
+fun ProphetsScreen(onBack: () -> Unit) {
+    StorySeriesScreen(
+        onBack = onBack,
+        stories = Catalogs.prophetsStories,
+        kindKey = KIND_PROPHETS,
+        fallbackTitle = "Stories of the Prophets",
+        bookmarkKind = "Prophets",
+        route = Routes.PROPHETS
+    )
+}
+
+@Composable
+private fun StorySeriesScreen(
+    onBack: () -> Unit,
+    stories: List<SahabaStory>,
+    kindKey: String,
+    fallbackTitle: String,
+    bookmarkKind: String,
+    route: String
+) {
     var expanded by remember { mutableStateOf<String?>(null) }
     var showUrdu by remember { mutableStateOf(false) }
-    val series = remember { Catalogs.library.series.firstOrNull { it.kind == KIND_SAHABA } }
+    val series = remember(kindKey) { Catalogs.library.series.firstOrNull { it.kind == kindKey } }
     val browseMode by SettingsStore.contentBrowseMode.collectAsState()
     val pagerState = rememberPagerState(pageCount = { stories.size.coerceAtLeast(1) })
 
-    ScreenScaffold(title = series?.title ?: "Sahaba Stories", onBack = onBack) { padding ->
+    ScreenScaffold(title = series?.title ?: fallbackTitle, onBack = onBack) { padding ->
         Column(Modifier.fillMaxSize().padding(padding)) {
             BrowseModeBar(
                 mode = browseMode,
@@ -507,7 +540,14 @@ fun SahabaScreen(onBack: () -> Unit) {
                     label = { i, s -> "${i + 1} / ${stories.size} · ${s.name}" },
                     modifier = Modifier.weight(1f)
                 ) { story, _ ->
-                    SahabaCard(story, expanded = true, urdu = showUrdu, onToggle = {})
+                    StoryCard(
+                        story = story,
+                        expanded = true,
+                        urdu = showUrdu,
+                        bookmarkKind = bookmarkKind,
+                        route = route,
+                        onToggle = {}
+                    )
                 }
                 ContentBrowseMode.LIST -> LazyColumn(
                     modifier = Modifier.fillMaxSize().weight(1f),
@@ -515,7 +555,13 @@ fun SahabaScreen(onBack: () -> Unit) {
                     verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
                     items(stories, key = { it.id }) { story ->
-                        SahabaCard(story, expanded = expanded == story.id, urdu = showUrdu) {
+                        StoryCard(
+                            story = story,
+                            expanded = expanded == story.id,
+                            urdu = showUrdu,
+                            bookmarkKind = bookmarkKind,
+                            route = route
+                        ) {
                             expanded = if (expanded == story.id) null else story.id
                         }
                     }
@@ -526,7 +572,14 @@ fun SahabaScreen(onBack: () -> Unit) {
 }
 
 @Composable
-private fun SahabaCard(story: SahabaStory, expanded: Boolean, urdu: Boolean, onToggle: () -> Unit) {
+private fun StoryCard(
+    story: SahabaStory,
+    expanded: Boolean,
+    urdu: Boolean,
+    bookmarkKind: String,
+    route: String,
+    onToggle: () -> Unit
+) {
     ContentCard(onClick = onToggle) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Column(Modifier.weight(1f)) {
@@ -534,15 +587,15 @@ private fun SahabaCard(story: SahabaStory, expanded: Boolean, urdu: Boolean, onT
                 MutedText(listOf(story.name, story.theme).filter { it.isNotBlank() }.joinToString(" · "))
             }
             BookmarkButton(
-                id = "sahaba:${story.id}",
+                id = "${bookmarkKind.lowercase()}:${story.id}",
                 bookmark = {
                     Bookmark(
-                        id = "sahaba:${story.id}",
-                        kind = "Sahaba",
+                        id = "${bookmarkKind.lowercase()}:${story.id}",
+                        kind = bookmarkKind,
                         title = story.title,
                         subtitle = story.name,
                         body = story.english,
-                        route = Routes.SAHABA
+                        route = route
                     )
                 }
             )

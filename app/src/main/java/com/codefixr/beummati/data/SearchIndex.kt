@@ -7,7 +7,8 @@ enum class SearchKind(val label: String) {
     HADITH("Hadith"),
     QUOTE("Scholars"),
     DUA("Duas"),
-    SAHABA("Sahaba")
+    SAHABA("Sahaba"),
+    PROPHETS("Prophets")
 }
 
 data class SearchHit(
@@ -187,6 +188,19 @@ object SearchIndex {
                 )
             }
 
+        hits += Catalogs.prophetsStories
+            .filter { it.name.hit() || it.title.hit() || it.english.hit() || it.theme.hit() || it.urdu.contains(needle) }
+            .take(PER_KIND_LIMIT)
+            .map { story ->
+                SearchHit(
+                    kind = SearchKind.PROPHETS,
+                    title = story.title.ifBlank { story.name },
+                    subtitle = story.name,
+                    body = story.english,
+                    destination = Destination.Prophets
+                )
+            }
+
         return hits
     }
 
@@ -280,6 +294,7 @@ object SearchIndex {
 
     private fun destinationFor(series: LibrarySeries): Destination = when (series.kind) {
         "sahaba" -> Destination.Sahaba
+        "prophets" -> Destination.Prophets
         else -> Destination.Series(series.id)
     }
 }

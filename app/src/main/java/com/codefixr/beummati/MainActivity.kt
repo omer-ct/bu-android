@@ -48,7 +48,9 @@ class MainActivity : ComponentActivity() {
                 onDispose { window.decorView.keepScreenOn = false }
             }
             SideEffect {
-                window.decorView.keepScreenOn = playerState.isPlaying
+                // Keep awake while playing or buffering so brief stalls don't let the screen sleep.
+                window.decorView.keepScreenOn =
+                    playerState.nowPlaying != null && (playerState.isPlaying || playerState.isBuffering)
             }
             BeUmmatiTheme(appearance = appearance, themeKind = themeKind) {
                 Surface(

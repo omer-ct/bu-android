@@ -13,5 +13,6 @@ sealed interface Destination {
     data class DuaCategory(val id: Int) : Destination
     data object Duas : Destination
     data object Sahaba : Destination
+    data object Prophets : Destination
     data object Scholars : Destination
 }

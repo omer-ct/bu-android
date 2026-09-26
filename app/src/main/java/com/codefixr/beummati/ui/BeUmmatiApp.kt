@@ -49,6 +49,7 @@ import com.codefixr.beummati.ui.library.ChapterReaderScreen
 import com.codefixr.beummati.ui.library.DuaCategoryScreen
 import com.codefixr.beummati.ui.library.DuasScreen
 import com.codefixr.beummati.ui.library.LibraryScreen
+import com.codefixr.beummati.ui.library.ProphetsScreen
 import com.codefixr.beummati.ui.library.SahabaScreen
 import com.codefixr.beummati.ui.library.SeriesScreen
 import com.codefixr.beummati.ui.offline.OfflineDataScreen
@@ -99,6 +100,7 @@ object Routes {
     fun series(id: String) = "library/series/$id"
     fun chapter(seriesId: String, chapterId: String) = "library/series/$seriesId/$chapterId"
     const val SAHABA = "library/sahaba"
+    const val PROPHETS = "library/prophets"
     const val DUAS = "library/duas"
     fun duaCategory(id: Int) = "library/duas/$id"
 }
@@ -113,6 +115,7 @@ fun routeFor(destination: Destination): String = when (destination) {
     is Destination.DuaCategory -> Routes.duaCategory(destination.id)
     Destination.Duas -> Routes.DUAS
     Destination.Sahaba -> Routes.SAHABA
+    Destination.Prophets -> Routes.PROPHETS
     Destination.Scholars -> Tab.SCHOLARS.route
 }
 
@@ -257,6 +260,7 @@ fun BeUmmatiApp(
                 LibraryScreen(navigate = navigate, onOpenQuran = { nav.switchTab(Tab.QURAN, currentTab) })
             }
             composable(Routes.SAHABA) { SahabaScreen(onBack = back) }
+            composable(Routes.PROPHETS) { ProphetsScreen(onBack = back) }
             composable(Routes.DUAS) { DuasScreen(onBack = back, navigate = navigate) }
             composable("library/duas/{id}", arguments = listOf(navArgument("id") { type = NavType.IntType })) {
                 DuaCategoryScreen(id = it.arguments?.getInt("id") ?: 1, onBack = back)

@@ -285,9 +285,11 @@ object OfflinePacks {
         val books = Catalogs.hadith.books
         val total = books.sumOf { it.chapters.size.coerceAtLeast(1) }.coerceAtLeast(1)
         var done = 0
+        var failures = 0
         for (book in books) {
             for (ch in book.chapters) {
-                runCatching { HadithApi.chapter(book.slug, ch.index) }
+                val ok = runCatching { HadithApi.chapter(book.slug, ch.index) }.isSuccess
+                if (!ok) failures++
                 done++
                 setState(OfflinePackId.HADITH) {
                     it.copy(
@@ -296,6 +298,10 @@ object OfflinePacks {
                     )
                 }
             }
+        }
+        // Don't mark Ready if too many chapters failed (network / CDN outage).
+        if (failures > 0 && failures * 100 / total >= 10) {
+            throw IllegalStateException("Hadith pack incomplete — $failures / $total chapters failed")
         }
     }
 

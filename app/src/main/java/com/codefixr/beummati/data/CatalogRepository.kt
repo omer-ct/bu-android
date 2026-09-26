@@ -46,6 +46,10 @@ object Catalogs {
         read<List<SahabaStory>>("SahabaStories.json") ?: emptyList()
     }
 
+    val prophetsStories: List<SahabaStory> by lazy {
+        read<List<SahabaStory>>("ProphetsStories.json") ?: emptyList()
+    }
+
     val hisnAlMuslim: HisnAlMuslimFile by lazy {
         read<HisnAlMuslimFile>("HisnAlMuslim.json") ?: HisnAlMuslimFile()
     }
